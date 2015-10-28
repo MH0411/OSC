@@ -56,6 +56,7 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void login(View view){
+
         tfUserID = (EditText) findViewById(R.id.tfLoginUserID);
         tfPassword = (EditText) findViewById(R.id.tfLoginPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
@@ -63,6 +64,7 @@ public class LoginActivity extends ActionBarActivity {
         // get username input and password input
         final String userID = tfUserID.getText().toString();
         String password = tfPassword.getText().toString();
+
         if (count == 2) {
 
             final KeyListener usernameListener;
@@ -78,6 +80,7 @@ public class LoginActivity extends ActionBarActivity {
                 TextView timer = (TextView) findViewById(R.id.tvTimer);
 
                 public void onTick(long millisUntilFinished) {
+
                     tfUserID.setKeyListener(null);
                     tfPassword.setKeyListener(null);
                     timer.setVisibility(View.VISIBLE);
@@ -86,6 +89,7 @@ public class LoginActivity extends ActionBarActivity {
                 }
 
                 public void onFinish() {
+
                     count = 0;
                     bLogin.setVisibility(View.VISIBLE);
                     timer.setVisibility(View.INVISIBLE);
@@ -97,15 +101,20 @@ public class LoginActivity extends ActionBarActivity {
         } else {
             //check empty fields
             if (userID.matches("") || password.matches("")) {
+
                 Toast.makeText(getApplicationContext(), "Please fill all empty fields", Toast.LENGTH_SHORT).show();
                 count++;
+
             } else {
+
                 //check username space
                 for (int index = 0; index < userID.length(); index++) {
                     if (userID.charAt(index) == ' ') {
+
                         Toast.makeText(getApplicationContext(), "UserID cannot contains spaces", Toast.LENGTH_SHORT).show();
                         count++;
                         break;
+
                     } else if (index == userID.length() - 1) {
 
                         final ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
@@ -113,16 +122,18 @@ public class LoginActivity extends ActionBarActivity {
                         dialog.setCancelable(false);
                         dialog.setInverseBackgroundForced(false);
                         dialog.show();
+
                         // doing login function in backend
                         ParseUser.logInInBackground(userID, password, new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
+
                                 if (user != null) {
                                     // Hooray! The user is logged in.
                                     // redirect to main page
                                     dialog.dismiss();
-                                    // Associate the device with a user
+                                    //Associate the device with a user
                                     ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                    installation.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                                    installation.put("userID", ParseUser.getCurrentUser().getObjectId());
                                     installation.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
                                 } else {

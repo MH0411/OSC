@@ -6,14 +6,14 @@ import android.util.Log;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
 
 /**
- * Created by Lenovo on 26/10/2015.
+ * Created by Lenovo on 28/10/2015.
  */
-public class OSCApplication extends Application {
-
+public class OSCApplication extends Application{
 
     @Override
     public void onCreate() {
@@ -26,8 +26,8 @@ public class OSCApplication extends Application {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, "4ExqwNOAj0zreRh9GoQY2NmitnT0cUDDw35S8SIe", "Z5TvgtWwJBXtbJiXLJ3pF5bVvjenN0B9KbhP61xn");
-
+        Parse.initialize(this, "4ExqwNOAj0zreRh9GoQY2NmitnT0cUDDw35S8SIe",
+                "Z5TvgtWwJBXtbJiXLJ3pF5bVvjenN0B9KbhP61xn");
 
         ParseACL defaultACL = new ParseACL();
 
@@ -36,6 +36,10 @@ public class OSCApplication extends Application {
         defaultACL.setPublicReadAccess(true);
 
         ParseACL.setDefaultACL(defaultACL, true);
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "osc");
+        testObject.saveInBackground();
 
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
