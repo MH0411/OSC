@@ -6,7 +6,6 @@ import android.util.Log;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
 
@@ -36,10 +35,6 @@ public class OSCApplication extends Application{
         defaultACL.setPublicReadAccess(true);
 
         ParseACL.setDefaultACL(defaultACL, true);
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "osc");
-        testObject.saveInBackground();
 
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Users.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -55,6 +56,10 @@ public class LoginActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method used to login.
+     * @param view
+     */
     public void login(View view){
 
         tfUserID = (EditText) findViewById(R.id.tfLoginUserID);
@@ -128,14 +133,29 @@ public class LoginActivity extends ActionBarActivity {
                             public void done(ParseUser user, ParseException e) {
 
                                 if (user != null) {
-                                    // Hooray! The user is logged in.
-                                    // redirect to main page
+
                                     dialog.dismiss();
                                     //Associate the device with a user
                                     ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                    installation.put("userID", ParseUser.getCurrentUser().getObjectId());
+                                    installation.put("userID", user.getObjectId());
                                     installation.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+
+                                    //Set current user data in user class.
+                                    User currentUser = new User(
+                                            user.getObjectId(),
+                                            user.getUsername(),
+                                            user.getString("password"),
+                                            user.getString("UserType"),
+                                            user.getString("Name"),
+                                            user.getString("IC"),
+                                            user.getString("Tel"),
+                                            user.getString("Address"),
+                                            user.getEmail(),
+                                            user.getString("Status"));
+
+                                    checkRole(currentUser);
+
                                 } else {
                                     // Login failed. Look at the ParseException to see what happened.
                                     dialog.dismiss();
@@ -147,6 +167,24 @@ public class LoginActivity extends ActionBarActivity {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * This method used to check role of current user and direct to home page.
+     **/
+    public void checkRole(User currentUser){
+
+        String userType = currentUser.getUserType();
+
+        if (userType.equalsIgnoreCase("Admin")){
+            Toast.makeText(getApplicationContext(), "Admin", Toast.LENGTH_SHORT).show();
+        } else if (userType.equalsIgnoreCase("Staff")){
+            Toast.makeText(getApplicationContext(), "Staff", Toast.LENGTH_SHORT).show();
+        } else if (userType.equalsIgnoreCase("Supplier")){
+            Toast.makeText(getApplicationContext(), "Supplier", Toast.LENGTH_SHORT).show();
+        } else if (userType.equalsIgnoreCase("Stockist")){
+            Toast.makeText(getApplicationContext(), "Stockist", Toast.LENGTH_SHORT).show();
         }
     }
 }
