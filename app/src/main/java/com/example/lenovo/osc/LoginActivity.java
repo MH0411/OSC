@@ -1,6 +1,7 @@
 package com.example.lenovo.osc;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
@@ -179,6 +180,7 @@ public class LoginActivity extends ActionBarActivity {
 
         if (userType.equalsIgnoreCase("Admin")){
             Toast.makeText(getApplicationContext(), "Admin", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AdminMenuActivity.class));
         } else if (userType.equalsIgnoreCase("Staff")){
             Toast.makeText(getApplicationContext(), "Staff", Toast.LENGTH_SHORT).show();
         } else if (userType.equalsIgnoreCase("Supplier")){
