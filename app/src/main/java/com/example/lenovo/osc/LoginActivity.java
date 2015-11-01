@@ -155,7 +155,7 @@ public class LoginActivity extends ActionBarActivity {
                                             user.getEmail(),
                                             user.getString("Status"));
 
-                                    checkRole(currentUser);
+                                    checkRole(user.getString("UserType"));
 
                                 } else {
                                     // Login failed. Look at the ParseException to see what happened.
@@ -174,9 +174,7 @@ public class LoginActivity extends ActionBarActivity {
     /**
      * This method used to check role of current user and direct to home page.
      **/
-    public void checkRole(User currentUser){
-
-        String userType = currentUser.getUserType();
+    public void checkRole(String userType){
 
         if (userType.equalsIgnoreCase("Admin")){
             Toast.makeText(getApplicationContext(), "Admin", Toast.LENGTH_SHORT).show();

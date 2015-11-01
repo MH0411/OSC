@@ -39,7 +39,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void login(View view) {
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void register(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 }
