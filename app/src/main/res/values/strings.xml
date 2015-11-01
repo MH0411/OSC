@@ -6,7 +6,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_oscapplication">Menu</string>
-    <string name="title_activity_menu">Menu</string>
+    <string name="title_activity_menu"></string>
 
     <string name="title_section1">Home</string>
     <string name="title_section2">User</string>

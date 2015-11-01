@@ -44,11 +44,31 @@ public class AdminMenuActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+
+        Fragment myFragment = null;
+        switch (position) {
+            case 0:
+                myFragment = new HomeFragment();
+                break;
+            case 1:
+                myFragment = new UserFragment();
+                break;
+            case 2:
+                myFragment = new StockFragment();
+                break;
+            case 3:
+                myFragment = new OrderFragment();
+                break;
+            case 4:
+                myFragment = new SaleFragment();
+                break;
+            default:
+                break;
+        }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+                .replace(R.id.container, myFragment).commit();
     }
 
     public void onSectionAttached(int number) {
@@ -61,6 +81,12 @@ public class AdminMenuActivity extends ActionBarActivity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.title_section5);
                 break;
         }
     }
