@@ -19,6 +19,7 @@
     <string name="title_activity_register_user">RegisterUserActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_remove_user">RemoveUserActivity</string>
 
     <!--<string name="action_example">Example action</string>-->
 </resources>

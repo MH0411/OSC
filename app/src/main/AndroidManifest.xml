@@ -36,6 +36,10 @@
             android:name=".RegisterUserActivity"
             android:label="@string/title_activity_register_user" >
         </activity>
+        <activity
+            android:name=".RemoveUserActivity"
+            android:label="@string/title_activity_remove_user" >
+        </activity>
     </application>
 
 </manifest>
