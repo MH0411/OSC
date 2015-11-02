@@ -6,4 +6,114 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.lenovo.osc.RegisterActivity">
 
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/tfRegUserID"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="63dp"
+        android:hint="UserID"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/tfRegName"
+        android:layout_below="@+id/tfRegUserID"
+        android:layout_alignParentStart="true"
+        android:hint="Name"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/tfRegPassword"
+        android:layout_below="@+id/tfRegName"
+        android:layout_alignParentStart="true"
+        android:hint="Password"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/tfRegIC"
+        android:layout_below="@+id/tfRegPassword"
+        android:layout_alignParentStart="true"
+        android:hint="IC (eg. xxxxxxxxxxxx)"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/tfRegTel"
+        android:layout_below="@+id/tfRegIC"
+        android:layout_alignParentStart="true"
+        android:hint="Tel (eg. 012xxxxxxx)"
+        android:singleLine="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/tfRegEmail"
+        android:layout_below="@+id/tfRegTel"
+        android:layout_alignParentStart="true"
+        android:singleLine="true"
+        android:hint="Email"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tfRegAddress"
+        android:layout_below="@+id/tfRegEmail"
+        android:layout_alignParentStart="true"
+        android:singleLine="true"
+        android:hint="Address"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tfRegCompany"
+        android:layout_below="@+id/tfRegAddress"
+        android:layout_alignParentStart="true"
+        android:singleLine="true"
+        android:hint="Company"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registration (Stockist only)"
+        android:id="@+id/tvRegistration"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/bRegRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
