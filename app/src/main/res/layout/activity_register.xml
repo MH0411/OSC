@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/tfRegUserID"
+        android:id="@+id/tfRegStockistID"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="63dp"
-        android:hint="UserID"
+        android:hint="StockistID"
         android:singleLine="true"
         android:layout_alignParentEnd="true" />
 
@@ -26,7 +26,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/tfRegName"
-        android:layout_below="@+id/tfRegUserID"
+        android:layout_below="@+id/tfRegStockistID"
         android:layout_alignParentStart="true"
         android:hint="Name"
         android:singleLine="true"
@@ -90,16 +90,6 @@
         android:hint="Address"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tfRegCompany"
-        android:layout_below="@+id/tfRegAddress"
-        android:layout_alignParentStart="true"
-        android:singleLine="true"
-        android:hint="Company"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,5 +105,6 @@
         android:text="Register"
         android:id="@+id/bRegRegister"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="register"/>
 </RelativeLayout>
