@@ -15,7 +15,8 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:id="@+id/radioGroup"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:checkedButton="@+id/rbStaff">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -24,7 +25,8 @@
             android:id="@+id/rbStaff"
             android:layout_alignTop="@+id/radioGroup"
             android:layout_marginStart="62dp"
-            android:layout_weight="0.82" />
+            android:layout_weight="0.82"
+            android:onClick="staff"/>
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -34,7 +36,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_alignTop="@+id/radioGroup"
             android:layout_toEndOf="@+id/radioGroup"
-            android:layout_marginStart="29dp" />
+            android:layout_marginStart="29dp"
+            android:onClick="supplier"/>
     </RadioGroup>
 
     <EditText
@@ -43,12 +46,12 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/tfAdminUserID"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="70dp"
         android:layout_alignParentEnd="true"
         android:textIsSelectable="false"
         android:hint="UserID"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -128,15 +131,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/tfAdminAddress"
         android:hint="Company"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:id="@+id/bRegisterUser"
+        android:id="@+id/bRegisterStaff"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="registerStaff"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -146,5 +151,15 @@
         android:id="@+id/tvType"
         android:layout_alignTop="@+id/radioGroup"
         android:layout_toStartOf="@+id/radioGroup" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/bRegisterSupplier"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:onClick="registerSupplier"/>
 
 </RelativeLayout>

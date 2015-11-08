@@ -22,7 +22,6 @@ public class RegisterActivity extends ActionBarActivity {
     protected EditText tfTel;
     protected EditText tfEmail;
     protected EditText tfAddress;
-    protected ParseObject regUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,18 +86,18 @@ public class RegisterActivity extends ActionBarActivity {
         } else {
 
             ParseObject regUser = new ParseObject("Stockist");
-            regUser.put("Address", address);
-            regUser.put("Email", email);
-            regUser.put("Tel", tel);
-            regUser.put("IC", ic);
-            regUser.put("Password", password);
+            regUser.put("StockistID", stockistID);
             regUser.put("Name", name);
-            regUser.put("StockID", stockistID);
+            regUser.put("Password", password);
+            regUser.put("IC", ic);
+            regUser.put("Tel", tel);
+            regUser.put("Email", email);
+            regUser.put("Address", address);
+            regUser.put("Status", "Active");
             regUser.saveInBackground();
 
             startActivity(new Intent(this, MainActivity.class));
-            Toast.makeText(getApplicationContext(), "Register Successful!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Register Successful.", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
