@@ -15,10 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.Users.User;
-import com.parse.LogInCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
-import com.parse.ParseUser;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -129,62 +130,126 @@ public class LoginActivity extends ActionBarActivity {
                         dialog.setInverseBackgroundForced(false);
                         dialog.show();
 
-                        // doing login function in backend
-                        ParseUser.logInInBackground(userID, password, new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
+                        if(userID.charAt(0) == 'S') {
 
-                                if (user != null) {
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("Staff");
+                            query.whereEqualTo("StaffID", userID);
+                            query.whereEqualTo("Password", password);
+                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
 
                                     dialog.dismiss();
-                                    //Associate the device with a user
-                                    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                    installation.put("userID", user.getObjectId());
-                                    installation.saveInBackground();
-                                    Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                                    if (object == null){
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        count++;
+                                    } else {
+                                        //Associate the device with a user
+                                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                        installation.put("userID", object.getObjectId());
+                                        installation.saveInBackground();
+                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
-                                    //Set current user data in user class.
-                                    User currentUser = new User(
-                                            user.getObjectId(),
-                                            user.getUsername(),
-                                            user.getString("password"),
-                                            user.getString("UserType"),
-                                            user.getString("Name"),
-                                            user.getString("IC"),
-                                            user.getString("Tel"),
-                                            user.getString("Address"),
-                                            user.getEmail(),
-                                            user.getString("Status"));
-
-                                    checkRole(user.getString("UserType"));
-
-                                } else {
-                                    // Login failed. Look at the ParseException to see what happened.
-                                    dialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
-                                    count++;
+                                        //Set user data in user class.
+                                        User currentUser = new User(
+                                                object.getObjectId(),
+                                                object.getString("StaffID"),
+                                                object.getString("Password"),
+                                                object.getString("Name"),
+                                                object.getString("IC"),
+                                                object.getString("Tel"),
+                                                object.getString("Email"),
+                                                object.getString("Address"),
+                                                object.getString("Status")
+                                        );
+                                        //Go to admin home page
+                                        if (currentUser.getStatus().equalsIgnoreCase("Admin")){
+                                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                                        }
+//                                        //Go to staff home page
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                        } else if (userID.charAt(0) == 'T') {
+
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("Stockist");
+                            query.whereEqualTo("StockistID", userID);
+                            query.whereEqualTo("Password", password);
+                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
+
+                                    dialog.dismiss();
+                                    if (object == null){
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        count++;
+                                    } else {
+                                        //Associate the device with a user
+                                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                        installation.put("userID", object.getObjectId());
+                                        installation.saveInBackground();
+                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+
+                                        //Set user data in user class.
+                                        User currentUser = new User(
+                                                object.getObjectId(),
+                                                object.getString("StockistID"),
+                                                object.getString("Password"),
+                                                object.getString("Name"),
+                                                object.getString("IC"),
+                                                object.getString("Tel"),
+                                                object.getString("Email"),
+                                                object.getString("Address"),
+                                                object.getString("Status")
+                                        );
+                                    }
+                                }
+                            });
+
+                        } else if (userID.charAt(0) == 'U') {
+
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("Supplier");
+                            query.whereEqualTo("SupplierID", userID);
+                            query.whereEqualTo("Password", password);
+                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
+
+                                    dialog.dismiss();
+                                    if (object == null){
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        count++;
+                                    } else {
+                                        //Associate the device with a user
+                                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                        installation.put("userID", object.getObjectId());
+                                        installation.saveInBackground();
+                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+
+                                        //Set user data in user class.
+                                        User currentUser = new User(
+                                                object.getObjectId(),
+                                                object.getString("SupplierID"),
+                                                object.getString("Password"),
+                                                object.getString("Name"),
+                                                object.getString("IC"),
+                                                object.getString("Tel"),
+                                                object.getString("Email"),
+                                                object.getString("Address"),
+                                                object.getString("Company"),
+                                                object.getString("Status")
+                                        );
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * This method used to check role of current user and direct to home page.
-     **/
-    public void checkRole(String userType){
-
-        if (userType.equalsIgnoreCase("Admin")){
-            Toast.makeText(getApplicationContext(), "Admin", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, AdminMenuActivity.class));
-        } else if (userType.equalsIgnoreCase("Staff")){
-            Toast.makeText(getApplicationContext(), "Staff", Toast.LENGTH_SHORT).show();
-        } else if (userType.equalsIgnoreCase("Supplier")){
-            Toast.makeText(getApplicationContext(), "Supplier", Toast.LENGTH_SHORT).show();
-        } else if (userType.equalsIgnoreCase("Stockist")){
-            Toast.makeText(getApplicationContext(), "Stockist", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -14,20 +14,36 @@ public class User {
     private String noTel;
     private String address;
     private String email;
-    private String Status;
+    private String company;
+    private String status;
 
-    public User(String objectID, String userID, String password, String userType,
-                String name, String noIC, String noTel, String address, String email, String status) {
+    public User(String objectID, String userID, String password, String name, String noIC,
+                String noTel, String address, String email, String status) {
+
         this.objectID = objectID;
         this.userID = userID;
         this.password = password;
-        this.userType = userType;
         this.name = name;
         this.noIC = noIC;
         this.noTel = noTel;
-        this.address = address;
         this.email = email;
-        Status = status;
+        this.address = address;
+        this.status = status;
+    }
+
+    public User(String objectID, String userID, String password, String name, String noIC,
+                String noTel, String email, String address, String company, String status) {
+
+        this.objectID = objectID;
+        this.userID = userID;
+        this.password = password;
+        this.name = name;
+        this.noIC = noIC;
+        this.noTel = noTel;
+        this.email = email;
+        this.address = address;
+        this.company = company;
+        this.status = status;
     }
 
     public String getObjectID() {
@@ -102,11 +118,19 @@ public class User {
         this.email = email;
     }
 
+    public String getCompany(){
+        return company;
+    }
+
+    public void setCompany(String company){
+        this.company = company;
+    }
+
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }

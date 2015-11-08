@@ -40,6 +40,10 @@
             android:name=".RemoveUserActivity"
             android:label="@string/title_activity_remove_user" >
         </activity>
+        <activity
+            android:name=".NewStockActivity"
+            android:label="@string/title_activity_new_stock" >
+        </activity>
     </application>
 
 </manifest>
