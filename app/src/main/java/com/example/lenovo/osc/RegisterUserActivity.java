@@ -30,6 +30,18 @@ public class RegisterUserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+
+        tfUserID = (EditText)findViewById(R.id.tfAdminUserID);
+        tfName = (EditText)findViewById(R.id.tfAdminName);
+        tfPassword = (EditText)findViewById(R.id.tfAdminPassword);
+        tfIC = (EditText)findViewById(R.id.tfAdminIC);
+        tfTel = (EditText)findViewById(R.id.tfAdminTel);
+        tfEmail = (EditText)findViewById(R.id.tfAdminEmail);
+        tfAddress = (EditText)findViewById(R.id.tfAdminAddress);
+        tfCompany = (EditText)findViewById(R.id.tfAdminCompany);
+
+        bRegisterSupplier = (Button)findViewById(R.id.bRegisterSupplier);
+        bRegisterStaff = (Button)findViewById(R.id.bRegisterStaff);
     }
 
     @Override
@@ -55,11 +67,6 @@ public class RegisterUserActivity extends ActionBarActivity {
     }
 
     public void staff(View view){
-        tfCompany = (EditText)findViewById(R.id.tfAdminCompany);
-        tfUserID = (EditText)findViewById(R.id.tfAdminUserID);
-        bRegisterStaff = (Button)findViewById(R.id.bRegisterStaff);
-        bRegisterSupplier = (Button)findViewById(R.id.bRegisterSupplier);
-
         bRegisterStaff.setVisibility(View.VISIBLE);
         bRegisterSupplier.setVisibility(View.INVISIBLE);
         tfCompany.setVisibility(View.INVISIBLE);
@@ -67,11 +74,6 @@ public class RegisterUserActivity extends ActionBarActivity {
     }
 
     public void supplier(View view){
-        tfCompany = (EditText)findViewById(R.id.tfAdminCompany);
-        tfUserID = (EditText)findViewById(R.id.tfAdminUserID);
-        bRegisterSupplier = (Button)findViewById(R.id.bRegisterSupplier);
-        bRegisterStaff = (Button)findViewById(R.id.bRegisterStaff);
-
         bRegisterSupplier.setVisibility(View.VISIBLE);
         bRegisterStaff.setVisibility(View.INVISIBLE);
         tfCompany.setVisibility(View.VISIBLE);
@@ -79,14 +81,6 @@ public class RegisterUserActivity extends ActionBarActivity {
     }
 
     public void registerSupplier(View view){
-        tfUserID = (EditText)findViewById(R.id.tfAdminUserID);
-        tfName = (EditText)findViewById(R.id.tfAdminName);
-        tfPassword = (EditText)findViewById(R.id.tfAdminPassword);
-        tfIC = (EditText)findViewById(R.id.tfAdminIC);
-        tfTel = (EditText)findViewById(R.id.tfAdminTel);
-        tfEmail = (EditText)findViewById(R.id.tfAdminEmail);
-        tfAddress = (EditText)findViewById(R.id.tfAdminAddress);
-        tfCompany = (EditText)findViewById(R.id.tfAdminCompany);
 
         String userID = tfUserID.getText().toString();
         String name = tfName.getText().toString();
@@ -133,13 +127,6 @@ public class RegisterUserActivity extends ActionBarActivity {
     }
 
     public void registerStaff(View view) {
-        tfUserID = (EditText) findViewById(R.id.tfAdminUserID);
-        tfName = (EditText) findViewById(R.id.tfAdminName);
-        tfPassword = (EditText) findViewById(R.id.tfAdminPassword);
-        tfIC = (EditText) findViewById(R.id.tfAdminIC);
-        tfTel = (EditText) findViewById(R.id.tfAdminTel);
-        tfEmail = (EditText) findViewById(R.id.tfAdminEmail);
-        tfAddress = (EditText) findViewById(R.id.tfAdminAddress);
 
         String userID = tfUserID.getText().toString();
         String name = tfName.getText().toString();
