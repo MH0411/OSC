@@ -1,17 +1,29 @@
 package com.example.lenovo.osc;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class NewStockActivity extends ActionBarActivity {
+
+    private String[] arraySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_stock);
+
+        this.arraySpinner = new String[] {
+                "Mouse", "Keyboard", "Phone", "Headphone", "Laptop", "Console", "Processor"
+        };
+        Spinner s = (Spinner) findViewById(R.id.sCategory);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+        s.setAdapter(adapter);
     }
 
     @Override

@@ -7,5 +7,82 @@
     tools:context="com.example.lenovo.osc.NewStockActivity">
 
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:scrollbarStyle="insideOverlay">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="360dp"
+            android:layout_height="700dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/imageView"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="80dp"
+                android:src="@android:mipmap/sym_def_app_icon" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sCategory"
+                android:layout_gravity="center_horizontal"
+                android:spinnerMode="dialog"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tfAddStockName"
+                android:hint="Name" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:layout_gravity="center_horizontal"
+                android:hint="Price (RM)" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText3"
+                android:layout_gravity="center_horizontal"
+                android:hint="Quantity" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText5"
+                android:layout_gravity="center_horizontal"
+                android:hint="Description" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText4"
+                android:layout_gravity="center_horizontal"
+                android:hint="Location" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:id="@+id/bAddStock"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
