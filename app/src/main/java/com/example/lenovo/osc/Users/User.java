@@ -17,6 +17,12 @@ public class User {
     private String company;
     private String status;
 
+    public User(String objectID, String userID, String name){
+        this.objectID = objectID;
+        this.userID = userID;
+        this.name = name;
+    }
+
     public User(String objectID, String userID, String password, String name, String noIC,
                 String noTel, String address, String email, String status) {
 

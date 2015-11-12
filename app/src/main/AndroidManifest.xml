@@ -45,6 +45,14 @@
             android:name=".NewStockActivity"
             android:label="New Stock" >
         </activity>
+        <activity
+            android:name=".UsersListActivity"
+            android:label="@string/title_activity_list_view" >
+        </activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
     </application>
 
 </manifest>
