@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseACL;
 import com.parse.ParseObject;
 
 
@@ -94,6 +95,14 @@ public class RegisterActivity extends ActionBarActivity {
             regUser.put("Email", email);
             regUser.put("Address", address);
             regUser.put("Status", "Active");
+
+            //Grant permission
+            ParseACL acl = new ParseACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            regUser.setACL(acl);
+
+            //Save data
             regUser.saveInBackground();
 
             startActivity(new Intent(this, MainActivity.class));

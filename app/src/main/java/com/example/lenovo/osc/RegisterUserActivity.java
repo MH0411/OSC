@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseACL;
 import com.parse.ParseObject;
 
 
@@ -120,6 +121,14 @@ public class RegisterUserActivity extends ActionBarActivity {
             regUser.put("Address", address);
             regUser.put("Company", company);
             regUser.put("Status", "Active");
+
+            //Grant permission
+            ParseACL acl = new ParseACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            regUser.setACL(acl);
+
+            //Save data
             regUser.saveInBackground();
 
             Toast.makeText(getApplicationContext(), "Register Supplier Successfully", Toast.LENGTH_SHORT).show();
@@ -152,7 +161,6 @@ public class RegisterUserActivity extends ActionBarActivity {
         } else if (TextUtils.isEmpty(address)) {
             tfAddress.setError("This field cannot be empty.");
         } else {
-
             ParseObject regUser = new ParseObject("Staff");
             regUser.put("StaffID", userID);
             regUser.put("Name", name);
@@ -162,6 +170,14 @@ public class RegisterUserActivity extends ActionBarActivity {
             regUser.put("Email", email);
             regUser.put("Address", address);
             regUser.put("Status", "Active");
+
+            //Grant permission
+            ParseACL acl = new ParseACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            regUser.setACL(acl);
+
+            //Save data
             regUser.saveInBackground();
 
             Toast.makeText(getApplicationContext(), "Register Staff Successfully", Toast.LENGTH_SHORT).show();

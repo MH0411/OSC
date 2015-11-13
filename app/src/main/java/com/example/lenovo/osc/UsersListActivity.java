@@ -132,8 +132,14 @@ public class UsersListActivity extends ActionBarActivity {
                     Intent i = new Intent(UsersListActivity.this,
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
+                    i.putExtra("objectID", staffList.get(position).getObjectId());
                     i.putExtra("userID", staffList.get(position).getString("StaffID"));
                     i.putExtra("name", staffList.get(position).getString("Name"));
+                    i.putExtra("ic", staffList.get(position).getString("IC"));
+                    i.putExtra("tel", staffList.get(position).getString("Tel"));
+                    i.putExtra("email", staffList.get(position).getString("Email"));
+                    i.putExtra("address", staffList.get(position).getString("Address"));
+                    i.putExtra("status", staffList.get(position).getString("Status"));
 
                     // Open UserProfileActivity.java Activity
                     startActivity(i);
@@ -155,8 +161,15 @@ public class UsersListActivity extends ActionBarActivity {
                     Intent i = new Intent(UsersListActivity.this,
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
+                    i.putExtra("objectID", supplierList.get(position).getObjectId());
                     i.putExtra("userID", supplierList.get(position).getString("SupplierID"));
                     i.putExtra("name", supplierList.get(position).getString("Name"));
+                    i.putExtra("ic", supplierList.get(position).getString("IC"));
+                    i.putExtra("tel", supplierList.get(position).getString("Tel"));
+                    i.putExtra("email", supplierList.get(position).getString("Email"));
+                    i.putExtra("address", supplierList.get(position).getString("Address"));
+                    i.putExtra("company", supplierList.get(position).getString("Company"));
+                    i.putExtra("status", supplierList.get(position).getString("Status"));
 
                     // Open UserProfileActivity.java Activity
                     startActivity(i);
@@ -178,8 +191,14 @@ public class UsersListActivity extends ActionBarActivity {
                     Intent i = new Intent(UsersListActivity.this,
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
+                    i.putExtra("objectID", stockistList.get(position).getObjectId());
                     i.putExtra("userID", stockistList.get(position).getString("StockistID"));
                     i.putExtra("name", stockistList.get(position).getString("Name"));
+                    i.putExtra("ic", stockistList.get(position).getString("IC"));
+                    i.putExtra("tel", stockistList.get(position).getString("Tel"));
+                    i.putExtra("email", stockistList.get(position).getString("Email"));
+                    i.putExtra("address", stockistList.get(position).getString("Address"));
+                    i.putExtra("status", stockistList.get(position).getString("Status"));
 
                     // Open UserProfileActivity.java Activity
                     startActivity(i);
