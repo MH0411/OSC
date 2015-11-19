@@ -28,6 +28,7 @@ public class LoginActivity extends ActionBarActivity {
     protected EditText tfPassword;
     protected Button bLogin;
 
+    public static User currentUser;
     private int count = 0;
 
     @Override
@@ -152,7 +153,7 @@ public class LoginActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
-                                        User currentUser = new User(
+                                        currentUser = new User(
                                                 object.getObjectId(),
                                                 object.getString("StaffID"),
                                                 object.getString("Password"),
@@ -165,7 +166,7 @@ public class LoginActivity extends ActionBarActivity {
                                         );
                                         //Go to admin home page
                                         if (currentUser.getStatus().equalsIgnoreCase("Admin")){
-                                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                                            startActivity(new Intent(LoginActivity.this, MakeOrderListActivity.class));
                                         }
 //                                        //Go to staff home page
                                     }
@@ -194,7 +195,7 @@ public class LoginActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
-                                        User currentUser = new User(
+                                        currentUser = new User(
                                                 object.getObjectId(),
                                                 object.getString("StockistID"),
                                                 object.getString("Password"),
@@ -231,7 +232,7 @@ public class LoginActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
-                                        User currentUser = new User(
+                                        currentUser = new User(
                                                 object.getObjectId(),
                                                 object.getString("SupplierID"),
                                                 object.getString("Password"),
@@ -246,6 +247,9 @@ public class LoginActivity extends ActionBarActivity {
                                     }
                                 }
                             });
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                            count++;
                         }
                     }
                 }

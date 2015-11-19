@@ -1,17 +1,16 @@
 package com.example.lenovo.osc;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
 
 public class AdminMenuActivity extends ActionBarActivity
@@ -45,30 +44,30 @@ public class AdminMenuActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
-        Fragment myFragment = null;
-        switch (position) {
-            case 0:
-                myFragment = new HomeFragment();
-                break;
-            case 1:
-                myFragment = new UserFragment();
-                break;
-            case 2:
-                myFragment = new StockFragment();
-                break;
-            case 3:
-                myFragment = new OrderFragment();
-                break;
-            case 4:
-                myFragment = new SaleFragment();
-                break;
-            default:
-                break;
-        }
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, myFragment).commit();
+//        Fragment myFragment = null;
+//        switch (position) {
+//            case 0:
+//                myFragment = new HomeFragment();
+//                break;
+//            case 1:
+//                myFragment = new UserFragment();
+//                break;
+//            case 2:
+//                myFragment = new StockFragment();
+//                break;
+//            case 3:
+//                myFragment = new OrderFragment();
+//                break;
+//            case 4:
+//                myFragment = new SaleFragment();
+//                break;
+//            default:
+//                break;
+//        }
+//        // update the main content by replacing fragments
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, myFragment).commit();
     }
 
     public void onSectionAttached(int number) {

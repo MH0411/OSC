@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.lenovo.osc.Users.User;
+import com.example.lenovo.osc.Users.UserAdapter;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -32,7 +33,6 @@ public class UsersListActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Get the view from listview_main.xml
         setContentView(R.layout.activity_users_list);
         // Execute RemoteDataTask AsyncTask
         new RemoteDataTask().execute();

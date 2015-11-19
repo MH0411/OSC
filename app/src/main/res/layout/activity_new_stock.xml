@@ -51,6 +51,15 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
+                android:id="@+id/tfAddStockCost"
+                android:layout_gravity="center_horizontal"
+                android:hint="Cost (RM)" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
                 android:id="@+id/tfAddStockPrice"
                 android:layout_gravity="center_horizontal"
                 android:hint="Price (RM)"

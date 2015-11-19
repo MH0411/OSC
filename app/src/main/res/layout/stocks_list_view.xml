@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ivStockPicture"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Name"
+        android:id="@+id/tvStockName"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvStockCost" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Cost"
+        android:id="@+id/tvStockCost"
+        android:layout_below="@+id/tvStockName"
+        android:layout_alignStart="@+id/tvStockQuantity" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Quantity"
+        android:id="@+id/tvStockQuantity"
+        android:layout_below="@+id/tvStockCost"
+        android:layout_toEndOf="@+id/ivStockPicture"
+        android:layout_marginStart="24dp" />
+</RelativeLayout>

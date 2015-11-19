@@ -38,10 +38,6 @@
             android:label="Register User" >
         </activity>
         <activity
-            android:name=".RemoveUserActivity"
-            android:label="Remove user" >
-        </activity>
-        <activity
             android:name=".NewStockActivity"
             android:label="New Stock" >
         </activity>
@@ -52,6 +48,14 @@
         <activity
             android:name=".UserProfileActivity"
             android:label="@string/title_activity_user_profile" >
+        </activity>
+        <activity
+            android:name=".MakeOrderListActivity"
+            android:label="@string/title_activity_make_order" >
+        </activity>
+        <activity
+            android:name=".MakeOrderActivity"
+            android:label="@string/title_activity_make_order" >
         </activity>
     </application>
 

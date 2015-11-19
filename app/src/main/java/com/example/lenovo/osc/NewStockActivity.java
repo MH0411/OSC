@@ -29,7 +29,7 @@ public class NewStockActivity extends ActionBarActivity {
     protected String[] spinnerCategory;
     protected ImageView imageToUpload;
     protected Spinner sCategory;
-    protected EditText tfAddStockName, tfAddStockPrice,tfAddStockQuantity, tfAddStockDescription, tfAddStockLocation;
+    protected EditText tfAddStockName, tfAddStockCost, tfAddStockPrice,tfAddStockQuantity, tfAddStockDescription, tfAddStockLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class NewStockActivity extends ActionBarActivity {
 
         imageToUpload = null;
         tfAddStockName = (EditText)findViewById(R.id.tfAddStockName);
+        tfAddStockCost = (EditText)findViewById(R.id.tfAddStockCost);
         tfAddStockPrice = (EditText)findViewById(R.id.tfAddStockPrice);
         tfAddStockQuantity = (EditText)findViewById(R.id.tfAddStockQuantity);
         tfAddStockDescription = (EditText)findViewById(R.id.tfAddStockDescription);
@@ -93,6 +94,7 @@ public class NewStockActivity extends ActionBarActivity {
     public void addNewStock(View view) {
 
         String name = tfAddStockName.getText().toString();
+        String cost = tfAddStockCost.getText().toString();
         String price = tfAddStockPrice.getText().toString();
         String quantity = tfAddStockQuantity.getText().toString();
         String description = tfAddStockDescription.getText().toString();
@@ -105,6 +107,8 @@ public class NewStockActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Please select a category", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(name)){
             tfAddStockName.setError("This field cannot be empty.");
+        } else if (TextUtils.isEmpty(cost)){
+            tfAddStockCost.setError("This field cannot be empty.");
         } else if (TextUtils.isEmpty(price)){
             tfAddStockPrice.setError("This field cannot be empty.");
         } else if (TextUtils.isEmpty(quantity)){
@@ -126,6 +130,7 @@ public class NewStockActivity extends ActionBarActivity {
             stock.put("Name", name);
             stock.put("Image", file);
             stock.put("Category", category);
+            stock.put("Cost", cost);
             stock.put("Price", Double.parseDouble(price));
             stock.put("Quantity", Integer.parseInt(quantity));
             stock.put("Description", description);
