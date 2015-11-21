@@ -25,6 +25,7 @@
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_make_order">MakeOrderActivity</string>
+    <string name="title_activity_stock_profile">StockProfileActivity</string>
 
     <!--<string name="action_example">Example action</string>-->
 </resources>

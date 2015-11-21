@@ -15,10 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.ByteArrayOutputStream;
 
@@ -29,7 +33,22 @@ public class NewStockActivity extends ActionBarActivity {
     protected String[] spinnerCategory;
     protected ImageView imageToUpload;
     protected Spinner sCategory;
-    protected EditText tfAddStockName, tfAddStockCost, tfAddStockPrice,tfAddStockQuantity, tfAddStockDescription, tfAddStockLocation;
+    protected TextView tvAddStockID;
+    protected EditText tfAddStockName;
+    protected EditText tfAddStockCost;
+    protected EditText tfAddStockPrice;
+    protected EditText tfAddStockQuantity;
+    protected EditText tfAddStockDescription;
+    protected EditText tfAddStockLocation;
+
+    private String id;
+    private String name;
+    private String category;
+    private String cost;
+    private String price;
+    private String quantity;
+    private String description;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +65,24 @@ public class NewStockActivity extends ActionBarActivity {
         sCategory.setAdapter(adapter);
 
         imageToUpload = null;
+        tvAddStockID = (TextView)findViewById(R.id.tvAddStockID);
         tfAddStockName = (EditText)findViewById(R.id.tfAddStockName);
         tfAddStockCost = (EditText)findViewById(R.id.tfAddStockCost);
         tfAddStockPrice = (EditText)findViewById(R.id.tfAddStockPrice);
         tfAddStockQuantity = (EditText)findViewById(R.id.tfAddStockQuantity);
         tfAddStockDescription = (EditText)findViewById(R.id.tfAddStockDescription);
         tfAddStockLocation = (EditText)findViewById(R.id.tfAddStockLocation);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
+        query.orderByDescending("createdAt");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                String tempID = object.getString("CentreStockID");
+                String newID = "CS" + (Integer.parseInt(tempID.substring(2,tempID.length()))+1);
+                tvAddStockID.setText(newID);
+            }
+        });
     }
 
     @Override
@@ -93,13 +124,14 @@ public class NewStockActivity extends ActionBarActivity {
 
     public void addNewStock(View view) {
 
-        String name = tfAddStockName.getText().toString();
-        String cost = tfAddStockCost.getText().toString();
-        String price = tfAddStockPrice.getText().toString();
-        String quantity = tfAddStockQuantity.getText().toString();
-        String description = tfAddStockDescription.getText().toString();
-        String location = tfAddStockLocation.getText().toString();
-        String category = sCategory.getSelectedItem().toString();
+        id = tvAddStockID.getText().toString();
+        name = tfAddStockName.getText().toString();
+        cost = tfAddStockCost.getText().toString();
+        price = tfAddStockPrice.getText().toString();
+        quantity = tfAddStockQuantity.getText().toString();
+        description = tfAddStockDescription.getText().toString();
+        location = tfAddStockLocation.getText().toString();
+        category = sCategory.getSelectedItem().toString();
 
         if (imageToUpload == null) {
             Toast.makeText(getApplicationContext(),"Please select a stock image.",Toast.LENGTH_SHORT).show();
@@ -127,6 +159,7 @@ public class NewStockActivity extends ActionBarActivity {
             file.saveInBackground();
 
             ParseObject stock = new ParseObject("CentreStock");
+            stock.put("CentreStockID", id);
             stock.put("Name", name);
             stock.put("Image", file);
             stock.put("Category", category);

@@ -57,6 +57,10 @@
             android:name=".MakeOrderActivity"
             android:label="@string/title_activity_make_order" >
         </activity>
+        <activity
+            android:name=".StockProfileActivity"
+            android:label="@string/title_activity_stock_profile" >
+        </activity>
     </application>
 
 </manifest>

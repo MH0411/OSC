@@ -1,10 +1,14 @@
 package com.example.lenovo.osc;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,6 +18,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -21,6 +26,7 @@ public class MakeOrderListActivity extends ActionBarActivity {
 
     protected ListView lvMakeOrderStock;
     protected ProgressDialog mProgressDialog;
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class MakeOrderListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_make_order_list);
 
         lvMakeOrderStock = (ListView)findViewById(R.id.lvMakeOrderStock);
-        loadStockFromParse();
+        new LoadStockFromParse().execute();
     }
 
     @Override
@@ -53,20 +59,61 @@ public class MakeOrderListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadStockFromParse(){
+    /**
+     * Load the centre stock data from parse.com
+     */
+    private class LoadStockFromParse extends AsyncTask<Void, Void, Void>{
 
-        ParseQuery<ParseObject> stockQuery = new ParseQuery<ParseObject>("CentreStock");
-        stockQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(MakeOrderListActivity.this);
+            // Set progressdialog title
+            mProgressDialog.setTitle("OSC");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
 
-                    StockAdapter adapterStock = new StockAdapter(MakeOrderListActivity.this, objects);
-                    lvMakeOrderStock.setAdapter(adapterStock);
-                } else {
-                    Toast.makeText(MakeOrderListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            mProgressDialog.dismiss();
+            ParseQuery<ParseObject> stockQuery = new ParseQuery<ParseObject>("CentreStock");
+            stockQuery.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(final List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+
+                        StockAdapter adapterStock = new StockAdapter(MakeOrderListActivity.this, objects);
+                        lvMakeOrderStock.setAdapter(adapterStock);
+                        lvMakeOrderStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                //Send selected stock data to StockProfileActivity.
+                                Intent i = new Intent(MakeOrderListActivity.this, StockProfileActivity.class);
+
+                                i.putExtra("objectID", objects.get(position).getObjectId());
+                                i.putExtra("stockID", objects.get(position).getString("CentreStockID"));
+                                i.putExtra("name", objects.get(position).getString("Name"));
+                                i.putExtra("category", objects.get(position).getString("Category"));
+                                i.putExtra("cost", objects.get(position).getDouble("Cost"));
+                                i.putExtra("price", objects.get(position).getDouble("Price"));
+                                i.putExtra("quantity", Integer.toString(objects.get(position).getInt("Quantity")));
+                                i.putExtra("description", objects.get(position).getString("Description"));
+                                i.putExtra("location", objects.get(position).getString("Location"));
+                                startActivity(i);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(MakeOrderListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+            return null;
+        }
     }
 }
