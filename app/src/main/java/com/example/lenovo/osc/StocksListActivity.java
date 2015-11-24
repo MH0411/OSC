@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 
-public class MakeOrderListActivity extends ActionBarActivity {
+public class StocksListActivity extends ActionBarActivity {
 
     protected ListView lvMakeOrderStock;
     protected ProgressDialog mProgressDialog;
@@ -31,7 +31,7 @@ public class MakeOrderListActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_make_order_list);
+        setContentView(R.layout.activity_stocks_list);
 
         lvMakeOrderStock = (ListView)findViewById(R.id.lvMakeOrderStock);
         new LoadStockFromParse().execute();
@@ -68,7 +68,7 @@ public class MakeOrderListActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Create a progressdialog
-            mProgressDialog = new ProgressDialog(MakeOrderListActivity.this);
+            mProgressDialog = new ProgressDialog(StocksListActivity.this);
             // Set progressdialog title
             mProgressDialog.setTitle("OSC");
             // Set progressdialog message
@@ -88,13 +88,13 @@ public class MakeOrderListActivity extends ActionBarActivity {
                 public void done(final List<ParseObject> objects, ParseException e) {
                     if (e == null) {
 
-                        StockAdapter adapterStock = new StockAdapter(MakeOrderListActivity.this, objects);
+                        StockAdapter adapterStock = new StockAdapter(StocksListActivity.this, objects);
                         lvMakeOrderStock.setAdapter(adapterStock);
                         lvMakeOrderStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 //Send selected stock data to StockProfileActivity.
-                                Intent i = new Intent(MakeOrderListActivity.this, StockProfileActivity.class);
+                                Intent i = new Intent(StocksListActivity.this, StockProfileActivity.class);
 
                                 i.putExtra("objectID", objects.get(position).getObjectId());
                                 i.putExtra("stockID", objects.get(position).getString("CentreStockID"));
@@ -102,14 +102,14 @@ public class MakeOrderListActivity extends ActionBarActivity {
                                 i.putExtra("category", objects.get(position).getString("Category"));
                                 i.putExtra("cost", objects.get(position).getDouble("Cost"));
                                 i.putExtra("price", objects.get(position).getDouble("Price"));
-                                i.putExtra("quantity", Integer.toString(objects.get(position).getInt("Quantity")));
+                                i.putExtra("quantity", objects.get(position).getInt("Quantity"));
                                 i.putExtra("description", objects.get(position).getString("Description"));
                                 i.putExtra("location", objects.get(position).getString("Location"));
                                 startActivity(i);
                             }
                         });
                     } else {
-                        Toast.makeText(MakeOrderListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(StocksListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             });

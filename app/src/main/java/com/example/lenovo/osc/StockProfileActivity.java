@@ -1,13 +1,14 @@
 package com.example.lenovo.osc;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
@@ -16,31 +17,79 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 
 public class StockProfileActivity extends ActionBarActivity {
 
+    protected Spinner sStockProfileCategory;
     protected ImageView ivStockProfileImage;
-    protected TextView tvStockID;
+    protected TextView tvStockProfileID;
     protected EditText tfStockProfileName;
-    protected EditText tfStockProfileCategory;
     protected EditText tfStockProfileCost;
     protected EditText tfStockProfilePrice;
+    protected EditText tfStockProfileQuantity;
     protected EditText tfStockProfileLocation;
     protected EditText tfStockProfileDescription;
 
-    private Uri image;
+    private DecimalFormat df = new DecimalFormat("#.00");
+    private String[] spinnerCategory;
     private String objectID;
+    private String stockID;
+    private String name;
+    private String category;
+    private Double cost;
+    private Double price;
+    private int quantity;
+    private String location;
+    private String description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_profile);
 
         ivStockProfileImage = (ImageView) findViewById(R.id.ivStockProfileImage);
+        sStockProfileCategory = (Spinner) findViewById(R.id.sStockProfileCategory);
+        tvStockProfileID = (TextView) findViewById(R.id.tvStockProfileID);
+        tfStockProfileName = (EditText) findViewById(R.id.tfStockProfileName);
+        tfStockProfileCost = (EditText) findViewById(R.id.tfStockProfileCost);
+        tfStockProfilePrice = (EditText) findViewById(R.id.tfStockProfilePrice);
+        tfStockProfileQuantity = (EditText) findViewById(R.id.tfStockProfileQuantity);
+        tfStockProfileLocation = (EditText) findViewById(R.id.tfStockProfileLocation);
+        tfStockProfileDescription = (EditText) findViewById(R.id.tfStockProfileDescription);
+
+        this.spinnerCategory = new String[] {
+                "Category", "Phone", "Tablet", "Laptop", "Mouse", "Keyboard", "Headphone", "Speaker",
+                "Console", "Processor", "Other"
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, spinnerCategory);
+        sStockProfileCategory.setAdapter(adapter);
 
         Intent i = getIntent();
-
         objectID = i.getStringExtra("objectID");
+        stockID = i.getStringExtra("stockID");
+        name = i.getStringExtra("name");
+        category = i.getStringExtra("category");
+        cost = i.getDoubleExtra("cost", 0);
+        price = i.getDoubleExtra("price", 0);
+        quantity = i.getIntExtra("quantity", 0);
+        location = i.getStringExtra("location");
+        description = i.getStringExtra("description");
 
+        int position = adapter.getPosition(category);
+        sStockProfileCategory.setSelection(position);
+
+        tvStockProfileID.setText(stockID);
+        tfStockProfileName.setText(name);
+        tfStockProfileCost.setText(df.format(cost));
+        tfStockProfilePrice.setText(df.format(price));
+        tfStockProfileQuantity.setText(String.valueOf(quantity));
+        tfStockProfileLocation.setText(location);
+        tfStockProfileDescription.setText(description);
+
+        //Load the selected stock's image.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
         query.getInBackground(objectID, new GetCallback<ParseObject>() {
             @Override

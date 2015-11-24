@@ -166,7 +166,7 @@ public class LoginActivity extends ActionBarActivity {
                                         );
                                         //Go to admin home page
                                         if (currentUser.getStatus().equalsIgnoreCase("Admin")){
-                                            startActivity(new Intent(LoginActivity.this, MakeOrderListActivity.class));
+                                            startActivity(new Intent(LoginActivity.this, StocksListActivity.class));
                                         }
 //                                        //Go to staff home page
                                     }

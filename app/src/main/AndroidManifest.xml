@@ -50,11 +50,7 @@
             android:label="@string/title_activity_user_profile" >
         </activity>
         <activity
-            android:name=".MakeOrderListActivity"
-            android:label="@string/title_activity_make_order" >
-        </activity>
-        <activity
-            android:name=".MakeOrderActivity"
+            android:name=".StocksListActivity"
             android:label="@string/title_activity_make_order" >
         </activity>
         <activity
