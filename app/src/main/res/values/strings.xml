@@ -8,11 +8,11 @@
     <string name="title_activity_oscapplication">Menu</string>
     <string name="title_activity_menu"></string>
 
-    <string name="title_section1">Home</string>
-    <string name="title_section2">User</string>
-    <string name="title_section3">Stock</string>
-    <string name="title_section4">Order</string>
-    <string name="title_section5">Sale</string>
+    <string name="title_section1">New User</string>
+    <string name="title_section2">Update User</string>
+    <string name="title_section3">New Stock</string>
+    <string name="title_section4">Update Stock</string>
+    <string name="title_section5">Order Stock</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -26,6 +26,9 @@
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_make_order">MakeOrderActivity</string>
     <string name="title_activity_stock_profile">StockProfileActivity</string>
+    <string name="title_activity_admin_menu">AdminMenuActivity</string>
+
+    <string name="action_example">Example action</string>
 
     <!--<string name="action_example">Example action</string>-->
 </resources>

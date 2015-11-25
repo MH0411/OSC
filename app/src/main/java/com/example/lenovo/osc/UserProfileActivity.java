@@ -232,7 +232,7 @@ public class UserProfileActivity extends ActionBarActivity {
                         bCancelEdit.setVisibility(View.INVISIBLE);
 
                         Toast.makeText(getApplicationContext(), "User updated.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(UserProfileActivity.this, UsersListActivity.class));
+                        startActivity(new Intent(UserProfileActivity.this, UpdateUserFragment.class));
                     }
                 }
             });

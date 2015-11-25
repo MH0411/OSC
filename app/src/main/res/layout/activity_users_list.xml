@@ -34,8 +34,7 @@
         android:text="Staff"
         android:id="@+id/bShowStaff"
         android:layout_below="@+id/tfsearchUser"
-        android:layout_alignParentStart="true"
-        android:onClick="showStaff"/>
+        android:layout_alignParentStart="true"/>
 
     <Button
         android:layout_width="119dp"
@@ -43,8 +42,7 @@
         android:text="Supplier"
         android:id="@+id/bShowSupplier"
         android:layout_above="@+id/lvStaff"
-        android:layout_toEndOf="@+id/bShowStaff"
-        android:onClick="showSupplier"/>
+        android:layout_toEndOf="@+id/bShowStaff"/>
 
     <Button
         android:layout_width="119dp"
@@ -52,8 +50,7 @@
         android:text="Stockist"
         android:id="@+id/bShowStockist"
         android:layout_above="@+id/lvStaff"
-        android:layout_toEndOf="@+id/bShowSupplier"
-        android:onClick="showStockist"/>
+        android:layout_toEndOf="@+id/bShowSupplier"/>
 
     <EditText
         android:layout_width="wrap_content"

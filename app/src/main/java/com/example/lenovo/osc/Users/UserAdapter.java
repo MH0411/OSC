@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.lenovo.osc.R;
+import com.example.lenovo.osc.UpdateUserFragment;
 
 import java.util.ArrayList;
 
@@ -16,12 +17,12 @@ import java.util.ArrayList;
  */
 public class UserAdapter extends ArrayAdapter<User> {
 
-    private final Context context;
+    private final UpdateUserFragment context;
     private final ArrayList<User> usersArrayList;
 
-    public UserAdapter(Context context, ArrayList<User> usersArrayList) {
+    public UserAdapter(UpdateUserFragment context, ArrayList<User> usersArrayList) {
 
-        super(context, R.layout.user_list_view, usersArrayList);
+        super(context.getActivity(), R.layout.user_list_view, usersArrayList);
 
         this.context = context;
         this.usersArrayList = usersArrayList;
@@ -31,7 +32,7 @@ public class UserAdapter extends ArrayAdapter<User> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // 1. Create inflater
-        LayoutInflater inflater = (LayoutInflater) context
+        LayoutInflater inflater = (LayoutInflater) context.getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater

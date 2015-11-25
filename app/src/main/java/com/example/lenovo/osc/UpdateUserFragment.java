@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.lenovo.osc.Users.User;
@@ -23,24 +24,65 @@ import java.util.List;
 /**
  * Created by Lenovo on 24/11/2015.
  */
-public class UserFragment extends Fragment {
+public class UpdateUserFragment extends Fragment implements View.OnClickListener {
 
     // Declare Variables
     protected ListView lvStaff;
     protected ListView lvSupplier;
     protected ListView lvStockist;
-    protected List<ParseObject> staffList;
-    protected List<ParseObject> supplierList;
-    protected List<ParseObject> stockistList;
+    protected Button bStaff;
+    protected Button bSupplier;
+    protected Button bStockist;
     protected ProgressDialog mProgressDialog;
+
+    private List<ParseObject> staffList;
+    private List<ParseObject> supplierList;
+    private List<ParseObject> stockistList;
 
     View myView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.activity_users_list, container, false);
+
+        lvStaff = (ListView) myView.findViewById(R.id.lvStaff);
+        lvSupplier = (ListView) myView.findViewById(R.id.lvSupplier);
+        lvStockist = (ListView) myView.findViewById(R.id.lvStockist);
+
+        bStaff = (Button) myView.findViewById(R.id.bShowStaff);
+        bSupplier = (Button) myView.findViewById(R.id.bShowSupplier);
+        bStockist = (Button) myView.findViewById(R.id.bShowStockist);
+        bStaff.setOnClickListener(this);
+        bSupplier.setOnClickListener(this);
+        bStockist.setOnClickListener(this);
+
         new RemoteDataTask().execute();
         return myView;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.bShowStaff:
+                lvStaff.setVisibility(View.VISIBLE);
+                lvSupplier.setVisibility(View.INVISIBLE);
+                lvStockist.setVisibility(View.INVISIBLE);
+                break;
+
+            case R.id.bShowSupplier:
+                lvStaff.setVisibility(View.INVISIBLE);
+                lvSupplier.setVisibility(View.VISIBLE);
+                lvStockist.setVisibility(View.INVISIBLE);
+                break;
+
+            case R.id.bShowStockist:
+                lvStaff.setVisibility(View.INVISIBLE);
+                lvSupplier.setVisibility(View.INVISIBLE);
+                lvStockist.setVisibility(View.VISIBLE);
+                break;
+
+        }
     }
 
     // RemoteDataTask AsyncTask
@@ -53,7 +95,7 @@ public class UserFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             // Create a progressdialog
-            mProgressDialog = new ProgressDialog(UserFragment.this);
+            mProgressDialog = new ProgressDialog(getActivity());
             // Set progressdialog title
             mProgressDialog.setTitle("OSC");
             // Set progressdialog message
@@ -101,9 +143,9 @@ public class UserFragment extends Fragment {
             mProgressDialog.dismiss();
 
             //Display Staff=======================================================================
-            lvStaff = (ListView) findViewById(R.id.lvStaff);
+            lvStaff = (ListView) myView.findViewById(R.id.lvStaff);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterStaff = new UserAdapter(UserFragment.this, generateStaffData());
+            UserAdapter adapterStaff = new UserAdapter(UpdateUserFragment.this, generateStaffData());
             // Binds the Adapter to the ListView
             lvStaff.setAdapter(adapterStaff);
             // Capture button clicks on ListView items
@@ -112,7 +154,7 @@ public class UserFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
                     // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(UsersListActivity.this,
+                    Intent i = new Intent(getActivity(),
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
                     i.putExtra("objectID", staffList.get(position).getObjectId());
@@ -130,9 +172,9 @@ public class UserFragment extends Fragment {
             });
 
             //Display Supplier=====================================================================
-            lvSupplier = (ListView) findViewById(R.id.lvSupplier);
+            lvSupplier = (ListView) myView.findViewById(R.id.lvSupplier);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterSupplier = new UserAdapter(UsersListActivity.this, generateSupplierData());
+            UserAdapter adapterSupplier = new UserAdapter(UpdateUserFragment.this, generateSupplierData());
             // Binds the Adapter to the ListView
             lvSupplier.setAdapter(adapterSupplier);
             // Capture button clicks on ListView items
@@ -141,7 +183,7 @@ public class UserFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
                     // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(UsersListActivity.this,
+                    Intent i = new Intent(getActivity(),
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
                     i.putExtra("objectID", supplierList.get(position).getObjectId());
@@ -160,9 +202,9 @@ public class UserFragment extends Fragment {
             });
 
             //Display Supplier=====================================================================
-            lvStockist = (ListView) findViewById(R.id.lvStockist);
+            lvStockist = (ListView) myView.findViewById(R.id.lvStockist);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterStockist = new UserAdapter(UsersListActivity.this, generateStockistData());
+            UserAdapter adapterStockist = new UserAdapter(UpdateUserFragment.this, generateStockistData());
             // Binds the Adapter to the ListView
             lvStockist.setAdapter(adapterStockist);
             // Capture button clicks on ListView items
@@ -171,7 +213,7 @@ public class UserFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
                     // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(UsersListActivity.this,
+                    Intent i = new Intent(getActivity(),
                             UserProfileActivity.class);
                     // Pass data "name" followed by the position
                     i.putExtra("objectID", stockistList.get(position).getObjectId());
@@ -209,23 +251,5 @@ public class UserFragment extends Fragment {
             }
             return stockists;
         }
-    }
-
-    public void showStaff(View view){
-        lvStaff.setVisibility(View.VISIBLE);
-        lvSupplier.setVisibility(View.INVISIBLE);
-        lvStockist.setVisibility(View.INVISIBLE);
-    }
-
-    public void showSupplier(View view){
-        lvStaff.setVisibility(View.INVISIBLE);
-        lvSupplier.setVisibility(View.VISIBLE);
-        lvStockist.setVisibility(View.INVISIBLE);
-    }
-
-    public void showStockist(View view){
-        lvStaff.setVisibility(View.INVISIBLE);
-        lvSupplier.setVisibility(View.INVISIBLE);
-        lvStockist.setVisibility(View.VISIBLE);
     }
 }

@@ -3,6 +3,7 @@ package com.example.lenovo.osc;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -14,12 +15,12 @@ import android.view.ViewGroup;
 
 
 public class AdminMenuActivity extends ActionBarActivity
-        implements AdminNavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements AdminNavigationDrawerFragment.NavigationDrawerCallbacks{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private AdminNavigationDrawerFragment mAdminNavigationDrawerFragment;
+    private AdminNavigationDrawerFragment mNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -29,45 +30,43 @@ public class AdminMenuActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_admin_menu);
 
-        mAdminNavigationDrawerFragment = (AdminNavigationDrawerFragment)
+        mNavigationDrawerFragment = (AdminNavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
-        mAdminNavigationDrawerFragment.setUp(
+        mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-
-//        Fragment myFragment = null;
-//        switch (position) {
-//            case 0:
-//                myFragment = new HomeFragment();
-//                break;
-//            case 1:
-//                myFragment = new UserFragment();
-//                break;
-//            case 2:
-//                myFragment = new StockFragment();
-//                break;
-//            case 3:
-//                myFragment = new OrderFragment();
-//                break;
-//            case 4:
-//                myFragment = new SaleFragment();
-//                break;
-//            default:
-//                break;
-//        }
-//        // update the main content by replacing fragments
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.container, myFragment).commit();
+        // update the main content by replacing fragments
+        Fragment myFragment = null;
+        switch (position) {
+            case 0:
+                myFragment = new RegisterUserFragment();
+                break;
+            case 1:
+                myFragment = new UpdateUserFragment();
+                break;
+            case 2:
+                myFragment = new UpdateUserFragment();
+                break;
+            case 3:
+                myFragment = new UpdateUserFragment();
+                break;
+            case 4:
+                myFragment = new UpdateUserFragment();
+                break;
+        }
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, myFragment).commit();
     }
 
     public void onSectionAttached(int number) {
@@ -100,11 +99,11 @@ public class AdminMenuActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mAdminNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.menu, menu);
+            getMenuInflater().inflate(R.menu.admin_menu, menu);
             restoreActionBar();
             return true;
         }
