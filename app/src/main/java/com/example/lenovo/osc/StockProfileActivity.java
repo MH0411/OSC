@@ -33,6 +33,7 @@ public class StockProfileActivity extends ActionBarActivity {
     protected Spinner sStockProfileCategory;
     protected ImageView ivStockProfileImage;
     protected TextView tvStockProfileID;
+    protected TextView tvStockProfileStatus;
     protected EditText tfStockProfileName;
     protected EditText tfStockProfileCost;
     protected EditText tfStockProfilePrice;
@@ -58,7 +59,9 @@ public class StockProfileActivity extends ActionBarActivity {
     private String location;
     private String description;
     private String supplierName;
-    private String supplierObjectID;
+    private String status;
+    private String updateSupplierName;
+    private String updateSupplierObjectID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class StockProfileActivity extends ActionBarActivity {
         ivStockProfileImage = (ImageView) findViewById(R.id.ivStockProfileImage);
         sStockProfileCategory = (Spinner) findViewById(R.id.sStockProfileCategory);
         tvStockProfileID = (TextView) findViewById(R.id.tvStockProfileID);
+        tvStockProfileStatus = (TextView) findViewById(R.id.tvStockProfileStatus);
         tfStockProfileName = (EditText) findViewById(R.id.tfStockProfileName);
         tfStockProfileCost = (EditText) findViewById(R.id.tfStockProfileCost);
         tfStockProfilePrice = (EditText) findViewById(R.id.tfStockProfilePrice);
@@ -103,17 +107,21 @@ public class StockProfileActivity extends ActionBarActivity {
         quantity = i.getIntExtra("quantity", 0);
         location = i.getStringExtra("location");
         description = i.getStringExtra("description");
+        supplierName = i.getStringExtra("supplierName");
+        status = i.getStringExtra("status");
 
         //Set text
         int position = adapter.getPosition(category);
         sStockProfileCategory.setSelection(position);
         tvStockProfileID.setText(stockID);
+        tvStockProfileStatus.setText(status);
         tfStockProfileName.setText(name);
         tfStockProfileCost.setText(df.format(cost));
         tfStockProfilePrice.setText(df.format(price));
         tfStockProfileQuantity.setText(String.valueOf(quantity));
         tfStockProfileLocation.setText(location);
         tfStockProfileDescription.setText(description);
+        tfStockProfileSupplierName.setText(supplierName);
 
         //Load the selected stock's image.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
@@ -224,12 +232,49 @@ public class StockProfileActivity extends ActionBarActivity {
      * Remove selected stock from sale
      */
     public void removeStockFromSale(View v){
+
+        if (status.equalsIgnoreCase("Not For Sale")){
+            Toast.makeText(getApplicationContext(),"Stock has been removed from sale.", Toast.LENGTH_SHORT).show();
+        } else {
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Do your Yes progress
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
+                            query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                                public void done(ParseObject object, ParseException e) {
+                                    if (e == null) {
+                                        object.put("Status", "Not For Sale");
+                                        object.saveInBackground();
+
+                                        tvStockProfileStatus.setText("Not For Sale");
+                                        Toast.makeText(getApplicationContext(),"Stock removed from sale.", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                }
+                            });
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //Do your No progress
+                            break;
+                    }
+                }
+            };
+            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            ab.setMessage("Are you sure to remove from sale?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
     }
 
     /**
      * Proceed to order stock process
      */
     public void orderStock(View v){
+
     }
 
     public void selectSupplier() {
@@ -267,9 +312,9 @@ public class StockProfileActivity extends ActionBarActivity {
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            supplierObjectID = supplierList.get(which).getObjectId();
-                                            supplierName = supplierList.get(which).getString("Name");
-                                            tfStockProfileSupplierName.setText(supplierName);
+                                            updateSupplierObjectID = supplierList.get(which).getObjectId();
+                                            updateSupplierName = supplierList.get(which).getString("Name");
+                                            tfStockProfileSupplierName.setText(updateSupplierName);
                                         }
                                     });
                             builderSingle.create();

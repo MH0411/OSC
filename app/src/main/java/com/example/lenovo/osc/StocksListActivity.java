@@ -105,6 +105,8 @@ public class StocksListActivity extends ActionBarActivity {
                                 i.putExtra("quantity", objects.get(position).getInt("Quantity"));
                                 i.putExtra("description", objects.get(position).getString("Description"));
                                 i.putExtra("location", objects.get(position).getString("Location"));
+                                i.putExtra("supplierName", objects.get(position).getParseObject("Supplier").getString("Name"));
+                                i.putExtra("status", objects.get(position).getString("SaleStatus"));
                                 startActivity(i);
                             }
                         });
