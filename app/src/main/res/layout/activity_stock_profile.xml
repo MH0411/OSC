@@ -58,7 +58,8 @@
                         android:layout_toEndOf="@+id/ivStockProfileImage"
                         android:layout_marginTop="20dp"
                         android:spinnerMode="dialog"
-                        android:layout_marginLeft="40dp"/>
+                        android:layout_marginLeft="40dp"
+                        android:focusable="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -72,7 +73,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:hint="Name"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:focusable="false"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -83,7 +85,8 @@
                 android:hint="Cost (RM)"
                 android:layout_below="@+id/tfStockProfileName"
                 android:layout_alignEnd="@+id/ivStockProfileImage"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:focusable="false"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -95,7 +98,8 @@
                 android:layout_below="@+id/tfStockProfileName"
                 android:layout_alignParentEnd="true"
                 android:layout_alignStart="@+id/sStockProfileCategory"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:focusable="false"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -107,7 +111,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignEnd="@+id/tfStockProfilePrice"
                 android:hint="Quantity"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:focusable="false"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -117,7 +122,8 @@
                 android:hint="Location"
                 android:layout_below="@+id/tfStockProfileQuantity"
                 android:layout_alignEnd="@+id/tfStockProfileQuantity"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:focusable="false"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -133,7 +139,20 @@
                 android:singleLine="false"
                 android:scrollHorizontally="false"
                 android:maxLines ="4"
-                android:maxLength ="2000" />
+                android:maxLength ="2000"
+                android:focusable="false"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tfStockProfileSupplierName"
+                android:layout_alignParentStart="true"
+                android:hint="Supplier"
+                android:layout_below="@+id/tfStockProfileQuantity"
+                android:layout_alignEnd="@+id/tfStockPrrofileQuantity"
+                android:singleLine="true"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -143,10 +162,19 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:id="@+id/bEditStock"
+                    android:layout_alignParentLeft="true"
+                    android:onClick="editStock"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Update"
                     android:id="@+id/bUpdateStock"
                     android:layout_alignParentLeft="true"
-                    android:onClick="updateStock"/>
+                    android:onClick="updateStock"
+                    android:visibility="invisible"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -162,7 +190,16 @@
                     android:text="Order"
                     android:id="@+id/bOrderStock"
                     android:layout_alignParentRight="true"
-                    android:onClick="order"/>
+                    android:onClick="orderStock"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/bCancelUpdateStock"
+                    android:layout_alignParentRight="true"
+                    android:onClick="cancelUpdateStock"
+                    android:visibility="invisible"/>
 
             </RelativeLayout>
         </LinearLayout>

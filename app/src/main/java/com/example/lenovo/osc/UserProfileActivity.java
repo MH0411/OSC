@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
 
 
 public class UserProfileActivity extends ActionBarActivity {
@@ -34,6 +36,7 @@ public class UserProfileActivity extends ActionBarActivity {
     protected Button bRemoveUser;
     protected Button bConfirmEdit;
     protected Button bCancelEdit;
+    protected ImageView ivProfilePic;
 
     private String objectID;
     private String id;
@@ -67,6 +70,7 @@ public class UserProfileActivity extends ActionBarActivity {
         address = i.getStringExtra("address");
         company = i.getStringExtra("company");
 
+        ivProfilePic = (ImageView)findViewById(R.id.ivProfilePic);
         tvUserID = (TextView)findViewById(R.id.tvProfileUserID);
         tvStatus = (TextView)findViewById(R.id.tvProfileStatus);
         tfName = (EditText)findViewById(R.id.tfProfileName);
@@ -88,6 +92,8 @@ public class UserProfileActivity extends ActionBarActivity {
             tfCompany.setVisibility(View.VISIBLE);
             tfCompany.setText(company);
         }
+
+        loadImage();
     }
 
     @Override
@@ -270,5 +276,32 @@ public class UserProfileActivity extends ActionBarActivity {
         }
 
         return userType;
+    }
+
+    /**
+     * Load user profile picture.
+     */
+    public void loadImage(){
+
+        String userType = null;
+
+        if (id.charAt(0) == 'S'){
+            userType = "Staff";
+        } else if (id.charAt(0) == 'U'){
+            userType = "Supplier";
+        } else if (id.charAt(0) == 'T') {
+            userType = "Stockist";
+        }
+
+        //Load the selected staff's profile picture.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(userType);
+        query.getInBackground(objectID, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    Picasso.with(getBaseContext().getApplicationContext()).load(object.getParseFile("ProfilePic").getUrl()).noFade().into(ivProfilePic);
+                }
+            }
+        });
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.R;
+import com.example.lenovo.osc.StocksListActivity;
 import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;

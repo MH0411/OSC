@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Main.MainActivity;
+import com.example.lenovo.osc.R;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
 

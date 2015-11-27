@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Main;
 
 import android.app.Application;
 import android.util.Log;

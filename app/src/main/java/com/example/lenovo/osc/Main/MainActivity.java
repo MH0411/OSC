@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.lenovo.osc.R;
 
 
 public class MainActivity extends ActionBarActivity {

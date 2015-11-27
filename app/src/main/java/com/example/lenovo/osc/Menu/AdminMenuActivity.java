@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,9 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.osc.R;
+import com.example.lenovo.osc.RegisterUserFragment;
+import com.example.lenovo.osc.UpdateUserFragment;
+
 
 public class AdminMenuActivity extends ActionBarActivity
-        implements AdminNavigationDrawerFragment.NavigationDrawerCallbacks{
+        implements AdminNavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

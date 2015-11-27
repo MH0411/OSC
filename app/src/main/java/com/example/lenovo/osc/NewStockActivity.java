@@ -163,7 +163,7 @@ public class NewStockActivity extends ActionBarActivity {
             stock.put("Name", name);
             stock.put("Image", file);
             stock.put("Category", category);
-            stock.put("Cost", cost);
+            stock.put("Cost", Double.parseDouble(cost));
             stock.put("Price", Double.parseDouble(price));
             stock.put("Quantity", Integer.parseInt(quantity));
             stock.put("Description", description);
