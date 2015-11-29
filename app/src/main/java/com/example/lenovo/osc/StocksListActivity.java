@@ -18,7 +18,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -26,7 +25,6 @@ public class StocksListActivity extends ActionBarActivity {
 
     protected ListView lvMakeOrderStock;
     protected ProgressDialog mProgressDialog;
-    private DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +76,17 @@ public class StocksListActivity extends ActionBarActivity {
             mProgressDialog.show();
         }
 
+        /**
+         * Get stock data from parse.com
+         * @param params
+         * @return
+         */
         @Override
         protected Void doInBackground(Void... params) {
 
             mProgressDialog.dismiss();
             ParseQuery<ParseObject> stockQuery = new ParseQuery<ParseObject>("CentreStock");
+            stockQuery.include("SupplierObjectId");
             stockQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(final List<ParseObject> objects, ParseException e) {
@@ -105,7 +109,7 @@ public class StocksListActivity extends ActionBarActivity {
                                 i.putExtra("quantity", objects.get(position).getInt("Quantity"));
                                 i.putExtra("description", objects.get(position).getString("Description"));
                                 i.putExtra("location", objects.get(position).getString("Location"));
-                                i.putExtra("supplierName", objects.get(position).getParseObject("Supplier").getString("Name"));
+                                i.putExtra("supplierName", objects.get(position).getParseObject("SupplierObjectId").getString("Name"));
                                 i.putExtra("status", objects.get(position).getString("SaleStatus"));
                                 startActivity(i);
                             }

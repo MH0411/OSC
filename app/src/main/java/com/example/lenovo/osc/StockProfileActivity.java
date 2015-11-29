@@ -1,5 +1,6 @@
 package com.example.lenovo.osc;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,23 +12,27 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Main.LoginActivity;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 
-public class StockProfileActivity extends ActionBarActivity {
+public class StockProfileActivity extends ActionBarActivity{
 
     //Declaration of components and variables
     protected Spinner sStockProfileCategory;
@@ -41,6 +46,14 @@ public class StockProfileActivity extends ActionBarActivity {
     protected EditText tfStockProfileLocation;
     protected EditText tfStockProfileDescription;
     protected EditText tfStockProfileSupplierName;
+
+    //Declaration of order dialog's components
+    protected EditText tfOrderQuantity;
+    protected TextView tvOrderCost;
+    protected EditText tfOrderAmount;
+
+    protected ImageButton ibPlus;
+    protected ImageButton ibMinus;
     protected Button bEdit;
     protected Button bRemove;
     protected Button bOrder;
@@ -62,6 +75,8 @@ public class StockProfileActivity extends ActionBarActivity {
     private String status;
     private String updateSupplierName;
     private String updateSupplierObjectID;
+    private int orderQuantity;
+    private double orderAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +145,7 @@ public class StockProfileActivity extends ActionBarActivity {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     Picasso.with(getBaseContext().getApplicationContext()).load(object.getParseFile("Image").getUrl()).noFade().into(ivStockProfileImage);
+                    updateSupplierObjectID = object.getParseObject("SupplierObjectId").getObjectId();
                 }
             }
         });
@@ -160,7 +176,7 @@ public class StockProfileActivity extends ActionBarActivity {
     /**
      * Enable edit selected stock.
      */
-    public void editStock(){
+    public void editStock(View v){
         sStockProfileCategory.setFocusableInTouchMode(true);
         tfStockProfileName.setFocusableInTouchMode(true);
         tfStockProfileCost.setFocusableInTouchMode(true);
@@ -169,6 +185,7 @@ public class StockProfileActivity extends ActionBarActivity {
         tfStockProfileLocation.setFocusableInTouchMode(true);
         tfStockProfileDescription.setFocusableInTouchMode(true);
 
+        bUpdate.setVisibility(View.VISIBLE);
         bCancel.setVisibility(View.VISIBLE);
         bEdit.setVisibility(View.INVISIBLE);
         bRemove.setVisibility(View.INVISIBLE);
@@ -188,45 +205,51 @@ public class StockProfileActivity extends ActionBarActivity {
     /**
      * Update selected stock's current data.
      */
-//    public void updateStock(View v){
-//
-//        String updateName;
-//        String updateCategory;
-//        String updateCost;
-//        String updatePrice;
-//        String updateQuantity;
-//        String updateLocation;
-//        String updateDescription;
-//        String updateSupplierObjectId;
-//
-//        updateName = tfStockProfileName.getText().toString();
-//        updateCategory = sStockProfileCategory.getSelectedItem().toString();
-//        updateCost = tfStockProfileCost.getText().toString();
-//        updatePrice = tfStockProfilePrice.getText().toString();
-//        updateQuantity = tfStockProfileQuantity.getText().toString();
-//        updateLocation = tfStockProfileLocation.getText().toString();
-//        updateDescription = tfStockProfileDescription.getText().toString();
-//        updateSupplierObjectId = getIntent().getStringExtra("SupplierObjectId");
-//
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
-//        query.getInBackground(objectID, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject stock, ParseException e) {
-//                if (e == null){
-//                    stock.put("Name", updateName);
-//                    stock.put("Category", updateCategory);
-//                    stock.put("Cost", Double.parseDouble(updateCost));
-//                    stock.put("Price", Double.parseDouble(updatePrice));
-//                    stock.put("Quantity", Integer.parseInt(updateQuantity));
-//                    stock.put("Location", updateLocation);
-//                    stock.put("Description", updateDescription);
-//                    ParseObject product = ParseObject.createWithoutData("Supplier", updateSupplierObjectId);
-//                    stock.put("SupplierObjectId", product);
-//                }
-//            }
-//        });
-//
-//    }
+    public void updateStock(View v){
+
+        final String updateName;
+        final String updateCategory;
+        final String updateCost;
+        final String updatePrice;
+        final String updateQuantity;
+        final String updateLocation;
+        final String updateDescription;
+
+        updateName = tfStockProfileName.getText().toString();
+        updateCategory = sStockProfileCategory.getSelectedItem().toString();
+        updateCost = tfStockProfileCost.getText().toString();
+        updatePrice = tfStockProfilePrice.getText().toString();
+        updateQuantity = tfStockProfileQuantity.getText().toString();
+        updateLocation = tfStockProfileLocation.getText().toString();
+        updateDescription = tfStockProfileDescription.getText().toString();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
+        query.getInBackground(objectID, new GetCallback<ParseObject>() {
+            @Override
+            public void done(final ParseObject stock, ParseException e) {
+                if (e == null){
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Supplier");
+                    query.getInBackground(updateSupplierObjectID, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(final ParseObject supplier, ParseException e) {
+                            stock.put("Name", updateName);
+                            stock.put("Category", updateCategory);
+                            stock.put("Cost", Double.parseDouble(updateCost));
+                            stock.put("Price", Double.parseDouble(updatePrice));
+                            stock.put("Quantity", Integer.parseInt(updateQuantity));
+                            stock.put("Location", updateLocation);
+                            stock.put("Description", updateDescription);
+                            stock.put("SupplierObjectId", supplier);
+                        }
+                    });
+
+                }
+            }
+        });
+
+        Toast.makeText(getApplicationContext(),"Stock updated.",Toast.LENGTH_SHORT).show();
+        finish();
+    }
 
     /**
      * Remove selected stock from sale
@@ -247,7 +270,7 @@ public class StockProfileActivity extends ActionBarActivity {
                             query.getInBackground(objectID, new GetCallback<ParseObject>() {
                                 public void done(ParseObject object, ParseException e) {
                                     if (e == null) {
-                                        object.put("Status", "Not For Sale");
+                                        object.put("SaleStatus", "Not For Sale");
                                         object.saveInBackground();
 
                                         tvStockProfileStatus.setText("Not For Sale");
@@ -275,8 +298,102 @@ public class StockProfileActivity extends ActionBarActivity {
      */
     public void orderStock(View v){
 
+        //Custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.order_dialog);
+        dialog.setTitle("Order");
+
+        int defaultQuantity = 1000;
+        tfOrderQuantity = (EditText) dialog.findViewById(R.id.tfOrderQuantity);
+        tfOrderQuantity.setText(String.valueOf(defaultQuantity));
+
+        tvOrderCost = (TextView) dialog.findViewById(R.id.tvOrderCost);
+        tvOrderCost.setText("Cost: RM" + tfStockProfileCost.getText().toString());
+
+        tfOrderAmount = (EditText) dialog.findViewById(R.id.tfOrderAmount);
+        calculateAmount(defaultQuantity);
+        tfOrderAmount.setText("RM " + df.format(orderAmount));
+
+        //Add order quantity
+        ibPlus = (ImageButton) dialog.findViewById(R.id.ibPlus);
+        ibPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) + 1000;
+                tfOrderQuantity.setText(String.valueOf(orderQuantity));
+                calculateAmount(orderQuantity);
+                tfOrderAmount.setText("RM " + df.format(orderAmount));
+            }
+        });
+
+        //Minus order quantity
+        ibMinus = (ImageButton) dialog.findViewById(R.id.ibMinus);
+        ibMinus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(tfOrderQuantity.getText().toString().equalsIgnoreCase("0")){
+                } else {
+                    orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) - 1000;
+                    tfOrderQuantity.setText(String.valueOf(orderQuantity));
+                    calculateAmount(orderQuantity);
+                    tfOrderAmount.setText("RM " + df.format(orderAmount));
+                }
+            }
+        });
+
+        //Confirm the order
+        Button dbOK = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        dbOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Supplier");
+                query.getInBackground(updateSupplierObjectID, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(final ParseObject supplier, ParseException e) {
+
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Staff");
+                        query.getInBackground(LoginActivity.currentUser.getObjectID(), new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject staff, ParseException e) {
+                                Date date = new Date();
+                                ParseObject order = new ParseObject("Object");
+                                order.put("Amount", orderAmount);
+                                order.put("OrderDate", date);
+                                order.put("SupplierObjectId", supplier);
+                                order.put("StaffObjectID", staff);
+
+                                //Grant permission
+                                ParseACL acl = new ParseACL();
+                                acl.setPublicReadAccess(true);
+                                acl.setPublicWriteAccess(true);
+                                order.setACL(acl);
+                                order.saveInBackground();
+                            }
+                        });
+                    }
+                });
+                dialog.dismiss();
+
+                Toast.makeText(getApplicationContext(), "Order successful.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Cancel the order
+        Button dbCancel = (Button) dialog.findViewById(R.id.dialogButtonCancel);
+        dbCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
+    /**
+     * Select supplier from dialog.
+     */
     public void selectSupplier() {
 
         tfStockProfileSupplierName.setOnClickListener(new View.OnClickListener() {
@@ -327,5 +444,14 @@ public class StockProfileActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    /**
+     * Calculate order amount
+     * @param orderQuantity
+     */
+    public void calculateAmount(int orderQuantity){
+        double currentCost = Double.parseDouble(tfStockProfileCost.getText().toString());
+        orderAmount = orderQuantity * currentCost;
     }
 }
