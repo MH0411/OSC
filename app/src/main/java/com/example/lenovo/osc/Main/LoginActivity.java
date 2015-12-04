@@ -14,8 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Menu.AdminMenuActivity;
+import com.example.lenovo.osc.OrdersListFragment;
 import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.StocksListActivity;
 import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -168,7 +169,8 @@ public class LoginActivity extends ActionBarActivity {
                                         );
                                         //Go to admin home page
                                         if (currentUser.getStatus().equalsIgnoreCase("Admin")){
-                                            startActivity(new Intent(LoginActivity.this, StocksListActivity.class));
+                                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+
                                         }
 //                                        //Go to staff home page
                                     }
@@ -246,6 +248,7 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Company"),
                                                 object.getString("Status")
                                         );
+                                        startActivity(new Intent(LoginActivity.this, OrdersListFragment.class));
                                     }
                                 }
                             });

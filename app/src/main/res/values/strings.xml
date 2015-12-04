@@ -12,7 +12,7 @@
     <string name="title_section2">Update User</string>
     <string name="title_section3">New Stock</string>
     <string name="title_section4">Update Stock</string>
-    <string name="title_section5">Order Stock</string>
+    <string name="title_section5">View Order</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

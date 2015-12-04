@@ -1,6 +1,7 @@
 package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.osc.NewStockActivity;
+import com.example.lenovo.osc.OrdersListFragment;
 import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.RegisterUserFragment;
+import com.example.lenovo.osc.StocksListActivity;
 import com.example.lenovo.osc.UpdateUserFragment;
 
 
@@ -58,19 +62,18 @@ public class AdminMenuActivity extends ActionBarActivity
                 myFragment = new UpdateUserFragment();
                 break;
             case 2:
-                myFragment = new UpdateUserFragment();
+                startActivity(new Intent(this, NewStockActivity.class));
                 break;
             case 3:
-                myFragment = new UpdateUserFragment();
+                startActivity(new Intent(this, StocksListActivity.class));
                 break;
             case 4:
-                myFragment = new UpdateUserFragment();
+                myFragment = new OrdersListFragment();
                 break;
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, myFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, myFragment).commit();
     }
 
     public void onSectionAttached(int number) {

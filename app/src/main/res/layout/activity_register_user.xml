@@ -25,7 +25,8 @@
                 android:layout_height="180dp"
                 android:id="@+id/ivUserProfileImage"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="80dp" />
+                android:layout_marginLeft="80dp"
+                android:src="@mipmap/ic_launcher" />
 
             <RadioGroup
                 android:layout_width="wrap_content"

@@ -73,7 +73,6 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
 
         imageToUpload = (ImageView) myView.findViewById(R.id.ivUserProfileImage);
         imageToUpload.setOnClickListener(this);
-        imageToUpload = null;
 
         bRegisterSupplier = (Button) myView.findViewById(R.id.bRegisterSupplier);
         bRegisterStaff = (Button) myView.findViewById(R.id.bRegisterStaff);

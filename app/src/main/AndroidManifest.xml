@@ -31,16 +31,8 @@
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name=".RegisterUserActivity"
-            android:label="Register User" >
-        </activity>
-        <activity
             android:name=".NewStockActivity"
             android:label="New Stock" >
-        </activity>
-        <activity
-            android:name=".UsersListActivity"
-            android:label="@string/title_activity_list_view" >
         </activity>
         <activity
             android:name=".UserProfileActivity"

@@ -21,7 +21,7 @@
         android:layout_below="@+id/tfOrderAmount"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
@@ -29,15 +29,16 @@
         android:id="@+id/tfOrderQuantity"
         android:editable="true"
         android:layout_alignBottom="@+id/ibMinus"
-        android:layout_toEndOf="@+id/ibMinus" />
+        android:layout_toEndOf="@+id/dialogButtonCancel" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPlus"
         android:src="@android:drawable/arrow_up_float"
+        android:layout_marginStart="56dp"
         android:layout_alignBottom="@+id/tfOrderQuantity"
-        android:layout_toEndOf="@+id/tfOrderQuantity" />
+        android:layout_toEndOf="@+id/tvOrderQuantity" />
 
     <ImageButton
         android:layout_width="wrap_content"
