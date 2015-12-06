@@ -32,8 +32,7 @@
                     android:id="@+id/ivAddStockImage"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="0dp"
-                    android:src="@android:mipmap/sym_def_app_icon"
-                    android:onClick="uploadImage" />
+                    android:src="@android:mipmap/sym_def_app_icon"/>
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -114,13 +113,22 @@
                 android:editable="true"
                 android:singleLine="true" />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tfAddStockSupplier"
+                android:layout_gravity="center_horizontal"
+                android:hint="Supplier"
+                android:editable="true"
+                android:singleLine="true"
+                android:focusable="false"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add"
                 android:id="@+id/bAddStock"
-                android:layout_gravity="center_horizontal"
-                android:onClick="addNewStock"/>
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
     </ScrollView>

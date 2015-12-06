@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Order.OrderAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -84,7 +85,7 @@ public class OrdersListFragment extends Fragment {
                         lvOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                //Send selected stock data to StockProfileActivity.
+                                //Send selected stock data to OrderProfileFragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("objectID", objects.get(position).getObjectId());
                                 bundle.putString("name", objects.get(position).getParseObject("CentreStockObjectID").getString("Name"));

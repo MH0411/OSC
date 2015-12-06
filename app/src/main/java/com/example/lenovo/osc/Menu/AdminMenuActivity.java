@@ -1,7 +1,6 @@
 package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,11 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lenovo.osc.NewStockActivity;
+import com.example.lenovo.osc.NewStockFragment;
 import com.example.lenovo.osc.OrdersListFragment;
 import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.RegisterUserFragment;
-import com.example.lenovo.osc.StocksListActivity;
+import com.example.lenovo.osc.StocksListFragment;
 import com.example.lenovo.osc.UpdateUserFragment;
 
 
@@ -53,27 +52,27 @@ public class AdminMenuActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        Fragment myFragment = null;
+        Fragment fragment = null;
         switch (position) {
             case 0:
-                myFragment = new RegisterUserFragment();
+                fragment = new RegisterUserFragment();
                 break;
             case 1:
-                myFragment = new UpdateUserFragment();
+                fragment = new UpdateUserFragment();
                 break;
             case 2:
-                startActivity(new Intent(this, NewStockActivity.class));
+                fragment = new NewStockFragment();
                 break;
             case 3:
-                startActivity(new Intent(this, StocksListActivity.class));
+                fragment = new StocksListFragment();
                 break;
             case 4:
-                myFragment = new OrdersListFragment();
+                fragment = new OrdersListFragment();
                 break;
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, myFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 
     public void onSectionAttached(int number) {

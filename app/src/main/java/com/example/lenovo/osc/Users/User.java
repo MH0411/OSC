@@ -14,7 +14,7 @@ public class User {
     private String noTel;
     private String address;
     private String email;
-    private String company;
+    private String company = null;
     private String status;
 
     public User(String objectID, String userID, String name){

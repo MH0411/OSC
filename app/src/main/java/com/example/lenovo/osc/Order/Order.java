@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Order;
 
 /**
  * Created by Lenovo on 4/12/2015.

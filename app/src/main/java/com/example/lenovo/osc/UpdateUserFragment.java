@@ -1,7 +1,6 @@
 package com.example.lenovo.osc;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -153,21 +152,20 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(getActivity(),
-                            UserProfileActivity.class);
-                    // Pass data "name" followed by the position
-                    i.putExtra("objectID", staffList.get(position).getObjectId());
-                    i.putExtra("userID", staffList.get(position).getString("StaffID"));
-                    i.putExtra("name", staffList.get(position).getString("Name"));
-                    i.putExtra("ic", staffList.get(position).getString("IC"));
-                    i.putExtra("tel", staffList.get(position).getString("Tel"));
-                    i.putExtra("email", staffList.get(position).getString("Email"));
-                    i.putExtra("address", staffList.get(position).getString("Address"));
-                    i.putExtra("status", staffList.get(position).getString("Status"));
+                    // Send single item click data to UserProfileFragment Class
+                    Bundle bundle = new Bundle();
+                    bundle.putString("objectID", staffList.get(position).getObjectId());
+                    bundle.putString("userID", staffList.get(position).getString("StaffID"));
+                    bundle.putString("name", staffList.get(position).getString("Name"));
+                    bundle.putString("ic", staffList.get(position).getString("IC"));
+                    bundle.putString("tel", staffList.get(position).getString("Tel"));
+                    bundle.putString("email", staffList.get(position).getString("Email"));
+                    bundle.putString("address", staffList.get(position).getString("Address"));
+                    bundle.putString("status", staffList.get(position).getString("Status"));
 
-                    // Open UserProfileActivity.java Activity
-                    startActivity(i);
+                    UserProfileFragment upf = new UserProfileFragment();
+                    upf.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
                 }
             });
 
@@ -182,22 +180,21 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(getActivity(),
-                            UserProfileActivity.class);
-                    // Pass data "name" followed by the position
-                    i.putExtra("objectID", supplierList.get(position).getObjectId());
-                    i.putExtra("userID", supplierList.get(position).getString("SupplierID"));
-                    i.putExtra("name", supplierList.get(position).getString("Name"));
-                    i.putExtra("ic", supplierList.get(position).getString("IC"));
-                    i.putExtra("tel", supplierList.get(position).getString("Tel"));
-                    i.putExtra("email", supplierList.get(position).getString("Email"));
-                    i.putExtra("address", supplierList.get(position).getString("Address"));
-                    i.putExtra("company", supplierList.get(position).getString("Company"));
-                    i.putExtra("status", supplierList.get(position).getString("Status"));
+                    // Send single item click data to UserProfileFragment Class
+                    Bundle bundle = new Bundle();
+                    bundle.putString("objectID", supplierList.get(position).getObjectId());
+                    bundle.putString("userID", supplierList.get(position).getString("SupplierID"));
+                    bundle.putString("name", supplierList.get(position).getString("Name"));
+                    bundle.putString("ic", supplierList.get(position).getString("IC"));
+                    bundle.putString("tel", supplierList.get(position).getString("Tel"));
+                    bundle.putString("email", supplierList.get(position).getString("Email"));
+                    bundle.putString("address", supplierList.get(position).getString("Address"));
+                    bundle.putString("company", supplierList.get(position).getString("Company"));
+                    bundle.putString("status", supplierList.get(position).getString("Status"));
 
-                    // Open UserProfileActivity.java Activity
-                    startActivity(i);
+                    UserProfileFragment upf = new UserProfileFragment();
+                    upf.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
                 }
             });
 
@@ -212,21 +209,20 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // Send single item click data to UserProfileActivity Class
-                    Intent i = new Intent(getActivity(),
-                            UserProfileActivity.class);
-                    // Pass data "name" followed by the position
-                    i.putExtra("objectID", stockistList.get(position).getObjectId());
-                    i.putExtra("userID", stockistList.get(position).getString("StockistID"));
-                    i.putExtra("name", stockistList.get(position).getString("Name"));
-                    i.putExtra("ic", stockistList.get(position).getString("IC"));
-                    i.putExtra("tel", stockistList.get(position).getString("Tel"));
-                    i.putExtra("email", stockistList.get(position).getString("Email"));
-                    i.putExtra("address", stockistList.get(position).getString("Address"));
-                    i.putExtra("status", stockistList.get(position).getString("Status"));
+                    // Send single item click data to UserProfileFragment Class
+                    Bundle bundle = new Bundle();
+                    bundle.putString("objectID", stockistList.get(position).getObjectId());
+                    bundle.putString("userID", stockistList.get(position).getString("StockistID"));
+                    bundle.putString("name", stockistList.get(position).getString("Name"));
+                    bundle.putString("ic", stockistList.get(position).getString("IC"));
+                    bundle.putString("tel", stockistList.get(position).getString("Tel"));
+                    bundle.putString("email", stockistList.get(position).getString("Email"));
+                    bundle.putString("address", stockistList.get(position).getString("Address"));
+                    bundle.putString("status", stockistList.get(position).getString("Status"));
 
-                    // Open UserProfileActivity.java Activity
-                    startActivity(i);
+                    UserProfileFragment upf = new UserProfileFragment();
+                    upf.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
                 }
             });
         }

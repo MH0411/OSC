@@ -176,8 +176,7 @@
                     android:layout_height="wrap_content"
                     android:text="Edit"
                     android:id="@+id/bEditStock"
-                    android:layout_alignParentLeft="true"
-                    android:onClick="editStock"/>
+                    android:layout_alignParentLeft="true"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -185,7 +184,6 @@
                     android:text="Update"
                     android:id="@+id/bUpdateStock"
                     android:layout_alignParentLeft="true"
-                    android:onClick="updateStock"
                     android:visibility="invisible"/>
 
                 <Button
@@ -193,16 +191,14 @@
                     android:layout_height="wrap_content"
                     android:text="Remove"
                     android:id="@+id/bRemoveStock"
-                    android:layout_centerInParent="true"
-                    android:onClick="removeStockFromSale"/>
+                    android:layout_centerInParent="true"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order"
                     android:id="@+id/bOrderStock"
-                    android:layout_alignParentRight="true"
-                    android:onClick="orderStock"/>
+                    android:layout_alignParentRight="true"/>
 
                 <Button
                     android:layout_width="wrap_content"

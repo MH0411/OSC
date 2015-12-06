@@ -3,26 +3,30 @@ package com.example.lenovo.osc;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
-
-public class UserProfileActivity extends ActionBarActivity {
+/**
+ * Created by Lenovo on 6/12/2015.
+ */
+public class UserProfileFragment extends Fragment implements View.OnClickListener {
 
     protected TextView tvUserID;
     protected TextView tvStatus;
@@ -38,97 +42,92 @@ public class UserProfileActivity extends ActionBarActivity {
     protected Button bCancelEdit;
     protected ImageView ivProfilePic;
 
-    private String objectID;
-    private String id;
-    private String status;
-    private String name;
-    private String ic;
-    private String tel;
-    private String email;
-    private String address;
-    private String company;
+    private User user;
 
+    View view;
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_user_profile, container, false);
 
-        bEditUser = (Button)findViewById(R.id.bProfileEdit);
-        bRemoveUser = (Button)findViewById(R.id.bProfileRemove);
-        bConfirmEdit = (Button)findViewById(R.id.bProfileConfirm);
-        bCancelEdit = (Button)findViewById(R.id.bProfileCancel);
+        bEditUser = (Button) view.findViewById(R.id.bProfileEdit);
+        bEditUser.setOnClickListener(this);
+        bRemoveUser = (Button) view.findViewById(R.id.bProfileRemove);
+        bRemoveUser.setOnClickListener(this);
+        bConfirmEdit = (Button) view.findViewById(R.id.bProfileConfirm);
+        bConfirmEdit.setOnClickListener(this);
+        bCancelEdit = (Button) view.findViewById(R.id.bProfileCancel);
+        bCancelEdit.setOnClickListener(this);
 
-        Intent i = getIntent();
+        user = new User(
+                getArguments().getString("objectID"),
+                getArguments().getString("userID"),
+                getArguments().getString("status"),
+                getArguments().getString("name"),
+                getArguments().getString("ic"),
+                getArguments().getString("tel"),
+                getArguments().getString("email"),
+                getArguments().getString("address"),
+                getArguments().getString("company")
+        );
 
-        objectID = i.getStringExtra("objectID");
-        id = i.getStringExtra("userID");
-        status = i.getStringExtra("status");
-        name = i.getStringExtra("name");
-        ic = i.getStringExtra("ic");
-        tel = i.getStringExtra("tel");
-        email = i.getStringExtra("email");
-        address = i.getStringExtra("address");
-        company = i.getStringExtra("company");
+        ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);
+        tvUserID = (TextView) view.findViewById(R.id.tvProfileUserID);
+        tvStatus = (TextView) view.findViewById(R.id.tvProfileStatus);
+        tfName = (EditText) view.findViewById(R.id.tfProfileName);
+        tfIC = (EditText) view.findViewById(R.id.tfProfileIC);
+        tfTel = (EditText) view.findViewById(R.id.tfProfileTel);
+        tfEmail = (EditText) view.findViewById(R.id.tfProfileEmail);
+        tfAddress = (EditText) view.findViewById(R.id.tfProfileAddress);
+        tfCompany = (EditText) view.findViewById(R.id.tfProfileCompany);
 
-        ivProfilePic = (ImageView)findViewById(R.id.ivProfilePic);
-        tvUserID = (TextView)findViewById(R.id.tvProfileUserID);
-        tvStatus = (TextView)findViewById(R.id.tvProfileStatus);
-        tfName = (EditText)findViewById(R.id.tfProfileName);
-        tfIC = (EditText)findViewById(R.id.tfProfileIC);
-        tfTel = (EditText)findViewById(R.id.tfProfileTel);
-        tfEmail = (EditText)findViewById(R.id.tfProfileEmail);
-        tfAddress = (EditText)findViewById(R.id.tfProfileAddress);
-        tfCompany = (EditText)findViewById(R.id.tfProfileCompany);
+        tvUserID.setText(user.getUserID());
+        tvStatus.setText(user.getStatus());
+        tfName.setText(user.getName());
+        tfIC.setText(user.getNoIC());
+        tfTel.setText(user.getNoTel());
+        tfEmail.setText(user.getEmail());
+        tfAddress.setText(user.getAddress());
 
-        tvUserID.setText(id);
-        tvStatus.setText(status);
-        tfName.setText(name);
-        tfIC.setText(ic);
-        tfTel.setText(tel);
-        tfEmail.setText(email);
-        tfAddress.setText(address);
-
-        if (company != null){
+        if (user.getCompany() != null){
             tfCompany.setVisibility(View.VISIBLE);
-            tfCompany.setText(company);
+            tfCompany.setText(user.getCompany());
         }
 
         loadImage();
+
+        return view;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_profile, menu);
-        return true;
-    }
+    public void onClick(View v) {
+        switch (v.getId()){
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.bProfileEdit:
+                editUser();
+                break;
+            case R.id.bProfileRemove:
+                removeUser();
+                break;
+            case R.id.bProfileConfirm:
+                confirm();
+                break;
+            case R.id.bProfileCancel:
+                cancel();
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
      * Enable user data to update.
-     * @param view
      */
-    public void editUser(View view){
+    public void editUser(){
         tfName.setFocusableInTouchMode(true);
         tfTel.setFocusableInTouchMode(true);
         tfEmail.setFocusableInTouchMode(true);
         tfAddress.setFocusableInTouchMode(true);
 
-        if (company !=null)
+        if (user.getCompany() !=null)
             tfCompany.setFocusableInTouchMode(true);
 
         bEditUser.setVisibility(View.INVISIBLE);
@@ -139,14 +138,13 @@ public class UserProfileActivity extends ActionBarActivity {
 
     /**
      * Deactive a user.
-     * @param view
      */
-    public void removeUser(View view){
+    public void removeUser(){
 
-        if (status.equalsIgnoreCase("Admin")){
-            Toast.makeText(getApplicationContext(), "Admin cannot be remove.", Toast.LENGTH_SHORT).show();
-        } else if (status.equalsIgnoreCase("Inactive")){
-            Toast.makeText(getApplicationContext(),"User has been removed.", Toast.LENGTH_SHORT).show();
+        if (user.getStatus().equalsIgnoreCase("Admin")){
+            Toast.makeText(getActivity(), "Admin cannot be remove.", Toast.LENGTH_SHORT).show();
+        } else if (user.getStatus().equalsIgnoreCase("Inactive")){
+            Toast.makeText(getActivity(),"User has been removed.", Toast.LENGTH_SHORT).show();
         } else {
 
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -156,15 +154,15 @@ public class UserProfileActivity extends ActionBarActivity {
                         case DialogInterface.BUTTON_POSITIVE:
                             //Do your Yes progress
                             ParseQuery<ParseObject> query = ParseQuery.getQuery(determineUser());
-                            query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                            query.getInBackground(user.getObjectID(), new GetCallback<ParseObject>() {
                                 public void done(ParseObject user, ParseException e) {
                                     if (e == null) {
                                         user.put("Status", "Inactive");
                                         user.saveInBackground();
 
                                         tvStatus.setText("Inactive");
-                                        Toast.makeText(getApplicationContext(),"User removed.", Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        Toast.makeText(getActivity(),"User removed.", Toast.LENGTH_SHORT).show();
+                                        getActivity().finish();
                                     }
                                 }
                             });
@@ -176,7 +174,7 @@ public class UserProfileActivity extends ActionBarActivity {
                     }
                 }
             };
-            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            AlertDialog.Builder ab = new AlertDialog.Builder(getActivity());
             ab.setMessage("Are you sure to remove?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         }
@@ -184,9 +182,8 @@ public class UserProfileActivity extends ActionBarActivity {
 
     /**
      * Confirm the change.
-     * @param view
      */
-    public void confirm(View view){
+    public void confirm(){
 
         final String updateName;
         final String updateTel;
@@ -209,11 +206,11 @@ public class UserProfileActivity extends ActionBarActivity {
             tfEmail.setError(error);
         } else if (TextUtils.isEmpty(updateAddress)){
             tfAddress.setError(error);
-        } else if (company != null && TextUtils.isEmpty(updateCompany)){
+        } else if (user.getCompany() != null && TextUtils.isEmpty(updateCompany)){
             tfCompany.setError(error);
         } else {
             ParseQuery<ParseObject> query = ParseQuery.getQuery(determineUser());
-            query.getInBackground(objectID, new GetCallback<ParseObject>() {
+            query.getInBackground(user.getObjectID(), new GetCallback<ParseObject>() {
                 public void done(ParseObject user, ParseException e) {
                     if (e == null) {
                         user.put("Name", updateName);
@@ -221,9 +218,9 @@ public class UserProfileActivity extends ActionBarActivity {
                         user.put("Email", updateEmail);
                         user.put("Address", updateAddress);
 
-                        if (company != null) {
-                                user.put("Company", updateCompany);
-                                tfCompany.setFocusableInTouchMode(false);
+                        if (updateCompany != null) {
+                            user.put("Company", updateCompany);
+                            tfCompany.setFocusableInTouchMode(false);
                         }
                         user.saveInBackground();
 
@@ -237,8 +234,8 @@ public class UserProfileActivity extends ActionBarActivity {
                         bConfirmEdit.setVisibility(View.INVISIBLE);
                         bCancelEdit.setVisibility(View.INVISIBLE);
 
-                        Toast.makeText(getApplicationContext(), "User updated.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(UserProfileActivity.this, UpdateUserFragment.class));
+                        Toast.makeText(getActivity(), "User updated.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), UpdateUserFragment.class));
                     }
                 }
             });
@@ -247,12 +244,11 @@ public class UserProfileActivity extends ActionBarActivity {
 
     /**
      * Cancel the update
-     * @param view
      */
-    public void cancel(View view){
-        Intent intent = getIntent();
+    public void cancel(){
+        Intent intent = getActivity().getIntent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
+        getActivity().finish();
         startActivity(intent);
     }
 
@@ -264,14 +260,14 @@ public class UserProfileActivity extends ActionBarActivity {
 
         String userType ;
 
-        if (id.charAt(0) == 'S'){
+        if (user.getUserID().charAt(0) == 'S'){
             userType = "Staff";
-        } else if (id.charAt(0) == 'U'){
+        } else if (user.getUserID().charAt(0) == 'U'){
             userType = "Supplier";
-        } else if (id.charAt(0) == 'T'){
+        } else if (user.getUserID().charAt(0) == 'T'){
             userType = "Stockist";
         } else {
-            Toast.makeText(getApplicationContext(),"User does not exist.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"User does not exist.", Toast.LENGTH_SHORT).show();
             userType = null;
         }
 
@@ -283,23 +279,13 @@ public class UserProfileActivity extends ActionBarActivity {
      */
     public void loadImage(){
 
-        String userType = null;
-
-        if (id.charAt(0) == 'S'){
-            userType = "Staff";
-        } else if (id.charAt(0) == 'U'){
-            userType = "Supplier";
-        } else if (id.charAt(0) == 'T') {
-            userType = "Stockist";
-        }
-
         //Load the selected staff's profile picture.
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(userType);
-        query.getInBackground(objectID, new GetCallback<ParseObject>() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(determineUser());
+        query.getInBackground(user.getObjectID(), new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Picasso.with(getBaseContext().getApplicationContext()).load(object.getParseFile("ProfilePic").getUrl()).noFade().into(ivProfilePic);
+                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseFile("ProfilePic").getUrl()).noFade().into(ivProfilePic);
                 }
             }
         });
