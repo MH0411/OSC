@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.AdminFragment;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.Order.OrderAdapter;
+import com.example.lenovo.osc.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

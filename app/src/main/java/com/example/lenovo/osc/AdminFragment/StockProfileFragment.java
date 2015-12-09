@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.AdminFragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.Main.LoginActivity;
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.Stock;
 import com.parse.FindCallback;
 import com.parse.GetCallback;

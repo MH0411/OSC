@@ -15,8 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.Menu.AdminMenuActivity;
-import com.example.lenovo.osc.OrdersListFragment;
+import com.example.lenovo.osc.Menu.StaffMenuActivity;
 import com.example.lenovo.osc.R;
+import com.example.lenovo.osc.SupplierOrderListActivity;
 import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -168,11 +169,11 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Status")
                                         );
                                         //Go to admin home page
-                                        if (currentUser.getStatus().equalsIgnoreCase("Admin")){
+                                        if (currentUser.getStatus().equalsIgnoreCase("Admin"))
                                             startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
-
-                                        }
-//                                        //Go to staff home page
+                                        //Go to staff home page
+                                        else
+                                            startActivity(new Intent(LoginActivity.this, StaffMenuActivity.class));
                                     }
                                 }
                             });
@@ -248,7 +249,7 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Company"),
                                                 object.getString("Status")
                                         );
-                                        startActivity(new Intent(LoginActivity.this, OrdersListFragment.class));
+                                        startActivity(new Intent(LoginActivity.this, SupplierOrderListActivity.class));
                                     }
                                 }
                             });

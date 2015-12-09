@@ -15,19 +15,16 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.osc.AdminFragment.NewStockFragment;
 import com.example.lenovo.osc.AdminFragment.OrdersListFragment;
-import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.AdminFragment.RegisterUserFragment;
 import com.example.lenovo.osc.AdminFragment.StocksListFragment;
-import com.example.lenovo.osc.AdminFragment.UpdateUserFragment;
+import com.example.lenovo.osc.R;
 
-
-public class AdminMenuActivity extends ActionBarActivity
-        implements AdminNavigationDrawerFragment.NavigationDrawerCallbacks {
+public class StaffMenuActivity extends ActionBarActivity
+        implements StaffNavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private AdminNavigationDrawerFragment mNavigationDrawerFragment;
+    private StaffNavigationDrawerFragment mStaffNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -37,14 +34,14 @@ public class AdminMenuActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_menu);
+        setContentView(R.layout.activity_staff_menu);
 
-        mNavigationDrawerFragment = (AdminNavigationDrawerFragment)
+        mStaffNavigationDrawerFragment = (StaffNavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
+        mStaffNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
@@ -55,18 +52,12 @@ public class AdminMenuActivity extends ActionBarActivity
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new RegisterUserFragment();
-                break;
-            case 1:
-                fragment = new UpdateUserFragment();
-                break;
-            case 2:
                 fragment = new NewStockFragment();
                 break;
-            case 3:
+            case 1:
                 fragment = new StocksListFragment();
                 break;
-            case 4:
+            case 2:
                 fragment = new OrdersListFragment();
                 break;
         }
@@ -78,18 +69,12 @@ public class AdminMenuActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
-            case 4:
+            case 2:
                 mTitle = getString(R.string.title_section4);
                 break;
-            case 5:
+            case 3:
                 mTitle = getString(R.string.title_section5);
                 break;
         }
@@ -105,11 +90,11 @@ public class AdminMenuActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mStaffNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.admin_menu, menu);
+            getMenuInflater().inflate(R.menu.staff_menu, menu);
             restoreActionBar();
             return true;
         }
@@ -159,14 +144,14 @@ public class AdminMenuActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_admin_menu, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_staff_menu, container, false);
             return rootView;
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((AdminMenuActivity) activity).onSectionAttached(
+            ((StaffMenuActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }

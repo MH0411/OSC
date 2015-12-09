@@ -50,6 +50,18 @@
             android:name=".Menu.AdminMenuActivity"
             android:label="@string/title_activity_admin_menu" >
         </activity>
+        <activity
+            android:name=".Menu.StaffMenuActivity"
+            android:label="@string/title_activity_staff_menu" >
+        </activity>
+        <activity
+            android:name=".SupplierOrderListActivity"
+            android:label="@string/title_activity_supplier_order_list" >
+        </activity>
+        <activity
+            android:name=".SupplierOrderProfileActivity"
+            android:label="@string/title_activity_supplier_order_profile" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ public class Order {
     private double amount;
     private String orderDate;
     private String receiveDate = null;
-
+    private String deliverDate = null;
 
     public Order(String objectId, String name, int quantity, double amount, String orderDate, String receiveDate) {
         this.objectId = objectId;
@@ -68,5 +68,13 @@ public class Order {
 
     public void setReceiveDate(String receiveDate) {
         this.receiveDate = receiveDate;
+    }
+
+    public String getDeliverDate() {
+        return deliverDate;
+    }
+
+    public void setDeliverDate(String deliverDate) {
+        this.deliverDate = deliverDate;
     }
 }

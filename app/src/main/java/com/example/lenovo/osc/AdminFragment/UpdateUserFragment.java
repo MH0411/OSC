@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.AdminFragment;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Users.User;
 import com.example.lenovo.osc.Users.UserAdapter;
 import com.parse.ParseObject;

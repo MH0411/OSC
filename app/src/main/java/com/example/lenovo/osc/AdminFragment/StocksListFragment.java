@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.AdminFragment;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.StockAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -30,7 +31,7 @@ public class StocksListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_new_stock, container, false);
+        view = inflater.inflate(R.layout.activity_stocks_list, container, false);
 
         lvMakeOrderStock = (ListView) view.findViewById(R.id.lvMakeOrderStock);
         new LoadStockFromParse().execute();

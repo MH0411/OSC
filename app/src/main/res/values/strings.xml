@@ -29,6 +29,9 @@
     <string name="title_activity_admin_menu">AdminMenuActivity</string>
 
     <string name="action_example">Example action</string>
+    <string name="title_activity_staff_menu">StaffMenuActivity</string>
+    <string name="title_activity_supplier_order_list">SupplierOrderListActivity</string>
+    <string name="title_activity_supplier_order_profile">SupplierOrderProfileActivity</string>
 
     <!--<string name="action_example">Example action</string>-->
 </resources>

@@ -12,7 +12,6 @@ import com.example.lenovo.osc.R;
 import com.parse.ParseObject;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -22,7 +21,6 @@ public class OrderAdapter extends ArrayAdapter<ParseObject> {
 
     private Context context;
     private List<ParseObject> orderList;
-    private DecimalFormat df = new DecimalFormat("#.00");
 
     public OrderAdapter(Context context, List<ParseObject> orderList) {
 
@@ -52,7 +50,7 @@ public class OrderAdapter extends ArrayAdapter<ParseObject> {
         //get the image
         Picasso.with(getContext().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(holder.stockImage);
         holder.tvOrderName.setText(orderList.get(position).getParseObject("CentreStockObjectID").getString("Name"));
-        holder.tvOrderQuantity.setText(String.valueOf(orderList.get(position).getInt("Quantity")));
+        holder.tvOrderQuantity.setText(String.valueOf(orderList.get(position).getInt("Quantity")) + " units");
         holder.tvOrderID.setText(orderList.get(position).getObjectId());
         return convertView;
     }
