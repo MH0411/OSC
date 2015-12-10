@@ -2,12 +2,13 @@ package com.example.lenovo.osc.Main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.KeyListener;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +17,15 @@ import android.widget.Toast;
 
 import com.example.lenovo.osc.Menu.AdminMenuActivity;
 import com.example.lenovo.osc.Menu.StaffMenuActivity;
+import com.example.lenovo.osc.Menu.StockistMenuActivity;
 import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.SupplierOrderListActivity;
+import com.example.lenovo.osc.SupplierFunction.SupplierOrderListActivity;
 import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -39,28 +40,99 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Check if current logged out
+        if (prefs.getString("loginState", "").equalsIgnoreCase("true")) {
+
+            //Navigate to activity
+            if (prefs.getString("userId", "").charAt(0) == 'S'){
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Staff");
+                query.whereEqualTo("StaffID", prefs.getString("userId", ""));
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        currentUser = new User(
+                                object.getObjectId(),
+                                object.getString("StaffID"),
+                                object.getString("Password"),
+                                object.getString("Name"),
+                                object.getString("IC"),
+                                object.getString("Tel"),
+                                object.getString("Email"),
+                                object.getString("Address"),
+                                object.getString("Status")
+                        );
+                        if (currentUser.getStatus().equalsIgnoreCase("Admin"))
+                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                        else
+                            startActivity(new Intent(LoginActivity.this, StaffMenuActivity.class));
+
+                        finish();
+                    };
+                });
+
+            } else if (prefs.getString("userId", "").charAt(0) == 'T'){
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Stockist");
+                query.whereEqualTo("StockistID", prefs.getString("userId", ""));
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        currentUser = new User(
+                                object.getObjectId(),
+                                object.getString("StaffID"),
+                                object.getString("Password"),
+                                object.getString("Name"),
+                                object.getString("IC"),
+                                object.getString("Tel"),
+                                object.getString("Email"),
+                                object.getString("Address"),
+                                object.getString("Status")
+                        );
+
+                        startActivity(new Intent(LoginActivity.this, StockistMenuActivity.class));
+                        finish();
+                    };
+                });
+
+            } else if (prefs.getString("userId", "").charAt(0) == 'U'){
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Supplier");
+                query.whereEqualTo("SupplierID", prefs.getString("userId", ""));
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        currentUser = new User(
+                                object.getObjectId(),
+                                object.getString("SupplierID"),
+                                object.getString("Password"),
+                                object.getString("Name"),
+                                object.getString("IC"),
+                                object.getString("Tel"),
+                                object.getString("Email"),
+                                object.getString("Address"),
+                                object.getString("Company"),
+                                object.getString("Status")
+                        );
+
+                        startActivity(new Intent(LoginActivity.this, SupplierOrderListActivity.class));
+                        finish();
+                    };
+                });
+            }
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
+
+        menu.findItem(R.id.action_logout).setVisible(false);
+
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -152,9 +224,8 @@ public class LoginActivity extends ActionBarActivity {
                                     } else {
                                         //Associate the device with a user
                                         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                        installation.put("userID", object.getObjectId());
+                                        installation.put("userID", object);
                                         installation.saveInBackground();
-                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
                                         currentUser = new User(
@@ -174,6 +245,9 @@ public class LoginActivity extends ActionBarActivity {
                                         //Go to staff home page
                                         else
                                             startActivity(new Intent(LoginActivity.this, StaffMenuActivity.class));
+
+                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     }
                                 }
                             });
@@ -195,7 +269,7 @@ public class LoginActivity extends ActionBarActivity {
                                     } else {
                                         //Associate the device with a user
                                         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                        installation.put("userID", object.getObjectId());
+                                        installation.put("userID", object);
                                         installation.saveInBackground();
                                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
@@ -211,6 +285,8 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Address"),
                                                 object.getString("Status")
                                         );
+                                        startActivity(new Intent(LoginActivity.this, StockistMenuActivity.class));
+                                        finish();
                                     }
                                 }
                             });
@@ -232,7 +308,7 @@ public class LoginActivity extends ActionBarActivity {
                                     } else {
                                         //Associate the device with a user
                                         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                                        installation.put("userID", object.getObjectId());
+                                        installation.put("userID", object);
                                         installation.saveInBackground();
                                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
@@ -250,6 +326,7 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Status")
                                         );
                                         startActivity(new Intent(LoginActivity.this, SupplierOrderListActivity.class));
+                                        finish();
                                     }
                                 }
                             });
@@ -261,5 +338,9 @@ public class LoginActivity extends ActionBarActivity {
                 }
             }
         }
+    }
+
+    public void register(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 }

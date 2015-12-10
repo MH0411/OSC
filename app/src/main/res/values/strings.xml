@@ -13,25 +13,28 @@
     <string name="title_section3">New Stock</string>
     <string name="title_section4">Update Stock</string>
     <string name="title_section5">View Order</string>
+    <string name="title_section6">Phone</string>
+    <string name="title_section7">Keyboard</string>
+    <string name="title_section8">Headphone</string>
+    <string name="title_section9"></string>
+    <string name="title_section10"></string>
+    <string name="title_section11"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_register_user">RegisterUserActivity</string>
+    <string name="title_activity_register_user">Register User</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_remove_user">RemoveUserActivity</string>
-    <string name="title_activity_new_stock">NewStockActivity</string>
-    <string name="title_activity_user_list">UserListActivity</string>
-    <string name="title_activity_list_view">ListViewActivity</string>
-    <string name="title_activity_user_profile">UserProfileActivity</string>
-    <string name="title_activity_make_order">MakeOrderActivity</string>
-    <string name="title_activity_stock_profile">StockProfileActivity</string>
-    <string name="title_activity_admin_menu">AdminMenuActivity</string>
+    <string name="title_activity_new_stock">New Stock</string>
+    <string name="title_activity_user_list">User List</string>
+    <string name="title_activity_user_profile">User Profile</string>
+    <string name="title_activity_make_order">Order</string>
+    <string name="title_activity_stock_profile">Stock</string>
+    <string name="title_activity_admin_menu">Menu</string>
 
-    <string name="action_example">Example action</string>
-    <string name="title_activity_staff_menu">StaffMenuActivity</string>
-    <string name="title_activity_supplier_order_list">SupplierOrderListActivity</string>
-    <string name="title_activity_supplier_order_profile">SupplierOrderProfileActivity</string>
-
-    <!--<string name="action_example">Example action</string>-->
+    <string name="action_example"></string>
+    <string name="title_activity_staff_menu">Menu</string>
+    <string name="title_activity_supplier_order_list">Order List</string>
+    <string name="title_activity_supplier_order_profile">Order</string>
+    <string name="title_activity_stockist_menu">Menu</string>
 </resources>

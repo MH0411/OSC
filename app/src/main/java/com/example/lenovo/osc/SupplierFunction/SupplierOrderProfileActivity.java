@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.SupplierFunction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.Order.Order;
+import com.example.lenovo.osc.R;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -81,7 +83,9 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return true;
         }
 

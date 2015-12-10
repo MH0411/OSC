@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/ivStockOnSaleImage"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Name"
+        android:id="@+id/tvStockOnSaleName"
+        android:layout_below="@+id/ivStockOnSaleImage"
+        android:layout_alignStart="@+id/ivStockOnSaleImage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price"
+        android:id="@+id/tvStockOnSalePrice"
+        android:layout_below="@+id/tvStockOnSaleName"
+        android:layout_alignStart="@+id/tvStockOnSaleName" />
+</RelativeLayout>

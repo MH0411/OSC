@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.lenovo.osc.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -203,6 +204,13 @@ public class NewStockFragment extends Fragment implements View.OnClickListener{
                     stock.put("Description", description);
                     stock.put("Location", location);
                     stock.put("SupplierObjectID", object);
+
+                    //Grant permission
+                    ParseACL acl = new ParseACL();
+                    acl.setPublicReadAccess(true);
+                    acl.setPublicWriteAccess(true);
+                    stock.setACL(acl);
+
                     stock.saveInBackground();
 
                     Toast.makeText(getActivity(), "Stock Registered.", Toast.LENGTH_SHORT).show();

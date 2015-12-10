@@ -1,7 +1,10 @@
 package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.lenovo.osc.AdminFragment.NewStockFragment;
 import com.example.lenovo.osc.AdminFragment.OrdersListFragment;
 import com.example.lenovo.osc.AdminFragment.StocksListFragment;
+import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.R;
 
 public class StaffMenuActivity extends ActionBarActivity
@@ -30,6 +34,8 @@ public class StaffMenuActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +115,11 @@ public class StaffMenuActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            prefs.edit().putString("userId", "").commit();
+            prefs.edit().putString("loginState", "false").commit();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
 
@@ -156,4 +166,11 @@ public class StaffMenuActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putString("userId", LoginActivity.currentUser.getUserID()).commit();
+        prefs.edit().putString("loginState", "true").commit();
+        moveTaskToBack(true);
+    }
 }

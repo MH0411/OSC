@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.lenovo.osc.Main.MainActivity;
 import com.example.lenovo.osc.R;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
@@ -36,6 +35,7 @@ public class RegisterActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_register, menu);
+        menu.findItem(R.id.action_logout).setVisible(false);
         return true;
     }
 
@@ -44,12 +44,6 @@ public class RegisterActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -107,7 +101,7 @@ public class RegisterActivity extends ActionBarActivity {
             //Save data
             regUser.saveInBackground();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             Toast.makeText(getApplicationContext(), "Register Successful.", Toast.LENGTH_SHORT).show();
         }
     }

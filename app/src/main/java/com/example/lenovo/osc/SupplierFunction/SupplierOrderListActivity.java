@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.SupplierFunction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.Order.OrderAdapter;
+import com.example.lenovo.osc.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -51,7 +52,9 @@ public class SupplierOrderListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return true;
         }
 
