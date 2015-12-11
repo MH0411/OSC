@@ -7,14 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.Order.Order;
 import com.example.lenovo.osc.R;
 import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -29,6 +32,7 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
     protected TextView tvOrderAmount;
     protected TextView tvOrderDate;
     protected TextView tvReceiveDate;
+    protected ImageView ivOrderProfileStockImage;
     protected Button bOk;
 
     private Order order;
@@ -45,6 +49,7 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
         tvOrderAmount = (TextView) view.findViewById(R.id.tvOrderProfileAmount);
         tvOrderDate = (TextView) view.findViewById(R.id.tvOrderProfileOrderDate);
         tvReceiveDate = (TextView) view.findViewById(R.id.tvOrderProfileReceiveDate);
+        ivOrderProfileStockImage = (ImageView) view.findViewById(R.id.ivOrderProfileStockImage);
         bOk = (Button) view.findViewById(R.id.bOrderOk);
         bOk.setOnClickListener(this);
 
@@ -67,6 +72,18 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
             bOk.setText("Receive");
         } else
             tvReceiveDate.setText(order.getReceiveDate().toString());
+
+        //Load the selected stock's image.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreOrder");
+        query.include("CentreStockObjectID");
+        query.getInBackground(order.getObjectId(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(ivOrderProfileStockImage);
+                }
+            }
+        });
 
         return view;
     }

@@ -8,7 +8,8 @@
         android:layout_height="200dp"
         android:id="@+id/ivSupplierOrderStockImage"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -20,7 +20,7 @@
                 android:layout_height="200dp"
                 android:id="@+id/ivOrderProfileStockImage"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView

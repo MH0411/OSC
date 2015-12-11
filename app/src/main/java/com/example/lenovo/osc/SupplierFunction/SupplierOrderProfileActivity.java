@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +15,10 @@ import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.Order.Order;
 import com.example.lenovo.osc.R;
 import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -28,6 +31,7 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
     protected TextView tvOrderAmount;
     protected TextView tvOrderDate;
     protected TextView tvDeliverDate;
+    protected ImageView ivSupplierOrderStockImage;
     protected Button bOk;
 
     private Order order;
@@ -43,6 +47,7 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
         tvOrderAmount = (TextView) findViewById(R.id.tvSupplierOrderProfileAmount);
         tvOrderDate = (TextView) findViewById(R.id.tvSupplierOrderProfileOrderDate);
         tvDeliverDate = (TextView) findViewById(R.id.tvSupplierOrderProfileDeliverDate);
+        ivSupplierOrderStockImage = (ImageView) findViewById(R.id.ivSupplierOrderStockImage);
         bOk = (Button) findViewById(R.id.bSupplierOrderOk);
 
         Intent i = getIntent();
@@ -66,6 +71,18 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
             bOk.setText("Deliver");
         } else
             tvDeliverDate.setText(order.getDeliverDate());
+
+        //Load the selected stock's image.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreOrder");
+        query.include("CentreStockObjectID");
+        query.getInBackground(order.getObjectId(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    Picasso.with(getApplication().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(ivSupplierOrderStockImage);
+                }
+            }
+        });
     }
 
     @Override

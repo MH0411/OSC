@@ -1,18 +1,28 @@
 package com.example.lenovo.osc.Main;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lenovo.osc.R;
+import com.parse.GetCallback;
 import com.parse.ParseACL;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class RegisterActivity extends ActionBarActivity {
@@ -24,11 +34,42 @@ public class RegisterActivity extends ActionBarActivity {
     protected EditText tfTel;
     protected EditText tfEmail;
     protected EditText tfAddress;
+    protected ImageView imageToUpload;
+
+    private static final int RESULT_LOAD_IMAGE = 1;
+    private String stockistID;
+    private String name;
+    private String password;
+    private String ic;
+    private String tel;
+    private String email;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        tfStockistID = (EditText) findViewById(R.id.tfRegStockistID);
+        tfName = (EditText) findViewById(R.id.tfRegName);
+        tfPassword = (EditText) findViewById(R.id.tfRegPassword);
+        tfIC = (EditText) findViewById(R.id.tfRegIC);
+        tfTel = (EditText) findViewById(R.id.tfRegTel);
+        tfEmail = (EditText) findViewById(R.id.tfRegEmail);
+        tfAddress = (EditText) findViewById(R.id.tfRegAddress);
+        imageToUpload = (ImageView) findViewById(R.id.ivRegisterStockist);
+
+        //Set stockist ID
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Stockist");
+        query.orderByDescending("createdAt");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                String tempID = object.getString("StockistID");
+                String newID = "S" + (Integer.parseInt(tempID.substring(1, tempID.length())) + 1 + " (User ID) ");
+                tfStockistID.setText(newID);
+            }
+        });
     }
 
     @Override
@@ -50,21 +91,13 @@ public class RegisterActivity extends ActionBarActivity {
 
     public void register(View view) {
 
-        tfStockistID = (EditText) findViewById(R.id.tfRegStockistID);
-        tfName = (EditText) findViewById(R.id.tfRegName);
-        tfPassword = (EditText) findViewById(R.id.tfRegPassword);
-        tfIC = (EditText) findViewById(R.id.tfRegIC);
-        tfTel = (EditText) findViewById(R.id.tfRegTel);
-        tfEmail = (EditText) findViewById(R.id.tfRegEmail);
-        tfAddress = (EditText) findViewById(R.id.tfRegAddress);
-
-        String stockistID = tfStockistID.getText().toString();
-        String name = tfName.getText().toString();
-        String password = tfPassword.getText().toString();
-        String ic = tfIC.getText().toString();
-        String tel = tfTel.getText().toString();
-        String email = tfEmail.getText().toString();
-        String address = tfAddress.getText().toString();
+        stockistID = tfStockistID.getText().toString();
+        name = tfName.getText().toString();
+        password = tfPassword.getText().toString();
+        ic = tfIC.getText().toString();
+        tel = tfTel.getText().toString();
+        email = tfEmail.getText().toString();
+        address = tfAddress.getText().toString();
 
         if (TextUtils.isEmpty(stockistID)) {
             tfStockistID.setError("This field cannot be empty.");
@@ -85,6 +118,7 @@ public class RegisterActivity extends ActionBarActivity {
             ParseObject regUser = new ParseObject("Stockist");
             regUser.put("StockistID", stockistID);
             regUser.put("Name", name);
+            regUser.put("ProfilePic", convertImage());
             regUser.put("Password", password);
             regUser.put("IC", ic);
             regUser.put("Tel", tel);
@@ -103,6 +137,43 @@ public class RegisterActivity extends ActionBarActivity {
 
             startActivity(new Intent(this, LoginActivity.class));
             Toast.makeText(getApplicationContext(), "Register Successful.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Convert selected image to bytes
+     * @return
+     */
+    public ParseFile convertImage(){
+        Bitmap bitmap = ((BitmapDrawable) imageToUpload.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+        ParseFile file = new ParseFile(name + ".png", image);
+        file.saveInBackground();
+        return file;
+    }
+
+    /**
+     * Go to gallery select image
+     * @param v
+     */
+    public void uploadImage(View v){
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+    }
+
+    /**
+     * Set image from gallery
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+            imageToUpload.setImageURI(data.getData());
         }
     }
 }
