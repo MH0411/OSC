@@ -1,6 +1,7 @@
 package com.example.lenovo.osc;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.lenovo.osc.Stocks.StockOnSaleAdapter;
 import com.parse.FindCallback;
@@ -81,21 +81,17 @@ public class StocksOnSaleFragment extends Fragment {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 //Send selected stock data to StockProfileFragment.
-                                Bundle bundle = new Bundle();
 
-                                bundle.putString("objectID", objects.get(position).getObjectId());
-                                bundle.putString("stockID", objects.get(position).getString("CentreStockID"));
-                                bundle.putString("name", objects.get(position).getString("Name"));
-                                bundle.putString("category", objects.get(position).getString("Category"));
-                                bundle.putDouble("price", objects.get(position).getDouble("Price"));
-                                bundle.putInt("quantity", objects.get(position).getInt("Quantity"));
-                                bundle.putString("description", objects.get(position).getString("Description"));
-                                bundle.putString("status", objects.get(position).getString("SaleStatus"));
-                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
-//
-//                                StockProfileFragment spf = new StockProfileFragment();
-//                                spf.setArguments(bundle);
-//                                getFragmentManager().beginTransaction().replace(R.id.container, spf).addToBackStack(null).commit();
+                                Intent i = new Intent(getActivity(), StockDetailActivity.class);
+
+                                i.putExtra("objectID", objects.get(position).getObjectId());
+                                i.putExtra("stockID", objects.get(position).getString("CentreStockID"));
+                                i.putExtra("name", objects.get(position).getString("Name"));
+                                i.putExtra("price", objects.get(position).getDouble("Price"));
+                                i.putExtra("quantity", objects.get(position).getInt("Quantity"));
+                                i.putExtra("description", objects.get(position).getString("Description"));
+
+                                startActivity(i);
                             }
                         });
                     }

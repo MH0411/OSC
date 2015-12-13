@@ -2,7 +2,6 @@ package com.example.lenovo.osc.AdminFragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -70,6 +69,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
     private String updateSupplierName;
     private String updateSupplierObjectID;
     private int orderQuantity;
+    private ArrayAdapter<String> adapter;
     private double orderAmount;
     private Stock stock;
 
@@ -106,7 +106,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                 "Category", "Phone", "Tablet", "Laptop", "Mouse", "Keyboard", "Headphone", "Speaker",
                 "Console", "Processor", "Other"
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, spinnerCategory);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, spinnerCategory);
         sStockProfileCategory.setAdapter(adapter);
 
         //Get data from previous activity
@@ -124,30 +124,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                 getArguments().getString("status")
         );
 
-        //Set text
-        int position = adapter.getPosition(stock.getCategory());
-        sStockProfileCategory.setSelection(position);
-        tvStockProfileID.setText(stock.getStockID());
-        tvStockProfileStatus.setText(stock.getStatus());
-        tfStockProfileName.setText(stock.getName());
-        tfStockProfileCost.setText(df.format(stock.getCost()));
-        tfStockProfilePrice.setText(df.format(stock.getPrice()));
-        tfStockProfileQuantity.setText(String.valueOf(stock.getQuantity()));
-        tfStockProfileLocation.setText(stock.getLocation());
-        tfStockProfileDescription.setText(stock.getDescription());
-        tfStockProfileSupplierName.setText(stock.getSupplierName());
-
-        //Load the selected stock's image.
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
-        query.getInBackground(stock.getObjectID(), new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseFile("Image").getUrl()).noFade().into(ivStockProfileImage);
-                    updateSupplierObjectID = object.getParseObject("SupplierObjectId").getObjectId();
-                }
-            }
-        });
+        setContent();
 
         return view;
     }
@@ -163,12 +140,12 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                 updateStock();
                 break;
             case R.id.bCancelUpdateStock:
-                cancelUpdateStock();
+                setContent();
                 break;
             case R.id.bRemoveStock:
                 removeStockFromSale();
                 break;
-            case R.id.bOrderOk:
+            case R.id.bOrderStock:
                 orderStock();
                 break;
             case R.id.tfStockProfileSupplierName:
@@ -194,16 +171,6 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
         bEdit.setVisibility(View.INVISIBLE);
         bRemove.setVisibility(View.INVISIBLE);
         bOrder.setVisibility(View.INVISIBLE);
-    }
-
-    /**
-     * Cancel update stock's data.
-     */
-    public void cancelUpdateStock() {
-        Intent intent = getActivity().getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        getActivity().finish();
-        startActivity(intent);
     }
 
     /**
@@ -252,7 +219,6 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
         });
 
         Toast.makeText(getActivity(), "Stock updated.", Toast.LENGTH_SHORT).show();
-        getActivity().finish();
     }
 
     /**
@@ -468,5 +434,35 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
     public void calculateAmount(int orderQuantity) {
         double currentCost = Double.parseDouble(tfStockProfileCost.getText().toString());
         orderAmount = orderQuantity * currentCost;
+    }
+
+    /**
+     * Set current page content
+     */
+    public void setContent(){
+        //Set text
+        int position = adapter.getPosition(stock.getCategory());
+        sStockProfileCategory.setSelection(position);
+        tvStockProfileID.setText(stock.getStockID());
+        tvStockProfileStatus.setText(stock.getStatus());
+        tfStockProfileName.setText(stock.getName());
+        tfStockProfileCost.setText(df.format(stock.getCost()));
+        tfStockProfilePrice.setText(df.format(stock.getPrice()));
+        tfStockProfileQuantity.setText(String.valueOf(stock.getQuantity()));
+        tfStockProfileLocation.setText(stock.getLocation());
+        tfStockProfileDescription.setText(stock.getDescription());
+        tfStockProfileSupplierName.setText(stock.getSupplierName());
+
+        //Load the selected stock's image.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CentreStock");
+        query.getInBackground(stock.getObjectID(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseFile("Image").getUrl()).noFade().into(ivStockProfileImage);
+                    updateSupplierObjectID = object.getParseObject("SupplierObjectId").getObjectId();
+                }
+            }
+        });
     }
 }

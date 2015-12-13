@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
-
+    compile 'com.paypal.sdk:paypal-android-sdk:2.12.4'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
     compile 'com.squareup.picasso:picasso:2.5.2'

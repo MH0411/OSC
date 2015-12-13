@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lenovo.osc.AdminFragment.UpdateUserFragment;
 import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Users.User;
 import com.parse.GetCallback;
@@ -164,7 +163,6 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
 
                                         tvStatus.setText("Inactive");
                                         Toast.makeText(getActivity(),"User removed.", Toast.LENGTH_SHORT).show();
-                                        getActivity().finish();
                                     }
                                 }
                             });

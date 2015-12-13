@@ -24,7 +24,7 @@ public class OrderAdapter extends ArrayAdapter<ParseObject> {
 
     public OrderAdapter(Context context, List<ParseObject> orderList) {
 
-        super(context, R.layout.orders_list_view, orderList);
+        super(context, R.layout.orders_list_single_view, orderList);
 
         this.context = context;
         this.orderList = orderList;
@@ -35,7 +35,7 @@ public class OrderAdapter extends ArrayAdapter<ParseObject> {
 
         final ViewHolder holder;
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.orders_list_view, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.orders_list_single_view, null);
             holder = new ViewHolder();
             holder.stockImage = (ImageView) convertView.findViewById(R.id.ivOrderListImage);
             holder.tvOrderName = (TextView) convertView.findViewById(R.id.tvOrderListName);

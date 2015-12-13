@@ -46,6 +46,18 @@
             android:name=".Menu.StockistMenuActivity"
             android:label="@string/title_activity_stockist_menu" >
         </activity>
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:label="@string/title_activity_shopping_cart" >
+        </activity>
+        <activity
+            android:name=".StockDetailActivity"
+            android:label="@string/title_activity_stock_detail" >
+        </activity>
+        <activity
+            android:name=".PaymentActivity"
+            android:label="@string/title_activity_payment" >
+        </activity>
     </application>
 
 </manifest>

@@ -129,9 +129,7 @@ public class LoginActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
-
         menu.findItem(R.id.action_logout).setVisible(false);
-
         return true;
     }
 

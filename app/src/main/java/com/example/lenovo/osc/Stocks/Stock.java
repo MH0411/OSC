@@ -1,9 +1,14 @@
 package com.example.lenovo.osc.Stocks;
 
+import com.example.lenovo.osc.Saleable;
+
+import java.io.Serializable;
+
 /**
  * Created by Lenovo on 6/12/2015.
  */
-public class Stock {
+public class Stock implements Saleable, Serializable {
+    private static final long serialVersionUID = -4073256626483275668L;
 
     private String objectID;
     private String stockID;
@@ -30,6 +35,34 @@ public class Stock {
         this.description = description;
         this.supplierName = supplierName;
         this.status = status;
+    }
+
+    public Stock(String objectID, String stockID, String name, Double price, int quantity, String description) {
+        this.objectID = objectID;
+        this.stockID = stockID;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof Stock)) return false;
+
+        return (this.stockID == ((Stock) o).getStockID());
+    }
+
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 1;
+        hash = hash * prime + (stockID == null ? 0 : stockID.hashCode());
+        hash = hash * prime + (name == null ? 0 : name.hashCode());
+        hash = hash * prime + (price == null ? 0 : price.hashCode());
+        hash = hash * prime + (description == null ? 0 : description.hashCode());
+
+        return hash;
     }
 
     public String getObjectID() {

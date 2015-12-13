@@ -26,7 +26,7 @@ public class StockOnSaleAdapter extends ArrayAdapter<ParseObject> {
 
     public StockOnSaleAdapter(Context context, List<ParseObject> stockList) {
 
-        super(context, R.layout.stock_on_sale_list_view, stockList);
+        super(context, R.layout.stock_on_sale_list_single_view, stockList);
 
         this.context = context;
         this.stockList = stockList;
@@ -37,7 +37,7 @@ public class StockOnSaleAdapter extends ArrayAdapter<ParseObject> {
 
         final ViewHolder holder;
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.stock_on_sale_list_view, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.stock_on_sale_list_single_view, null);
             holder = new ViewHolder();
             holder.stockImage = (ImageView) convertView.findViewById(R.id.ivStockOnSaleImage);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvStockOnSaleName);

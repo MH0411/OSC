@@ -66,7 +66,8 @@ public class RegisterActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 String tempID = object.getString("StockistID");
-                String newID = "S" + (Integer.parseInt(tempID.substring(1, tempID.length())) + 1 + " (User ID) ");
+                Toast.makeText(getApplication(), tempID, Toast.LENGTH_SHORT).show();
+                String newID = "T" + (Integer.parseInt(tempID.substring(1, tempID.length())) + 1);
                 tfStockistID.setText(newID);
             }
         });
@@ -131,11 +132,11 @@ public class RegisterActivity extends ActionBarActivity {
             acl.setPublicReadAccess(true);
             acl.setPublicWriteAccess(true);
             regUser.setACL(acl);
-
             //Save data
             regUser.saveInBackground();
 
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             Toast.makeText(getApplicationContext(), "Register Successful.", Toast.LENGTH_SHORT).show();
         }
     }

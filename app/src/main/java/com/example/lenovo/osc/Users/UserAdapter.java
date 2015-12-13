@@ -22,7 +22,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     public UserAdapter(UpdateUserFragment context, ArrayList<User> usersArrayList) {
 
-        super(context.getActivity(), R.layout.user_list_view, usersArrayList);
+        super(context.getActivity(), R.layout.user_list_single_view, usersArrayList);
 
         this.context = context;
         this.usersArrayList = usersArrayList;
@@ -36,7 +36,7 @@ public class UserAdapter extends ArrayAdapter<User> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater
-        View rowView = inflater.inflate(R.layout.user_list_view, parent, false);
+        View rowView = inflater.inflate(R.layout.user_list_single_view, parent, false);
 
         // 3. Get the two text view from the rowView
         TextView textView = (TextView) rowView.findViewById(R.id.tvListUserID);

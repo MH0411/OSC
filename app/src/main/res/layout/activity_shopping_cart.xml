@@ -1,0 +1,95 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/tvCartHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:text="Shopping Cart"
+        android:textAllCaps="true"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/lvCartItems"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/llTotal"
+        android:layout_below="@id/tvCartHeader"/>
+
+    <LinearLayout
+        android:id="@+id/llTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/llBot"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tvTotalPrice1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:gravity="center_vertical|end"
+            android:text="Total Price RM"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvTotalPrice2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text=""
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/llBot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/bClear"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="Clear cart"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:onClick="clear"/>
+
+        <Button
+            android:id="@+id/bShop"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="Shop"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:onClick="shop"/>
+
+        <Button
+            android:id="@+id/bPurchase"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="Buy"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:onClick="purchase"/>
+    </LinearLayout>
+</RelativeLayout>
