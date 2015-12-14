@@ -104,6 +104,17 @@ public class StockistNavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
+                        getString(R.string.all),
+                        getString(R.string.phone),
+                        getString(R.string.tablet),
+                        getString(R.string.mouse),
+                        getString(R.string.keyboard),
+                        getString(R.string.headphone),
+                        getString(R.string.speaker),
+                        getString(R.string.console),
+                        getString(R.string.processor),
+                        getString(R.string.other),
+                        getString(R.string.stockistOrder),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

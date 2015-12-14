@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Cart;
 
 import com.example.lenovo.osc.Stocks.Stock;
 

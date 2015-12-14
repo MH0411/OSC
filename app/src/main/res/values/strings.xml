@@ -8,17 +8,22 @@
     <string name="title_activity_oscapplication"></string>
     <string name="title_activity_menu"></string>
 
-    <string name="title_section1">New User</string>
-    <string name="title_section2">Update User</string>
-    <string name="title_section3">New Stock</string>
-    <string name="title_section4">Update Stock</string>
-    <string name="title_section5">View Order</string>
-    <string name="title_section6">Phone</string>
-    <string name="title_section7">Keyboard</string>
-    <string name="title_section8">Headphone</string>
-    <string name="title_section9"></string>
-    <string name="title_section10"></string>
-    <string name="title_section11"></string>
+    <string name="newUser">New User</string>
+    <string name="updateUser">Update User</string>
+    <string name="newStock">New Stock</string>
+    <string name="updateStock">Update Stock</string>
+    <string name="supplierOrder">Supplier Order</string>
+    <string name="stockistOrder">Stockist Order</string>
+    <string name="all">All</string>
+    <string name="phone">Phone</string>
+    <string name="tablet">Tablet</string>
+    <string name="mouse">Mouse</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="headphone">Headphone</string>
+    <string name="speaker">Speaker</string>
+    <string name="console">Console</string>
+    <string name="processor">Processor</string>
+    <string name="other">Other</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -40,4 +45,5 @@
     <string name="title_activity_shopping_cart">Shopping Cart</string>
     <string name="title_activity_stock_detail">Stock Detail</string>
     <string name="title_activity_payment">PaymentActivity</string>
+    <string name="title_activity_single_order_stock_list">SingleOrderStockListActivity</string>
 </resources>

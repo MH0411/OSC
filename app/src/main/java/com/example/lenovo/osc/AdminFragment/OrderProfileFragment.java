@@ -80,7 +80,9 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(ivOrderProfileStockImage);
+                    Picasso.with(getActivity().getApplicationContext()).
+                            load(object.getParseObject("CentreStockObjectID").getParseFile("Image").
+                                    getUrl()).noFade().into(ivOrderProfileStockImage);
                 }
             }
         });
@@ -108,7 +110,8 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
                         }
                     });
                 }
-                getFragmentManager().beginTransaction().replace(R.id.container, new OrdersListFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().
+                        replace(R.id.container, new OrdersListFragment()).addToBackStack(null).commit();
                 break;
         }
     }

@@ -184,7 +184,8 @@ public class LoginActivity extends ActionBarActivity {
             //check empty fields
             if (userID.matches("") || password.matches("")) {
 
-                Toast.makeText(getApplicationContext(), "Please fill all empty fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please fill all empty fields",
+                        Toast.LENGTH_SHORT).show();
                 count++;
 
             } else {
@@ -193,7 +194,8 @@ public class LoginActivity extends ActionBarActivity {
                 for (int index = 0; index < userID.length(); index++) {
                     if (userID.charAt(index) == ' ') {
 
-                        Toast.makeText(getApplicationContext(), "UserID cannot contains spaces", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "UserID cannot contains spaces",
+                                Toast.LENGTH_SHORT).show();
                         count++;
                         break;
 
@@ -217,11 +219,13 @@ public class LoginActivity extends ActionBarActivity {
 
                                     dialog.dismiss();
                                     if (object == null){
-                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",
+                                                Toast.LENGTH_SHORT).show();
                                         count++;
                                     } else {
                                         //Associate the device with a user
-                                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                        ParseInstallation installation =
+                                                ParseInstallation.getCurrentInstallation();
                                         installation.put("userID", object);
                                         installation.saveInBackground();
 
@@ -239,12 +243,16 @@ public class LoginActivity extends ActionBarActivity {
                                         );
                                         //Go to admin home page
                                         if (currentUser.getStatus().equalsIgnoreCase("Admin"))
-                                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                                            startActivity(new Intent(LoginActivity.this,
+                                                    AdminMenuActivity.class));
                                         //Go to staff home page
                                         else
-                                            startActivity(new Intent(LoginActivity.this, StaffMenuActivity.class));
+                                            startActivity(new Intent(LoginActivity.this,
+                                                    StaffMenuActivity.class));
 
-                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Welcome " + currentUser.getName(),
+                                                Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                                 }
@@ -262,14 +270,15 @@ public class LoginActivity extends ActionBarActivity {
 
                                     dialog.dismiss();
                                     if (object == null){
-                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",
+                                                Toast.LENGTH_SHORT).show();
                                         count++;
                                     } else {
                                         //Associate the device with a user
-                                        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                        ParseInstallation installation =
+                                                ParseInstallation.getCurrentInstallation();
                                         installation.put("userID", object);
                                         installation.saveInBackground();
-                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
                                         currentUser = new User(
@@ -283,7 +292,11 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Address"),
                                                 object.getString("Status")
                                         );
-                                        startActivity(new Intent(LoginActivity.this, StockistMenuActivity.class));
+                                        Toast.makeText(getApplicationContext(),
+                                                "Welcome " + currentUser.getName(),
+                                                Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this,
+                                                StockistMenuActivity.class));
                                         finish();
                                     }
                                 }
@@ -301,14 +314,14 @@ public class LoginActivity extends ActionBarActivity {
 
                                     dialog.dismiss();
                                     if (object == null){
-                                        Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Login Failed.",
+                                                Toast.LENGTH_SHORT).show();
                                         count++;
                                     } else {
                                         //Associate the device with a user
                                         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
                                         installation.put("userID", object);
                                         installation.saveInBackground();
-                                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
 
                                         //Set user data in user class.
                                         currentUser = new User(
@@ -323,13 +336,19 @@ public class LoginActivity extends ActionBarActivity {
                                                 object.getString("Company"),
                                                 object.getString("Status")
                                         );
-                                        startActivity(new Intent(LoginActivity.this, SupplierOrderListActivity.class));
+
+                                        Toast.makeText(getApplicationContext(),
+                                                "Welcome " + currentUser.getName(),
+                                                Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this,
+                                                SupplierOrderListActivity.class));
                                         finish();
                                     }
                                 }
                             });
                         } else {
-                            Toast.makeText(getApplicationContext(),"Login Failed.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Login Failed.",
+                                    Toast.LENGTH_SHORT).show();
                             count++;
                         }
                     }

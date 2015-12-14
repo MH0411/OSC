@@ -104,9 +104,10 @@ public class StaffNavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
-                        getString(R.string.title_section3),
-                        getString(R.string.title_section4),
-                        getString(R.string.title_section5)
+                        getString(R.string.newStock),
+                        getString(R.string.updateStock),
+                        getString(R.string.supplierOrder),
+                        getString(R.string.stockistOrder)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

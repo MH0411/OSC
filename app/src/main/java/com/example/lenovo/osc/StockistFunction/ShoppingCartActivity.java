@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.StockistFunction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,18 +12,29 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.osc.Cart.Cart;
+import com.example.lenovo.osc.Cart.CartHelper;
+import com.example.lenovo.osc.Cart.CartItem;
+import com.example.lenovo.osc.Cart.CartItemAdapter;
+import com.example.lenovo.osc.Cart.Saleable;
+import com.example.lenovo.osc.Main.LoginActivity;
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.Stock;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
-import com.paypal.android.sdk.payments.ShippingAddress;
 
 import org.json.JSONException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +46,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private static final String TAG1 = "PayPal Payment";
     private  static final  int REQUEST_CODE_PAYMENT = 1 ;
     final CartItemAdapter cartItemAdapter = new CartItemAdapter(this);;
+    private List<CartItem> cartItems;
+    private ArrayList<ParseObject> items = new ArrayList<ParseObject>();
+    private ArrayList soldQuantity = new ArrayList();
 
     protected TextView tvTotalPrice;
     protected ListView lvCartItems;
 
+    /**
+     * Configure the paypal
+     */
     private static PayPalConfiguration config = new PayPalConfiguration()
 
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
@@ -78,7 +95,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     private List<CartItem> getCartItems(Cart cart) {
-        List<CartItem> cartItems = new ArrayList<CartItem>();
+        cartItems = new ArrayList<CartItem>();
         Log.d(TAG, "Current shopping cart: " + cart);
 
         Map<Saleable, Integer> itemMap = (Map<Saleable, Integer>) cart.getItemWithQuantity();
@@ -94,7 +111,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
         return cartItems;
     }
 
-    /* Create the PayPalPayment object and launch the PaymentActivity intent, for example, when a button is pressed */
+    /**
+     * Create the PayPalPayment object and launch the PaymentActivity intent, for example,
+     * when a button is pressed
+     **/
     public void purchase(View v) {
         // PAYMENT_INTENT_SALE will cause the payment to complete immediately.
         // Change PAYMENT_INTENT_SALE to
@@ -120,8 +140,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         };
         Thread thr = new Thread(run);
         thr.start();
-
-        Toast.makeText(getApplication(), cart.getTotalPrice().toString(), Toast.LENGTH_LONG).show();
     }
 
 
@@ -133,24 +151,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     //this need to change to what item that list in list view
     private PayPalPayment getThingToBuy(String paymentIntent) {
-//        //--- include an item list, payment amount details
-//        List<PayPalItem> items = new ArrayList<PayPalItem>();
-//        int i = 0;
-//        while (getCartItems(cart).get(i) != null) {
-//            items.add(new PayPalItem(getCartItems(cart).get(i).getStock().getName(),
-//                    getCartItems(cart).get(i).getQuantity(),
-//                    new BigDecimal(getCartItems(cart).get(i).getStock().getPrice()),"testing","testing"));
-//
-//            i++;
-//        }
         BigDecimal subtotal = new BigDecimal(cart.getTotalPrice().toString());
-//        BigDecimal shipping = new BigDecimal("7.21");
-//        BigDecimal tax = new BigDecimal("4.67");
-//        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
-//        BigDecimal amount = subtotal.add(shipping).add(tax);
-//        PayPalPayment payment = new PayPalPayment(amount, "MYR", "Total payment >>", paymentIntent);
         PayPalPayment payment= new PayPalPayment(subtotal, "MYR", "Total payment :", paymentIntent);
-//        payment.items(items).paymentDetails(paymentDetails);
 
         //--- set other optional fields like invoice_number, custom field, and soft_descriptor
         payment.custom("This is text that will be associated with the payment that the app can use.");
@@ -158,22 +160,22 @@ public class ShoppingCartActivity extends AppCompatActivity {
         return payment;
     }
 
-    /*
-     * Add app-provided shipping address to payment
-     */
-    private void addAppProvidedShippingAddress(PayPalPayment paypalPayment) {
-        ShippingAddress shippingAddress =
-                new ShippingAddress().recipientName("Mom Parker").line1("52 North Main St.")
-                        .city("Austin").state("TX").postalCode("78729").countryCode("US");
-        paypalPayment.providedShippingAddress(shippingAddress);
-    }
-
-    /*
-     * Enable retrieval of shipping addresses from buyer's PayPal account
-     */
-    private void enableShippingAddressRetrieval(PayPalPayment paypalPayment, boolean enable) {
-        paypalPayment.enablePayPalShippingAddressesRetrieval(enable);
-    }
+//    /*
+//     * Add app-provided shipping address to payment
+//     */
+//    private void addAppProvidedShippingAddress(PayPalPayment paypalPayment) {
+//        ShippingAddress shippingAddress =
+//                new ShippingAddress().recipientName("Mom Parker").line1("52 North Main St.")
+//                        .city("Austin").state("TX").postalCode("78729").countryCode("US");
+//        paypalPayment.providedShippingAddress(shippingAddress);
+//    }
+//
+//    /*
+//     * Enable retrieval of shipping addresses from buyer's PayPal account
+//     */
+//    private void enableShippingAddressRetrieval(PayPalPayment paypalPayment, boolean enable) {
+//        paypalPayment.enablePayPalShippingAddressesRetrieval(enable);
+//    }
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -182,22 +184,61 @@ public class ShoppingCartActivity extends AppCompatActivity {
             if (confirm != null) {
                 try {
                     Log.i(TAG1, confirm.toJSONObject().toString(4));
-                    Toast.makeText(getApplication(), "hi1", Toast.LENGTH_LONG).show();
                     // TODO: send 'confirm' to your server for verification.
-                    getThingToBuy(cart.getTotalPrice().toString());
 
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Stockist");
+                    query.getInBackground(LoginActivity.currentUser.getObjectID(),
+                            new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject stockist, ParseException e) {
+                            if (e == null) {
+                                //Create a sale
+                                Date date = new Date();
+                                final ParseObject sale = new ParseObject("Sale");
+                                sale.put("TotalPrice", cart.getTotalPrice());
+                                sale.put("DateTime", date);
+                                sale.put("StockistObjectID", stockist);
+
+                                //Loop to add item into items array to store in parse
+                                for (int i = 0; i < getCartItems(cart).size(); i++) {
+                                    //Update centre stock
+                                    ParseQuery query = ParseQuery.getQuery("CentreStock");
+                                    final int finalI = i;
+                                    query.getInBackground(cartItems.get(i).getStock().getObjectID()
+                                            , new GetCallback<ParseObject>() {
+                                        @Override
+                                        public void done(final ParseObject object, ParseException e) {
+                                            object.put("Quantity", object.getNumber("Quantity").intValue()
+                                                    - cartItems.get(finalI).getQuantity());
+                                            object.saveInBackground();
+                                        }
+                                    });
+
+                                    ParseObject stock = ParseObject.createWithoutData("CentreStock",
+                                            cartItems.get(i).getStock().getObjectID());
+
+                                    soldQuantity.add(cartItems.get(i).getQuantity());
+                                    items.add(stock);
+                                }
+                                sale.put("Quantity", soldQuantity);
+                                sale.put("Stocks", items);
+                                sale.saveInBackground();
+
+                                Toast.makeText(getApplication(), "Payment done", Toast.LENGTH_SHORT).show();
+                                cart.clear();
+                                finish();
+                            }
+                        }
+                    });
                 } catch (JSONException e) {
                     Log.e(TAG1, "an extremely unlikely failure occurred: ", e);
-                    Toast.makeText(getApplication(), "hi2", Toast.LENGTH_LONG).show();
                 }
             }
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(getApplication(), "hi3", Toast.LENGTH_LONG).show();
             Log.i(TAG1, "The user canceled.");
         }
         else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            Toast.makeText(getApplication(), "hi4", Toast.LENGTH_LONG).show();
             Log.i(TAG1, "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
         }
     }

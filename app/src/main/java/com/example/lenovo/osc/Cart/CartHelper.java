@@ -1,4 +1,6 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Cart;
+
+import com.example.lenovo.osc.Cart.Cart;
 
 /**
  * Created by amidalilah on 08-Dec-15.

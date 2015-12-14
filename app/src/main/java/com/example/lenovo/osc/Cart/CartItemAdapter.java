@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Cart;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.lenovo.osc.R;
 
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +83,8 @@ public class CartItemAdapter extends BaseAdapter {
         public final TextView tvCartItemQuantity;
         public final TextView tvCartItemPrice;
 
-        public ViewHolder(TextView tvCartItemName, TextView tvCartItemUnitPrice, TextView tvCartItemQuantity, TextView tvCartItemPrice) {
+        public ViewHolder(TextView tvCartItemName, TextView tvCartItemUnitPrice,
+                          TextView tvCartItemQuantity, TextView tvCartItemPrice) {
             this.tvCartItemName = tvCartItemName;
             this.tvCartItemUnitPrice = tvCartItemUnitPrice;
             this.tvCartItemQuantity = tvCartItemQuantity;

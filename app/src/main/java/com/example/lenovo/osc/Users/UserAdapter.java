@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.AdminFragment.UpdateUserFragment;
+import com.example.lenovo.osc.AdminFragment.UserListFragment;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ import java.util.ArrayList;
  */
 public class UserAdapter extends ArrayAdapter<User> {
 
-    private final UpdateUserFragment context;
+    private final UserListFragment context;
     private final ArrayList<User> usersArrayList;
 
-    public UserAdapter(UpdateUserFragment context, ArrayList<User> usersArrayList) {
+    public UserAdapter(UserListFragment context, ArrayList<User> usersArrayList) {
 
         super(context.getActivity(), R.layout.user_list_single_view, usersArrayList);
 

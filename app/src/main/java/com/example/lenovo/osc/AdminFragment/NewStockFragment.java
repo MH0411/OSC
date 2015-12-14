@@ -76,7 +76,8 @@ public class NewStockFragment extends Fragment implements View.OnClickListener{
                 "Console", "Processor", "Other"
         };
         sCategory = (Spinner) view.findViewById(R.id.sCategory);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, spinnerCategory);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, spinnerCategory);
         sCategory.setAdapter(adapter);
 
         imageToUpload = (ImageView) view.findViewById(R.id.ivAddStockImage);

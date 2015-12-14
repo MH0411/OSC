@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.Order.OrderAdapter;
@@ -86,7 +85,8 @@ public class SupplierOrderListActivity extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             mProgressDialog.dismiss();
 
-            ParseObject object = ParseObject.createWithoutData("Supplier", LoginActivity.currentUser.getObjectID());
+            ParseObject object = ParseObject.createWithoutData("Supplier",
+                    LoginActivity.currentUser.getObjectID());
 
             final ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("CentreOrder");
             orderQuery.include("SupplierObjectId");
@@ -98,27 +98,32 @@ public class SupplierOrderListActivity extends ActionBarActivity {
                 @Override
                 public void done(final List<ParseObject> objects, final ParseException e) {
                     if (e == null) {
-                        OrderAdapter adapterOrder = new OrderAdapter(SupplierOrderListActivity.this, objects);
+                        OrderAdapter adapterOrder =
+                                new OrderAdapter(SupplierOrderListActivity.this, objects);
                         lvSupplierOrderList.setAdapter(adapterOrder);
-                        lvSupplierOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        lvSupplierOrderList.setOnItemClickListener(
+                                new AdapterView.OnItemClickListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            public void onItemClick
+                                    (AdapterView<?> parent, View view, int position, long id) {
                                 //Send selected stock data to OrderProfileFragment
-                                Intent i = new Intent(SupplierOrderListActivity.this, SupplierOrderProfileActivity.class);
+                                Intent i = new Intent(SupplierOrderListActivity.this,
+                                        SupplierOrderProfileActivity.class);
 
                                 i.putExtra("objectID", objects.get(position).getObjectId());
-                                i.putExtra("name", objects.get(position).getParseObject("CentreStockObjectID").getString("Name"));
+                                i.putExtra("name", objects.get(position).
+                                        getParseObject("CentreStockObjectID").getString("Name"));
                                 i.putExtra("quantity", objects.get(position).getInt("Quantity"));
                                 i.putExtra("amount", objects.get(position).getInt("Amount"));
-                                i.putExtra("orderDate", objects.get(position).getDate("OrderDate").toString());
+                                i.putExtra("orderDate", objects.get(position).getDate("OrderDate").
+                                        toString());
                                 if (objects.get(position).getDate("DeliverDate") != null)
-                                    i.putExtra("deliverDate", objects.get(position).getDate("DeliverDate").toString());
+                                    i.putExtra("deliverDate", objects.get(position).
+                                            getDate("DeliverDate").toString());
 
                                 startActivity(i);
                             }
                         });
-                    } else {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             });

@@ -79,7 +79,9 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Picasso.with(getApplication().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(ivSupplierOrderStockImage);
+                    Picasso.with(getApplication().getApplicationContext()).load(object.
+                            getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).
+                            noFade().into(ivSupplierOrderStockImage);
                 }
             }
         });
@@ -121,7 +123,8 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
 
                         object.put("DeliverDate", new Date());
                         object.saveInBackground();
-                        Toast.makeText(getApplicationContext(), "Order delivered.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Order delivered.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });

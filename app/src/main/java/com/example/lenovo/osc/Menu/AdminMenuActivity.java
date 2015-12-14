@@ -20,7 +20,7 @@ import com.example.lenovo.osc.AdminFragment.NewStockFragment;
 import com.example.lenovo.osc.AdminFragment.OrdersListFragment;
 import com.example.lenovo.osc.AdminFragment.RegisterUserFragment;
 import com.example.lenovo.osc.AdminFragment.StocksListFragment;
-import com.example.lenovo.osc.AdminFragment.UpdateUserFragment;
+import com.example.lenovo.osc.AdminFragment.UserListFragment;
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.R;
 
@@ -64,7 +64,7 @@ public class AdminMenuActivity extends ActionBarActivity
                 fragment = new RegisterUserFragment();
                 break;
             case 1:
-                fragment = new UpdateUserFragment();
+                fragment = new UserListFragment();
                 break;
             case 2:
                 fragment = new NewStockFragment();
@@ -84,20 +84,22 @@ public class AdminMenuActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.newUser);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.updateUser);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.newStock);
                 break;
             case 4:
-                mTitle = getString(R.string.title_section4);
+                mTitle = getString(R.string.updateStock);
                 break;
             case 5:
-                mTitle = getString(R.string.title_section5);
+                mTitle = getString(R.string.supplierOrder);
                 break;
+            case 6:
+                mTitle = getString(R.string.stockistOrder);
         }
     }
 

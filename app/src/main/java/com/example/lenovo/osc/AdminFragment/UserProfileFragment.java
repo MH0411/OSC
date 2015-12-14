@@ -162,7 +162,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                                         user.saveInBackground();
 
                                         tvStatus.setText("Inactive");
-                                        Toast.makeText(getActivity(),"User removed.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(),"User removed.",
+                                                Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -235,7 +236,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                         bCancelEdit.setVisibility(View.INVISIBLE);
 
                         Toast.makeText(getActivity(), "User updated.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity(), UpdateUserFragment.class));
+                        startActivity(new Intent(getActivity(), UserListFragment.class));
                     }
                 }
             });
@@ -285,7 +286,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Picasso.with(getActivity().getApplicationContext()).load(object.getParseFile("ProfilePic").getUrl()).noFade().into(ivProfilePic);
+                    Picasso.with(getActivity().getApplicationContext()).load(object.
+                            getParseFile("ProfilePic").getUrl()).noFade().into(ivProfilePic);
                 }
             }
         });

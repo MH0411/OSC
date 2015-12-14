@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by Lenovo on 24/11/2015.
  */
-public class UpdateUserFragment extends Fragment implements View.OnClickListener {
+public class UserListFragment extends Fragment implements View.OnClickListener {
 
     // Declare Variables
     protected ListView lvStaff;
@@ -145,7 +145,7 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
             //Display Staff=======================================================================
             lvStaff = (ListView) myView.findViewById(R.id.lvStaff);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterStaff = new UserAdapter(UpdateUserFragment.this, generateStaffData());
+            UserAdapter adapterStaff = new UserAdapter(UserListFragment.this, generateStaffData());
             // Binds the Adapter to the ListView
             lvStaff.setAdapter(adapterStaff);
             // Capture button clicks on ListView items
@@ -166,14 +166,16 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
 
                     UserProfileFragment upf = new UserProfileFragment();
                     upf.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).
+                            addToBackStack(null).commit();
                 }
             });
 
             //Display Supplier=====================================================================
             lvSupplier = (ListView) myView.findViewById(R.id.lvSupplier);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterSupplier = new UserAdapter(UpdateUserFragment.this, generateSupplierData());
+            UserAdapter adapterSupplier = new UserAdapter(UserListFragment.this,
+                    generateSupplierData());
             // Binds the Adapter to the ListView
             lvSupplier.setAdapter(adapterSupplier);
             // Capture button clicks on ListView items
@@ -195,14 +197,16 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
 
                     UserProfileFragment upf = new UserProfileFragment();
                     upf.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).
+                            addToBackStack(null).commit();
                 }
             });
 
             //Display Supplier=====================================================================
             lvStockist = (ListView) myView.findViewById(R.id.lvStockist);
             // Pass the results into an ArrayAdapter
-            UserAdapter adapterStockist = new UserAdapter(UpdateUserFragment.this, generateStockistData());
+            UserAdapter adapterStockist = new UserAdapter(UserListFragment.this,
+                    generateStockistData());
             // Binds the Adapter to the ListView
             lvStockist.setAdapter(adapterStockist);
             // Capture button clicks on ListView items
@@ -223,28 +227,32 @@ public class UpdateUserFragment extends Fragment implements View.OnClickListener
 
                     UserProfileFragment upf = new UserProfileFragment();
                     upf.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.container, upf).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container, upf).
+                            addToBackStack(null).commit();
                 }
             });
         }
 
         private ArrayList<User> generateStaffData() {
             for (ParseObject user : staffList) {
-                staffs.add(new User((String) user.get("objectId"), (String) user.get("StaffID"), (String) user.get("Name")));
+                staffs.add(new User((String) user.get("objectId"), (String) user.get("StaffID"),
+                        (String) user.get("Name")));
             }
             return staffs;
         }
 
         private ArrayList<User> generateSupplierData() {
             for (ParseObject user : supplierList) {
-                suppliers.add(new User((String) user.get("objectId"), (String) user.get("SupplierID"), (String) user.get("Name")));
+                suppliers.add(new User((String) user.get("objectId"), (String) user.get("SupplierID"),
+                        (String) user.get("Name")));
             }
             return suppliers;
         }
 
         private ArrayList<User> generateStockistData() {
             for (ParseObject user : stockistList) {
-                stockists.add(new User((String) user.get("objectId"), (String) user.get("StockistID"), (String) user.get("Name")));
+                stockists.add(new User((String) user.get("objectId"), (String) user.get("StockistID"),
+                        (String) user.get("Name")));
             }
             return stockists;
         }

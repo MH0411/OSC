@@ -11,7 +11,7 @@
         android:name=".Main.OSCApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/app_name"
+        android:label="OSC"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Main.LoginActivity"
@@ -47,16 +47,16 @@
             android:label="@string/title_activity_stockist_menu" >
         </activity>
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".StockistFunction.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart" >
         </activity>
         <activity
-            android:name=".StockDetailActivity"
+            android:name=".StockistFunction.StockDetailActivity"
             android:label="@string/title_activity_stock_detail" >
         </activity>
         <activity
-            android:name=".PaymentActivity"
-            android:label="@string/title_activity_payment" >
+            android:name=".SingleOrderStockListActivity"
+            android:label="@string/title_activity_single_order_stock_list" >
         </activity>
     </application>
 

@@ -49,7 +49,8 @@ public class StockOnSaleAdapter extends ArrayAdapter<ParseObject> {
 
         ParseObject object = stockList.get(position);
         //get the image
-        Picasso.with(getContext().getApplicationContext()).load(object.getParseFile("Image").getUrl()).noFade().into(holder.stockImage);
+        Picasso.with(getContext().getApplicationContext()).load(object.getParseFile("Image").
+                getUrl()).noFade().into(holder.stockImage);
         holder.tvName.setText(stockList.get(position).getString("Name"));
         holder.tvPrice.setText("RM" + df.format(stockList.get(position).getDouble("Price")));
         return convertView;

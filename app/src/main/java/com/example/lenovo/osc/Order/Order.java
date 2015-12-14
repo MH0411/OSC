@@ -13,7 +13,8 @@ public class Order {
     private String receiveDate = null;
     private String deliverDate = null;
 
-    public Order(String objectId, String name, int quantity, double amount, String orderDate, String receiveDate) {
+    public Order(String objectId, String name, int quantity, double amount, String orderDate,
+                 String receiveDate) {
         this.objectId = objectId;
         this.name = name;
         this.quantity = quantity;

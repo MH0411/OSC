@@ -91,12 +91,14 @@ public class StocksListFragment extends Fragment {
                                 bundle.putInt("quantity", objects.get(position).getInt("Quantity"));
                                 bundle.putString("description", objects.get(position).getString("Description"));
                                 bundle.putString("location", objects.get(position).getString("Location"));
-                                bundle.putString("supplierName", objects.get(position).getParseObject("SupplierObjectId").getString("Name"));
+                                bundle.putString("supplierName", objects.get(position).
+                                        getParseObject("SupplierObjectId").getString("Name"));
                                 bundle.putString("status", objects.get(position).getString("SaleStatus"));
 
                                 StockProfileFragment spf = new StockProfileFragment();
                                 spf.setArguments(bundle);
-                                getFragmentManager().beginTransaction().replace(R.id.container, spf).addToBackStack(null).commit();
+                                getFragmentManager().beginTransaction().replace(R.id.container, spf).
+                                        addToBackStack(null).commit();
                             }
                         });
                     }

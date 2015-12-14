@@ -75,14 +75,16 @@ public class StaffMenuActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.newStock);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section4);
+                mTitle = getString(R.string.updateStock);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section5);
+                mTitle = getString(R.string.supplierOrder);
                 break;
+            case 4:
+                mTitle = getString(R.string.stockistOrder);
         }
     }
 

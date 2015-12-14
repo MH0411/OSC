@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.StockistFunction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.StockOnSaleAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -69,6 +70,8 @@ public class StocksOnSaleFragment extends Fragment {
 
             mProgressDialog.dismiss();
             ParseQuery<ParseObject> stockQuery = new ParseQuery<ParseObject>("CentreStock");
+            if (determineCategory() != null)
+                stockQuery.whereEqualTo("Category", determineCategory());
             stockQuery.whereEqualTo("SaleStatus", "On Sale");
             stockQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
@@ -99,5 +102,34 @@ public class StocksOnSaleFragment extends Fragment {
             });
             return null;
         }
+    }
+
+    /**
+     * Determine which category user choose
+     */
+    private String determineCategory(){
+        int position = getArguments().getInt("position", 0);
+        String category = null;
+        if (position == 0)
+            category = null;
+        else if (position == 1)
+            category = "Phone";
+        else if (position == 2)
+            category = "Tablet";
+        else if (position == 3)
+            category = "Mouse";
+        else if (position == 4)
+            category = "Keyboard";
+        else if (position == 5)
+            category = "Headphone";
+        else if (position == 6)
+            category = "Speaker";
+        else if (position == 7)
+            category = "Console";
+        else if (position == 8)
+            category = "Processor";
+        else if (position == 9)
+            category = "Other";
+        return category;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.StockistFunction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.lenovo.osc.Cart.Cart;
+import com.example.lenovo.osc.Cart.CartHelper;
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.Stock;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -70,7 +74,8 @@ public class StockDetailActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Picasso.with(getApplication().getApplicationContext()).load(object.getParseFile("Image").getUrl()).noFade().into(ivStockDetailImage);
+                    Picasso.with(getApplication().getApplicationContext()).
+                            load(object.getParseFile("Image").getUrl()).noFade().into(ivStockDetailImage);
                 }
             }
         });
@@ -85,10 +90,25 @@ public class StockDetailActivity extends ActionBarActivity {
     }
 
     public void addToCart(View v){
-        Cart cart = CartHelper.getCart();
-        cart.add(stock, Integer.valueOf(sQuantity.getSelectedItem().toString()));
-        Intent intent = new Intent(StockDetailActivity.this, ShoppingCartActivity.class);
-        startActivity(intent);
-        finish();
+        ParseQuery query = ParseQuery.getQuery("CentreStock");
+        query.getInBackground(stock.getObjectID(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                //Check if the centre stock has sufficient stock available
+                if (object.getNumber("Quantity").intValue()
+                        - Integer.valueOf(sQuantity.getSelectedItem().toString()) <= 0) {
+                    object.put("SaleStatus", "Not For Sale");
+                    object.saveInBackground();
+                    Toast.makeText(getApplication(),"Sorry, insufficient stocks to order currently.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Cart cart = CartHelper.getCart();
+                    cart.add(stock, Integer.valueOf(sQuantity.getSelectedItem().toString()));
+                    Intent intent = new Intent(StockDetailActivity.this, ShoppingCartActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 }

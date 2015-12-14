@@ -211,9 +211,9 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                             stock.put("Location", updateLocation);
                             stock.put("Description", updateDescription);
                             stock.put("SupplierObjectId", supplier);
+                            stock.saveInBackground();
                         }
                     });
-
                 }
             }
         });
@@ -244,7 +244,8 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                                         object.saveInBackground();
 
                                         tvStockProfileStatus.setText("Not For Sale");
-                                        Toast.makeText(getActivity(), "Stock removed from sale.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Stock removed from sale.",
+                                                Toast.LENGTH_SHORT).show();
                                         getActivity().finish();
                                     }
                                 }
@@ -331,12 +332,15 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
 
                                     if (e == null) {
                                         ParseQuery<ParseObject> query3 = ParseQuery.getQuery("Staff");
-                                        query3.getInBackground(LoginActivity.currentUser.getObjectID(), new GetCallback<ParseObject>() {
+                                        query3.getInBackground(LoginActivity.currentUser.getObjectID(),
+                                                new GetCallback<ParseObject>() {
                                             @Override
                                             public void done(ParseObject staff, ParseException e) {
 
                                                 if (e == null) {
-                                                    Toast.makeText(getActivity(), LoginActivity.currentUser.getObjectID(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getActivity(),
+                                                            LoginActivity.currentUser.getObjectID(),
+                                                            Toast.LENGTH_SHORT).show();
                                                     Date date = new Date();
                                                     ParseObject order = new ParseObject("CentreOrder");
                                                     order.put("Quantity", orderQuantity);
@@ -355,7 +359,8 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
 
                                                     dialog.dismiss();
 
-                                                    Toast.makeText(getActivity(), "Order successful.", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getActivity(), "Order successful.",
+                                                            Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });

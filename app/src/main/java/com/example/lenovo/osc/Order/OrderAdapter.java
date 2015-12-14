@@ -48,8 +48,10 @@ public class OrderAdapter extends ArrayAdapter<ParseObject> {
 
         ParseObject object = orderList.get(position);
         //get the image
-        Picasso.with(getContext().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").getParseFile("Image").getUrl()).noFade().into(holder.stockImage);
-        holder.tvOrderName.setText(orderList.get(position).getParseObject("CentreStockObjectID").getString("Name"));
+        Picasso.with(getContext().getApplicationContext()).load(object.getParseObject("CentreStockObjectID").
+                getParseFile("Image").getUrl()).noFade().into(holder.stockImage);
+        holder.tvOrderName.setText(orderList.get(position).getParseObject("CentreStockObjectID").
+                getString("Name"));
         holder.tvOrderQuantity.setText(String.valueOf(orderList.get(position).getInt("Quantity")) + " units");
         holder.tvOrderID.setText(orderList.get(position).getObjectId());
         return convertView;

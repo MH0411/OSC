@@ -1,8 +1,11 @@
-package com.example.lenovo.osc;
+package com.example.lenovo.osc.Cart;
 
 /**
  * Created by amidalilah on 08-Dec-15.
  */
+import com.example.lenovo.osc.Cart.Exception.ProductNotFoundException;
+import com.example.lenovo.osc.Cart.Exception.QuantityOutOfRangeException;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -127,7 +130,8 @@ public class Cart implements Serializable {
      */
     public BigDecimal getCost(final Saleable sellable) throws ProductNotFoundException {
         if (!cartItemMap.containsKey(sellable)) throw new ProductNotFoundException();
-        return BigDecimal.valueOf(sellable.getPrice()).multiply(BigDecimal.valueOf(cartItemMap.get(sellable)));
+        return BigDecimal.valueOf(sellable.getPrice()).
+                multiply(BigDecimal.valueOf(cartItemMap.get(sellable)));
     }
 
     /**
@@ -172,9 +176,11 @@ public class Cart implements Serializable {
     public String toString() {
         StringBuilder strBuilder = new StringBuilder();
         for (Entry<Saleable, Integer> entry : cartItemMap.entrySet()) {
-            strBuilder.append(String.format("Product: %s, Unit Price: %f, Quantity: %d%n", entry.getKey().getName(), entry.getKey().getPrice(), entry.getValue()));
+            strBuilder.append(String.format("Product: %s, Unit Price: %f, Quantity: %d%n",
+                    entry.getKey().getName(), entry.getKey().getPrice(), entry.getValue()));
         }
-        strBuilder.append(String.format("Total Quantity: %d, Total Price: %f", totalQuantity, totalPrice));
+        strBuilder.append(String.format("Total Quantity: %d, Total Price: %f",
+                totalQuantity, totalPrice));
 
         return strBuilder.toString();
     }

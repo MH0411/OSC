@@ -1,6 +1,6 @@
 package com.example.lenovo.osc.Stocks;
 
-import com.example.lenovo.osc.Saleable;
+import com.example.lenovo.osc.Cart.Saleable;
 
 import java.io.Serializable;
 
@@ -23,7 +23,8 @@ public class Stock implements Saleable, Serializable {
     private String status;
 
     public Stock(String objectID, String stockID, String name, String category, Double cost,
-                 Double price, int quantity, String location, String description, String supplierName, String status) {
+                 Double price, int quantity, String location, String description, String supplierName,
+                 String status) {
         this.objectID = objectID;
         this.stockID = stockID;
         this.name = name;
@@ -37,7 +38,8 @@ public class Stock implements Saleable, Serializable {
         this.status = status;
     }
 
-    public Stock(String objectID, String stockID, String name, Double price, int quantity, String description) {
+    public Stock(String objectID, String stockID, String name, Double price, int quantity,
+                 String description) {
         this.objectID = objectID;
         this.stockID = stockID;
         this.name = name;

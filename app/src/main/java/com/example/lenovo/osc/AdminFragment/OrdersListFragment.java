@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lenovo.osc.Order.OrderAdapter;
 import com.example.lenovo.osc.R;
@@ -89,22 +88,24 @@ public class OrdersListFragment extends Fragment {
                                 //Send selected stock data to OrderProfileFragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("objectID", objects.get(position).getObjectId());
-                                bundle.putString("name", objects.get(position).getParseObject("CentreStockObjectID").getString("Name"));
+                                bundle.putString("name", objects.get(position).
+                                        getParseObject("CentreStockObjectID").getString("Name"));
                                 bundle.putInt("quantity", objects.get(position).getInt("Quantity"));
                                 bundle.putDouble("amount", objects.get(position).getInt("Amount"));
-                                bundle.putString("orderDate", objects.get(position).getDate("OrderDate").toString());
+                                bundle.putString("orderDate", objects.get(position).
+                                        getDate("OrderDate").toString());
                                 if (objects.get(position).getDate("ReceiveDate") != null)
-                                    bundle.putString("receiveDate", objects.get(position).getDate("ReceiveDate").toString());
+                                    bundle.putString("receiveDate", objects.get(position).
+                                            getDate("ReceiveDate").toString());
                                 else
                                     bundle.putString("receiveDate", null);
 
                                 OrderProfileFragment opf = new OrderProfileFragment();
                                 opf.setArguments(bundle);
-                                getFragmentManager().beginTransaction().replace(R.id.container, opf).addToBackStack(null).commit();
+                                getFragmentManager().beginTransaction().replace(R.id.container, opf).
+                                        addToBackStack(null).commit();
                             }
                         });
-                    } else {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             });

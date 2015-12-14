@@ -18,7 +18,8 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.StocksOnSaleFragment;
+import com.example.lenovo.osc.StockistFunction.StocksOnSaleFragment;
+import com.example.lenovo.osc.StockistOrderListFragment;
 
 public class StockistMenuActivity extends ActionBarActivity
         implements StockistNavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -58,14 +59,41 @@ public class StockistMenuActivity extends ActionBarActivity
             case 0:
                 fragment = new StocksOnSaleFragment();
                 break;
-//            case 1:
-//                fragment = new StocksListFragment();
-//                break;
-//            case 2:
-//                fragment = new OrdersListFragment();
-//                break;
+            case 1:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 2:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 3:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 4:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 5:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 6:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 7:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 8:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 9:
+                fragment = new StocksOnSaleFragment();
+                break;
+            case 10:
+                fragment = new StockistOrderListFragment();
+                break;
         }
-        // update the main content by replacing fragments
+        // update the main content by replacing fragment
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
@@ -73,13 +101,37 @@ public class StockistMenuActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section6);
+                mTitle = getString(R.string.all);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section7);
+                mTitle = getString(R.string.phone);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section8);
+                mTitle = getString(R.string.tablet);
+                break;
+            case 4:
+                mTitle = getString(R.string.mouse);
+                break;
+            case 5:
+                mTitle = getString(R.string.keyboard);
+                break;
+            case 6:
+                mTitle = getString(R.string.headphone);
+                break;
+            case 7:
+                mTitle = getString(R.string.speaker);
+                break;
+            case 8:
+                mTitle = getString(R.string.console);
+                break;
+            case 9:
+                mTitle = getString(R.string.processor);
+                break;
+            case 10:
+                mTitle = getString(R.string.other);
+                break;
+            case 11:
+                mTitle = getString(R.string.stockistOrder);
                 break;
         }
     }
@@ -114,6 +166,7 @@ public class StockistMenuActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
             prefs.edit().putString("userId", "").commit();
             prefs.edit().putString("loginState", "false").commit();
             finish();
