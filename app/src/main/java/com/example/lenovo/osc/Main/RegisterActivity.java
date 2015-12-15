@@ -66,7 +66,6 @@ public class RegisterActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 String tempID = object.getString("StockistID");
-                Toast.makeText(getApplication(), tempID, Toast.LENGTH_SHORT).show();
                 String newID = "T" + (Integer.parseInt(tempID.substring(1, tempID.length())) + 1);
                 tfStockistID.setText(newID);
             }

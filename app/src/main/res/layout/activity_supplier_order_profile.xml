@@ -3,75 +3,182 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/ivSupplierOrderStockImage"
-        android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/scrollView2"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:text="OrderID"
-        android:id="@+id/tvSupplierOrderProfileID"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:scrollbars="none">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:text="Name"
-        android:id="@+id/tvSupplierOrderProfileName"
-        android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:text="Quantity"
-        android:id="@+id/tvSupplierOrderProfileQuantity"
-        android:layout_gravity="center_horizontal" />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/ivSupplierOrderStockImage"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:text="Amount"
-        android:id="@+id/tvSupplierOrderProfileAmount"
-        android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:text="Order Date"
-        android:id="@+id/tvSupplierOrderProfileOrderDate"
-        android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Order ID       :"
+                    android:id="@+id/textViewOrderID"
+                    android:layout_weight="0.1"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
-        android:text="Deliver Date"
-        android:id="@+id/tvSupplierOrderProfileDeliverDate"
-        android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="OrderID"
+                    android:id="@+id/tvSupplierOrderProfileID"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.8"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ok"
-        android:id="@+id/bSupplierOrderOk"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:onClick="update"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Name           :"
+                    android:id="@+id/textViewName"
+                    android:layout_weight="0.1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="Name"
+                    android:id="@+id/tvSupplierOrderProfileName"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Quantity       :"
+                    android:id="@+id/textViewQuantity"
+                    android:layout_weight="0.1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="Quantity"
+                    android:id="@+id/tvSupplierOrderProfileQuantity"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Amount        :"
+                    android:id="@+id/textViewAmount"
+                    android:layout_weight="0.1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="Amount"
+                    android:id="@+id/tvSupplierOrderProfileAmount"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.9"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Order Date   :"
+                    android:id="@+id/textViewOrderDate"
+                    android:layout_weight="0.1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="Order Date"
+                    android:id="@+id/tvSupplierOrderProfileOrderDate"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Deliver Date :"
+                    android:id="@+id/textViewDeliverDate"
+                    android:layout_weight="0.1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp"
+                    android:text="Deliver Date"
+                    android:id="@+id/tvSupplierOrderProfileDeliverDate"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ok"
+                android:id="@+id/bSupplierOrderOk"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="update"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

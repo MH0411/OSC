@@ -1,7 +1,9 @@
 package com.example.lenovo.osc.SupplierFunction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +36,7 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
     protected ImageView ivSupplierOrderStockImage;
     protected Button bOk;
 
+    private SharedPreferences prefs;
     private Order order;
 
     @Override
@@ -103,6 +106,9 @@ public class SupplierOrderProfileActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            prefs.edit().putString("userId", "").commit();
+            prefs.edit().putString("loginState", "false").commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;

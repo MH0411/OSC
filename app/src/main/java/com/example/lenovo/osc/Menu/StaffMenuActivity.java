@@ -1,7 +1,6 @@
 package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,11 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.osc.Main.LoginActivity;
+import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.StaffFragment.NewStockFragment;
 import com.example.lenovo.osc.StaffFragment.OrdersListFragment;
 import com.example.lenovo.osc.StaffFragment.StocksListFragment;
-import com.example.lenovo.osc.Main.LoginActivity;
-import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.StockistOrderListFragment;
 
 public class StaffMenuActivity extends ActionBarActivity
@@ -122,10 +121,7 @@ public class StaffMenuActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            prefs.edit().putString("userId", "").commit();
-            prefs.edit().putString("loginState", "false").commit();
-            startActivity(new Intent(this, LoginActivity.class));
+
             return true;
         }
 

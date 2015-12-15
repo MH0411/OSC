@@ -170,6 +170,7 @@ public class StockistMenuActivity extends ActionBarActivity
             prefs.edit().putString("userId", "").commit();
             prefs.edit().putString("loginState", "false").commit();
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return true;
         }
 

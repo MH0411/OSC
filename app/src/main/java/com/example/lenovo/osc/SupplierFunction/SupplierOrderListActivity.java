@@ -2,8 +2,10 @@ package com.example.lenovo.osc.SupplierFunction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ public class SupplierOrderListActivity extends ActionBarActivity {
 
     private ListView lvSupplierOrderList;
     private ProgressDialog mProgressDialog;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,9 @@ public class SupplierOrderListActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            prefs.edit().putString("userId", "").commit();
+            prefs.edit().putString("loginState", "false").commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;
@@ -85,48 +91,164 @@ public class SupplierOrderListActivity extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             mProgressDialog.dismiss();
 
-            ParseObject object = ParseObject.createWithoutData("Supplier",
-                    LoginActivity.currentUser.getObjectID());
-
-            final ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("CentreOrder");
-            orderQuery.include("SupplierObjectId");
-            orderQuery.include("CentreStockObjectID");
-            orderQuery.include("StaffObjectID");
-            orderQuery.whereEqualTo("ReceiveDate", null);
-            orderQuery.whereEqualTo("SupplierObjectId", object);
-            orderQuery.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(final List<ParseObject> objects, final ParseException e) {
-                    if (e == null) {
-                        OrderAdapter adapterOrder =
-                                new OrderAdapter(SupplierOrderListActivity.this, objects);
-                        lvSupplierOrderList.setAdapter(adapterOrder);
-                        lvSupplierOrderList.setOnItemClickListener(
-                                new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick
-                                    (AdapterView<?> parent, View view, int position, long id) {
-                                //Send selected stock data to OrderProfileFragment
-                                Intent i = new Intent(SupplierOrderListActivity.this,
-                                        SupplierOrderProfileActivity.class);
-
-                                i.putExtra("objectID", objects.get(position).getObjectId());
-                                i.putExtra("name", objects.get(position).
-                                        getParseObject("CentreStockObjectID").getString("Name"));
-                                i.putExtra("quantity", objects.get(position).getInt("Quantity"));
-                                i.putExtra("amount", objects.get(position).getInt("Amount"));
-                                i.putExtra("orderDate", objects.get(position).getDate("OrderDate").
-                                        toString());
-                                if (objects.get(position).getDate("DeliverDate") != null)
-                                    i.putExtra("deliverDate", objects.get(position).
-                                            getDate("DeliverDate").toString());
-
-                                startActivity(i);
-                            }
-                        });
-                    }
-                }
-            });
+            defaultDisplay();
         }
+    }
+
+    /**
+     * Default display of order list
+     */
+    public void defaultDisplay(){
+        ParseObject object = ParseObject.createWithoutData("Supplier",
+                LoginActivity.currentUser.getObjectID());
+
+        final ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("CentreOrder");
+        orderQuery.include("SupplierObjectId");
+        orderQuery.include("CentreStockObjectID");
+        orderQuery.include("StaffObjectID");
+        orderQuery.whereEqualTo("ReceiveDate", null);
+        orderQuery.whereEqualTo("DeliverDate", null);
+        orderQuery.whereEqualTo("SupplierObjectId", object);
+        orderQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> objects, final ParseException e) {
+                if (e == null) {
+                    OrderAdapter adapterOrder =
+                            new OrderAdapter(SupplierOrderListActivity.this, objects);
+                    lvSupplierOrderList.setAdapter(adapterOrder);
+                    lvSupplierOrderList.setOnItemClickListener(
+                            new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick
+                                        (AdapterView<?> parent, View view, int position, long id) {
+                                    //Send selected stock data to OrderProfileFragment
+                                    Intent i = new Intent(SupplierOrderListActivity.this,
+                                            SupplierOrderProfileActivity.class);
+
+                                    i.putExtra("objectID", objects.get(position).getObjectId());
+                                    i.putExtra("name", objects.get(position).
+                                            getParseObject("CentreStockObjectID").getString("Name"));
+                                    i.putExtra("quantity", objects.get(position).getInt("Quantity"));
+                                    i.putExtra("amount", objects.get(position).getInt("Amount"));
+                                    i.putExtra("orderDate", objects.get(position).getDate("OrderDate").
+                                            toString());
+                                    if (objects.get(position).getDate("DeliverDate") != null)
+                                        i.putExtra("deliverDate", objects.get(position).
+                                                getDate("DeliverDate").toString());
+
+                                    startActivity(i);
+                                }
+                            });
+                }
+            }
+        });
+    }
+
+    /**
+     * Display pending order
+     * @param v
+     */
+    public void pending(View v){
+        defaultDisplay();
+    }
+
+    /**
+     * Display delivering order
+     * @param v
+     */
+    public void delivering(View v){
+        ParseObject object = ParseObject.createWithoutData("Supplier",
+                LoginActivity.currentUser.getObjectID());
+
+        final ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("CentreOrder");
+        orderQuery.include("SupplierObjectId");
+        orderQuery.include("CentreStockObjectID");
+        orderQuery.include("StaffObjectID");
+        orderQuery.whereEqualTo("ReceiveDate", null);
+        orderQuery.whereNotEqualTo("DeliverDate", null);
+        orderQuery.whereEqualTo("SupplierObjectId", object);
+        orderQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> objects, final ParseException e) {
+                if (e == null) {
+                    OrderAdapter adapterOrder =
+                            new OrderAdapter(SupplierOrderListActivity.this, objects);
+                    lvSupplierOrderList.setAdapter(adapterOrder);
+                    lvSupplierOrderList.setOnItemClickListener(
+                            new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick
+                                        (AdapterView<?> parent, View view, int position, long id) {
+                                    //Send selected stock data to OrderProfileFragment
+                                    Intent i = new Intent(SupplierOrderListActivity.this,
+                                            SupplierOrderProfileActivity.class);
+
+                                    i.putExtra("objectID", objects.get(position).getObjectId());
+                                    i.putExtra("name", objects.get(position).
+                                            getParseObject("CentreStockObjectID").getString("Name"));
+                                    i.putExtra("quantity", objects.get(position).getInt("Quantity"));
+                                    i.putExtra("amount", objects.get(position).getInt("Amount"));
+                                    i.putExtra("orderDate", objects.get(position).getDate("OrderDate").
+                                            toString());
+                                    if (objects.get(position).getDate("DeliverDate") != null)
+                                        i.putExtra("deliverDate", objects.get(position).
+                                                getDate("DeliverDate").toString());
+
+                                    startActivity(i);
+                                }
+                            });
+                }
+            }
+        });
+    }
+
+    /**
+     * Display completed order
+     * @param v
+     */
+    public void completed(View v){
+        ParseObject object = ParseObject.createWithoutData("Supplier",
+                LoginActivity.currentUser.getObjectID());
+
+        final ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("CentreOrder");
+        orderQuery.include("SupplierObjectId");
+        orderQuery.include("CentreStockObjectID");
+        orderQuery.include("StaffObjectID");
+        orderQuery.whereNotEqualTo("DeliverDate", null);
+        orderQuery.whereNotEqualTo("ReceiveDate", null);
+        orderQuery.whereEqualTo("SupplierObjectId", object);
+        orderQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> objects, final ParseException e) {
+                if (e == null) {
+                    OrderAdapter adapterOrder =
+                            new OrderAdapter(SupplierOrderListActivity.this, objects);
+                    lvSupplierOrderList.setAdapter(adapterOrder);
+                    lvSupplierOrderList.setOnItemClickListener(
+                            new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick
+                                        (AdapterView<?> parent, View view, int position, long id) {
+                                    //Send selected stock data to OrderProfileFragment
+                                    Intent i = new Intent(SupplierOrderListActivity.this,
+                                            SupplierOrderProfileActivity.class);
+
+                                    i.putExtra("objectID", objects.get(position).getObjectId());
+                                    i.putExtra("name", objects.get(position).
+                                            getParseObject("CentreStockObjectID").getString("Name"));
+                                    i.putExtra("quantity", objects.get(position).getInt("Quantity"));
+                                    i.putExtra("amount", objects.get(position).getInt("Amount"));
+                                    i.putExtra("orderDate", objects.get(position).getDate("OrderDate").
+                                            toString());
+                                    if (objects.get(position).getDate("DeliverDate") != null)
+                                        i.putExtra("deliverDate", objects.get(position).
+                                                getDate("DeliverDate").toString());
+
+                                    startActivity(i);
+                                }
+                            });
+                }
+            }
+        });
     }
 }

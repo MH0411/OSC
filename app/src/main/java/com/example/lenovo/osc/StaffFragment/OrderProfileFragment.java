@@ -63,7 +63,7 @@ public class OrderProfileFragment extends Fragment implements View.OnClickListen
         );
 
         tvOrderObjectID.setText(order.getObjectId());
-        tvOrderName.setText(order.getName());
+        tvOrderName.setText("Name:\t" + order.getName());
         tvOrderQuantity.setText(String.valueOf(order.getQuantity()));
         tvOrderAmount.setText(String.valueOf(order.getAmount()));
         tvOrderDate.setText(order.getOrderDate().toString());

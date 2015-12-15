@@ -18,8 +18,12 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -59,8 +63,6 @@
                         android:text="Status"
                         android:id="@+id/tvStockProfileStatus"
                         android:layout_marginStart="44dp"
-                        android:layout_alignTop="@+id/ivStockProfileImage"
-                        android:layout_toEndOf="@+id/ivStockProfileImage"
                         android:layout_marginTop="20dp" />
 
                     <Spinner
@@ -74,105 +76,189 @@
                         android:layout_marginLeft="40dp"
                         android:focusable="false"/>
                 </LinearLayout>
+
             </LinearLayout>
 
-            <EditText
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Name          :"
+                    android:id="@+id/textViewName"
+                    android:layout_weight="0.3"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/tfStockProfileName"
+                    android:hint="Name"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Cost             :"
+                    android:id="@+id/textViewCost"
+                    android:layout_weight="0.3"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/tfStockProfileCost"
+                    android:hint="Cost (RM)"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:layout_weight="0.7"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Retail Price :"
+                    android:id="@+id/textViewPrice"
+                    android:layout_weight="0.3"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/tfStockProfilePrice"
+                    android:hint="Price (RM)"
+                    android:layout_below="@+id/tfStockProfileName"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:layout_weight="0.7"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Quantity       :"
+                    android:id="@+id/textViewQuantity" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/tfStockProfileQuantity"
+                    android:hint="Quantity"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:layout_weight="0.7"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Location      :"
+                    android:id="@+id/textViewLocation"
+                    android:layout_weight="0.1"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tfStockProfileLocation"
+                    android:hint="Location"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:layout_weight="0.9"
+                    android:layout_marginLeft="0dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Description  :"
+                    android:id="@+id/textViewDescription"
+                    android:layout_weight="0.3"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/tfStockProfileDescription"
+                    android:hint="Description"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
+                    android:maxLines ="4"
+                    android:maxLength ="2000"
+                    android:focusable="false"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Supplier        :"
+                    android:id="@+id/textViewSupplier"
+                    android:layout_weight="0.1"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tfStockProfileSupplierName"
+                    android:hint="Supplier"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:layout_weight="0.89"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/tfStockProfileName"
-                android:layout_below="@+id/ivStockProfileImage"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:hint="Name"
-                android:singleLine="true"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/tfStockProfileCost"
-                android:hint="Cost (RM)"
-                android:layout_below="@+id/tfStockProfileName"
-                android:layout_alignEnd="@+id/ivStockProfileImage"
-                android:singleLine="true"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/tfStockProfilePrice"
-                android:hint="Price (RM)"
-                android:layout_below="@+id/tfStockProfileName"
-                android:layout_alignParentEnd="true"
-                android:layout_alignStart="@+id/sStockProfileCategory"
-                android:singleLine="true"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/tfStockProfileQuantity"
-                android:layout_below="@+id/tfStockProfilePrice"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/tfStockProfilePrice"
-                android:hint="Quantity"
-                android:singleLine="true"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tfStockProfileLocation"
-                android:layout_alignParentStart="true"
-                android:hint="Location"
-                android:layout_below="@+id/tfStockProfileQuantity"
-                android:layout_alignEnd="@+id/tfStockProfileQuantity"
-                android:singleLine="true"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="textCapSentences|textMultiLine"
-                android:ems="10"
-                android:id="@+id/tfStockProfileDescription"
-                android:layout_below="@+id/tfStockProfileLocation"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/tfStockProfileLocation"
-                android:hint="Description"
-                android:singleLine="false"
-                android:scrollHorizontally="false"
-                android:maxLines ="4"
-                android:maxLength ="2000"
-                android:focusable="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tfStockProfileSupplierName"
-                android:layout_alignParentStart="true"
-                android:hint="Supplier"
-                android:layout_below="@+id/tfStockProfileQuantity"
-                android:layout_alignEnd="@+id/tfStockPrrofileQuantity"
-                android:singleLine="true"
-                android:focusable="false"
-                android:clickable="true"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:weightSum="1">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:weightSum="1">
 
                 <Button
                     android:layout_width="wrap_content"
@@ -199,32 +285,32 @@
                     android:layout_weight="0.3"/>
 
             </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:weightSum="1">
-
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:id="@+id/bCancelUpdateStock"
-                android:layout_alignParentRight="true"
-                android:onClick="cancelUpdateStock"
-                android:visibility="invisible"
-                android:layout_weight="0.5"/>
+                android:layout_centerHorizontal="true"
+                android:weightSum="1">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Update"
-                android:id="@+id/bUpdateStock"
-                android:layout_alignParentLeft="true"
-                android:visibility="invisible"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/bCancelUpdateStock"
+                    android:layout_alignParentRight="true"
+                    android:onClick="cancelUpdateStock"
+                    android:visibility="invisible"
+                    android:layout_weight="0.5"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:id="@+id/bUpdateStock"
+                    android:layout_alignParentLeft="true"
+                    android:visibility="invisible"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
