@@ -12,7 +12,6 @@ import com.parse.ParseObject;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,9 +20,7 @@ import java.util.List;
 public class OrderStockAdapter extends ArrayAdapter<ParseObject> {
 
     private Context context;
-    private ArrayList<ParseObject> stockList;
-    private ArrayList<ParseObject> stocks;
-    private ArrayList quantity;
+    private List<ParseObject> stockList;
     private DecimalFormat df = new DecimalFormat("#.00");
 
     public OrderStockAdapter(Context context, List<ParseObject> stockList) {
@@ -31,13 +28,11 @@ public class OrderStockAdapter extends ArrayAdapter<ParseObject> {
         super(context, R.layout.orders_list_single_view, stockList);
 
         this.context = context;
-        this.stockList = (ArrayList<ParseObject>) stockList;
+        this.stockList = stockList;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        stocks = stockList;
 
         final ViewHolder holder;
         if(convertView == null){
@@ -55,8 +50,8 @@ public class OrderStockAdapter extends ArrayAdapter<ParseObject> {
         //get the image
         Picasso.with(getContext().getApplicationContext()).load(object.getParseFile("Image").
                 getUrl()).noFade().into(holder.stockImage);
-        holder.tvName.setText(stockList.get(0).getObjectId());
-        holder.tvQuantity.setText(Integer.toString(stockList.get(0).getInt("Quantity")));
+        holder.tvName.setText(stockList.get(position).getString("Name"));
+        holder.tvQuantity.setText(Integer.toString(stockList.get(position).getInt("Quantity")) + " units");
         return convertView;
     }
 

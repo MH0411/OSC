@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.parse.FindCallback;
@@ -72,31 +73,29 @@ public class StockistOrderListFragment extends Fragment {
             super.onPostExecute(result);
             mProgressDialog.dismiss();
 
-            ParseObject object = ParseObject.createWithoutData("Stockist",
-                    LoginActivity.currentUser.getObjectID());
-
             ParseQuery<ParseObject> orderQuery = new ParseQuery<ParseObject>("Sale");
-            orderQuery.include("StockistObjectID");
-            orderQuery.whereEqualTo("StockistObjectID", object);
+            if (LoginActivity.currentUser.getUserID().charAt(0) != 'S'){
+                ParseObject object = ParseObject.createWithoutData("Stockist",
+                        LoginActivity.currentUser.getObjectID());
+                orderQuery.whereEqualTo("StockistObjectID", object);
+            }
             orderQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(final List<ParseObject> objects, ParseException e) {
-                    SaleAdapter adapterSale = new SaleAdapter(getActivity(), objects);
-                    lvSale.setAdapter(adapterSale);
-                    lvSale.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent i = new Intent(getActivity(), SingleOrderStockListActivity.class);
-                            i.putExtra("objectId", objects.get(position).getObjectId());
-                            startActivity(i);
-//                            try {
-//                                Toast.makeText(getActivity(), objects.get(position).getJSONArray("Stocks").getString(position).toString(), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(getActivity(), objects.get(position).getList("Stocks").get(position).get, Toast.LENGTH_SHORT).show();
-//                            } catch (JSONException e1) {
-//                                e1.printStackTrace();
-//                            }
-                        }
-                    });
+                    if (e == null) {
+                        SaleAdapter adapterSale = new SaleAdapter(getActivity(), objects);
+                        lvSale.setAdapter(adapterSale);
+                        lvSale.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent i = new Intent(getActivity(), SingleOrderStockListActivity.class);
+                                i.putExtra("objectId", objects.get(position).getObjectId());
+                                startActivity(i);
+
+                            }
+                        });
+                    } else
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

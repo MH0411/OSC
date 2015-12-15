@@ -12,7 +12,7 @@
     <string name="updateUser">Update User</string>
     <string name="newStock">New Stock</string>
     <string name="updateStock">Update Stock</string>
-    <string name="supplierOrder">Supplier Order</string>
+    <string name="supplierOrder">Centre Order</string>
     <string name="stockistOrder">Stockist Order</string>
     <string name="all">All</string>
     <string name="phone">Phone</string>
@@ -22,7 +22,7 @@
     <string name="headphone">Headphone</string>
     <string name="speaker">Speaker</string>
     <string name="console">Console</string>
-    <string name="processor">Processor</string>
+    <string name="processor">Laptop</string>
     <string name="other">Other</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,7 +35,7 @@
     <string name="title_activity_user_profile">User Profile</string>
     <string name="title_activity_make_order">Order</string>
     <string name="title_activity_stock_profile">Stock</string>
-    <string name="title_activity_admin_menu"></string>
+    <string name="title_activity_admin_menu">Menu</string>
 
     <string name="action_example"></string>
     <string name="title_activity_staff_menu"></string>
@@ -45,5 +45,5 @@
     <string name="title_activity_shopping_cart">Shopping Cart</string>
     <string name="title_activity_stock_detail">Stock Detail</string>
     <string name="title_activity_payment">PaymentActivity</string>
-    <string name="title_activity_single_order_stock_list">SingleOrderStockListActivity</string>
+    <string name="title_activity_single_order_stock_list">Items List</string>
 </resources>

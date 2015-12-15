@@ -42,7 +42,7 @@ public class StockDetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_stock_detail);
 
         this.spinnerQuantity = new String[] {
-                "100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"
+                "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"
         };
         sQuantity = (Spinner) findViewById(R.id.sQuantityToBuy);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>

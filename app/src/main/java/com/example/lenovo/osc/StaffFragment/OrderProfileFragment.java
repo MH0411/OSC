@@ -1,4 +1,4 @@
-package com.example.lenovo.osc.AdminFragment;
+package com.example.lenovo.osc.StaffFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

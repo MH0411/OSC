@@ -1,4 +1,4 @@
-package com.example.lenovo.osc.AdminFragment;
+package com.example.lenovo.osc.StaffFragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -246,7 +246,6 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
                                         tvStockProfileStatus.setText("Not For Sale");
                                         Toast.makeText(getActivity(), "Stock removed from sale.",
                                                 Toast.LENGTH_SHORT).show();
-                                        getActivity().finish();
                                     }
                                 }
                             });

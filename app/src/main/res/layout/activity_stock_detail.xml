@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/svStockDetail" >
+        android:id="@+id/svStockDetail"
+        android:scrollbars="none">
 
         <LinearLayout
             android:orientation="vertical"
@@ -70,7 +71,8 @@
             android:layout_gravity="center_horizontal"
             android:spinnerMode="dialog"
             android:background="@android:color/holo_blue_light"
-            style="@style/Base.Animation.AppCompat.Dialog" />
+            style="@style/Base.Animation.AppCompat.Dialog"
+            android:textColor="#000000"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

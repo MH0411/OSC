@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.lenovo.osc.R;
-import com.example.lenovo.osc.AdminFragment.UserListFragment;
+import com.example.lenovo.osc.StaffFragment.UserListFragment;
 
 import java.util.ArrayList;
 

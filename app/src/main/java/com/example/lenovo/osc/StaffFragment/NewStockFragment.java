@@ -1,4 +1,4 @@
-package com.example.lenovo.osc.AdminFragment;
+package com.example.lenovo.osc.StaffFragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;

@@ -16,11 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lenovo.osc.AdminFragment.NewStockFragment;
-import com.example.lenovo.osc.AdminFragment.OrdersListFragment;
-import com.example.lenovo.osc.AdminFragment.StocksListFragment;
+import com.example.lenovo.osc.StaffFragment.NewStockFragment;
+import com.example.lenovo.osc.StaffFragment.OrdersListFragment;
+import com.example.lenovo.osc.StaffFragment.StocksListFragment;
 import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.R;
+import com.example.lenovo.osc.StockistOrderListFragment;
 
 public class StaffMenuActivity extends ActionBarActivity
         implements StaffNavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -65,6 +66,9 @@ public class StaffMenuActivity extends ActionBarActivity
                 break;
             case 2:
                 fragment = new OrdersListFragment();
+                break;
+            case 3:
+                fragment = new StockistOrderListFragment();
                 break;
         }
         // update the main content by replacing fragments
@@ -118,9 +122,9 @@ public class StaffMenuActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
             prefs.edit().putString("userId", "").commit();
             prefs.edit().putString("loginState", "false").commit();
-            finish();
             startActivity(new Intent(this, LoginActivity.class));
             return true;
         }

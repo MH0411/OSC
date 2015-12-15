@@ -127,7 +127,7 @@ public class StocksOnSaleFragment extends Fragment {
         else if (position == 7)
             category = "Console";
         else if (position == 8)
-            category = "Processor";
+            category = "Laptop";
         else if (position == 9)
             category = "Other";
         return category;

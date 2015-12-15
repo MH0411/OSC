@@ -25,7 +25,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/llTotal"
-        android:layout_below="@id/tvCartHeader"/>
+        android:layout_below="@id/tvCartHeader"
+        android:scrollbars="none"/>
 
     <LinearLayout
         android:id="@+id/llTotal"

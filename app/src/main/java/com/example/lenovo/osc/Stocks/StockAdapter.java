@@ -54,7 +54,7 @@ public class StockAdapter extends ArrayAdapter<ParseObject> {
                 getUrl()).noFade().into(holder.stockImage);
         holder.tvName.setText(stockList.get(position).getString("Name"));
         holder.tvCost.setText("RM" + df.format(stockList.get(position).getDouble("Cost")));
-        holder.tvQuantity.setText(Integer.toString(stockList.get(position).getInt("Quantity")));
+        holder.tvQuantity.setText(Integer.toString(stockList.get(position).getInt("Quantity")) + "units");
         return convertView;
     }
 

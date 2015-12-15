@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.lenovo.osc.R;
 
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,9 +18,8 @@ import java.util.List;
  */
 public class CartItemAdapter extends BaseAdapter {
     private static final String TAG = "CartItemAdapter";
-
     private List<CartItem> cartItems = Collections.emptyList();
-
+    private DecimalFormat df = new DecimalFormat("#.00");
     private final Context context;
 
     public CartItemAdapter(Context context) {
@@ -71,9 +71,9 @@ public class CartItemAdapter extends BaseAdapter {
         final Cart cart = CartHelper.getCart();
         final CartItem cartItem = getItem(position);
         tvName.setText(cartItem.getStock().getName());
-        tvUnitPrice.setText(String.valueOf(cartItem.getStock().getPrice()));
+        tvUnitPrice.setText(df.format(cartItem.getStock().getPrice()));
         tvQuantity.setText(String.valueOf(cartItem.getQuantity()));
-        tvPrice.setText(String.valueOf(cart.getCost(cartItem.getStock())));
+        tvPrice.setText(df.format(cart.getCost(cartItem.getStock())));
         return convertView;
     }
 

@@ -24,6 +24,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -33,6 +34,7 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 import org.json.JSONException;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +49,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private  static final  int REQUEST_CODE_PAYMENT = 1 ;
     final CartItemAdapter cartItemAdapter = new CartItemAdapter(this);;
     private List<CartItem> cartItems;
-    private ArrayList<ParseObject> items = new ArrayList<ParseObject>();
+    private ParseRelation<ParseObject> items ;
     private ArrayList soldQuantity = new ArrayList();
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     protected TextView tvTotalPrice;
     protected ListView lvCartItems;
@@ -80,7 +83,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         startService(intent);
 
         tvTotalPrice = (TextView) findViewById(R.id.tvTotalPrice2);
-        tvTotalPrice.setText(String.valueOf(cart.getTotalPrice()));
+        tvTotalPrice.setText(df.format(cart.getTotalPrice()));
         lvCartItems.addHeaderView(layoutInflater.inflate(R.layout.cart_header, lvCartItems, false));
         cartItemAdapter.updateCartItems(getCartItems(cart));
         lvCartItems.setAdapter(cartItemAdapter);
@@ -124,8 +127,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
 
         PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
-        Intent intent = new Intent(ShoppingCartActivity.this,
-                PaymentActivity.class);
+        Intent intent = new Intent(ShoppingCartActivity.this, PaymentActivity.class);
         // send the same configuration for restart resiliency
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
@@ -151,7 +153,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     //this need to change to what item that list in list view
     private PayPalPayment getThingToBuy(String paymentIntent) {
-        BigDecimal subtotal = new BigDecimal(cart.getTotalPrice().toString());
+        BigDecimal subtotal = new BigDecimal(df.format(cart.getTotalPrice()));
         PayPalPayment payment= new PayPalPayment(subtotal, "MYR", "Total payment :", paymentIntent);
 
         //--- set other optional fields like invoice_number, custom field, and soft_descriptor
@@ -192,15 +194,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         @Override
                         public void done(ParseObject stockist, ParseException e) {
                             if (e == null) {
+
                                 //Create a sale
                                 Date date = new Date();
                                 final ParseObject sale = new ParseObject("Sale");
                                 sale.put("TotalPrice", cart.getTotalPrice());
                                 sale.put("DateTime", date);
                                 sale.put("StockistObjectID", stockist);
+                                items = sale.getRelation("CentreStock");
 
                                 //Loop to add item into items array to store in parse
                                 for (int i = 0; i < getCartItems(cart).size(); i++) {
+
+                                    ParseObject stock = ParseObject.createWithoutData("CentreStock",
+                                            cartItems.get(i).getStock().getObjectID());
+                                    soldQuantity.add(cartItems.get(i).getQuantity());
+                                    items.add(stock);
+
                                     //Update centre stock
                                     ParseQuery query = ParseQuery.getQuery("CentreStock");
                                     final int finalI = i;
@@ -213,15 +223,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                             object.saveInBackground();
                                         }
                                     });
-
-                                    ParseObject stock = ParseObject.createWithoutData("CentreStock",
-                                            cartItems.get(i).getStock().getObjectID());
-
-                                    soldQuantity.add(cartItems.get(i).getQuantity());
-                                    items.add(stock);
                                 }
                                 sale.put("Quantity", soldQuantity);
-                                sale.put("Stocks", items);
                                 sale.saveInBackground();
 
                                 Toast.makeText(getApplication(), "Payment done", Toast.LENGTH_SHORT).show();
@@ -248,7 +251,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         cart.clear();
         cartItemAdapter.updateCartItems(getCartItems(cart));
         cartItemAdapter.notifyDataSetChanged();
-        tvTotalPrice.setText(String.valueOf(cart.getTotalPrice()));
+        tvTotalPrice.setText(df.format(cart.getTotalPrice()));
     }
 
     public void shop(View v){

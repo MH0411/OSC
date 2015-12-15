@@ -7,7 +7,11 @@
         android:layout_height="50dp"
         android:id="@+id/ivStockPicture"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,8 +19,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Name"
         android:id="@+id/tvStockName"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvStockCost" />
+        android:layout_alignTop="@+id/ivStockPicture"
+        android:layout_toEndOf="@+id/ivStockPicture" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,8 +28,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Cost"
         android:id="@+id/tvStockCost"
-        android:layout_below="@+id/tvStockName"
-        android:layout_alignStart="@+id/tvStockQuantity" />
+        android:layout_above="@+id/tvStockQuantity"
+        android:layout_toEndOf="@+id/ivStockPicture" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +37,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Quantity"
         android:id="@+id/tvStockQuantity"
-        android:layout_below="@+id/tvStockCost"
-        android:layout_toEndOf="@+id/ivStockPicture"
-        android:layout_marginStart="24dp" />
+        android:layout_alignBottom="@+id/ivStockPicture"
+        android:layout_toEndOf="@+id/ivStockPicture" />
 </RelativeLayout>
