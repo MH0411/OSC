@@ -27,17 +27,16 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Quantity"
         android:id="@+id/tvOrderListQuantity"
-        android:layout_below="@+id/tvOrderListName"
-        android:layout_alignStart="@+id/tvOrderListName"
-        android:layout_marginTop="2dp"/>
+        android:layout_alignBottom="@+id/ivOrderListImage"
+        android:layout_toEndOf="@+id/ivOrderListImage" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="ID"
         android:id="@+id/tvOrderListOrderID"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_above="@+id/tvOrderListQuantity"
         android:layout_alignStart="@+id/tvOrderListName" />
 </RelativeLayout>

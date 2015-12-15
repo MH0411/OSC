@@ -21,6 +21,7 @@ import com.example.lenovo.osc.Main.LoginActivity;
 import com.example.lenovo.osc.R;
 import com.example.lenovo.osc.Stocks.Stock;
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -194,8 +195,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         @Override
                         public void done(ParseObject stockist, ParseException e) {
                             if (e == null) {
-
-                                //Create a sale
+                                //Create a sale and order
                                 Date date = new Date();
                                 final ParseObject sale = new ParseObject("Sale");
                                 sale.put("TotalPrice", cart.getTotalPrice());
@@ -225,6 +225,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                     });
                                 }
                                 sale.put("Quantity", soldQuantity);
+                                ParseACL acl = new ParseACL();
+                                acl.setPublicReadAccess(true);
+                                acl.setPublicWriteAccess(true);
+                                sale.setACL(acl);
                                 sale.saveInBackground();
 
                                 Toast.makeText(getApplication(), "Payment done", Toast.LENGTH_SHORT).show();

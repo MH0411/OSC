@@ -219,6 +219,11 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
         });
 
         Toast.makeText(getActivity(), "Stock updated.", Toast.LENGTH_SHORT).show();
+        bEdit.setVisibility(View.VISIBLE);
+        bRemove.setVisibility(View.VISIBLE);
+        bOrder.setVisibility(View.VISIBLE);
+        bUpdate.setVisibility(View.INVISIBLE);
+        bCancel.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -273,7 +278,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
         dialog.setContentView(R.layout.order_dialog);
         dialog.setTitle("Order");
 
-        int defaultQuantity = 1000;
+        int defaultQuantity = 100;
         orderQuantity = defaultQuantity;
         tfOrderQuantity = (TextView) dialog.findViewById(R.id.tfOrderQuantity);
         tfOrderQuantity.setText(String.valueOf(defaultQuantity));
@@ -290,7 +295,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
         ibPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) + 1000;
+                orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) + 100;
                 tfOrderQuantity.setText(String.valueOf(orderQuantity));
                 calculateAmount(orderQuantity);
                 tfOrderAmount.setText("RM " + df.format(orderAmount));
@@ -304,7 +309,7 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
             public void onClick(View v) {
                 if (tfOrderQuantity.getText().toString().equalsIgnoreCase("0")) {
                 } else {
-                    orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) - 1000;
+                    orderQuantity = Integer.parseInt(tfOrderQuantity.getText().toString()) - 100;
                     tfOrderQuantity.setText(String.valueOf(orderQuantity));
                     calculateAmount(orderQuantity);
                     tfOrderAmount.setText("RM " + df.format(orderAmount));
@@ -444,6 +449,12 @@ public class StockProfileFragment extends Fragment implements View.OnClickListen
      * Set current page content
      */
     public void setContent(){
+        bEdit.setVisibility(View.VISIBLE);
+        bRemove.setVisibility(View.VISIBLE);
+        bOrder.setVisibility(View.VISIBLE);
+        bUpdate.setVisibility(View.INVISIBLE);
+        bCancel.setVisibility(View.INVISIBLE);
+
         //Set text
         int position = adapter.getPosition(stock.getCategory());
         sStockProfileCategory.setSelection(position);

@@ -7,11 +7,33 @@
     tools:context="com.example.lenovo.osc.SingleOrderStockListActivity">
 
 
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lvOrderStockList"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:scrollbars="none"/>
+        android:weightSum="1">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:id="@+id/lvOrderStockList"
+            android:layout_alignParentEnd="true"
+            android:scrollbars="none"
+            android:layout_weight="0.71" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Total Price:                  "
+            android:id="@+id/tvSingleOrderStockTotalPrice"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ok"
+            android:id="@+id/bSingleOrderStockOk"
+            android:onClick="update"/>
+    </LinearLayout>
 </RelativeLayout>

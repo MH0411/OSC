@@ -1,6 +1,7 @@
 package com.example.lenovo.osc.Menu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -121,7 +122,11 @@ public class StaffMenuActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            prefs.edit().putString("userId", "").commit();
+            prefs.edit().putString("loginState", "false").commit();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return true;
         }
 

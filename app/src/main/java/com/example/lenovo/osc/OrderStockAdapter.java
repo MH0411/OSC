@@ -21,14 +21,16 @@ public class OrderStockAdapter extends ArrayAdapter<ParseObject> {
 
     private Context context;
     private List<ParseObject> stockList;
+    private List quantity;
     private DecimalFormat df = new DecimalFormat("#.00");
 
-    public OrderStockAdapter(Context context, List<ParseObject> stockList) {
+    public OrderStockAdapter(Context context, List<ParseObject> stockList, List quantity) {
 
         super(context, R.layout.orders_list_single_view, stockList);
 
         this.context = context;
         this.stockList = stockList;
+        this.quantity = quantity;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class OrderStockAdapter extends ArrayAdapter<ParseObject> {
         Picasso.with(getContext().getApplicationContext()).load(object.getParseFile("Image").
                 getUrl()).noFade().into(holder.stockImage);
         holder.tvName.setText(stockList.get(position).getString("Name"));
-        holder.tvQuantity.setText(Integer.toString(stockList.get(position).getInt("Quantity")) + " units");
+        holder.tvQuantity.setText(quantity.get(position).toString() + " units");
         return convertView;
     }
 
